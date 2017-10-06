@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MediaTool.iml" filepath="$PROJECT_DIR$/.idea/modules/MediaTool.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MediaTool_main.iml" filepath="$PROJECT_DIR$/.idea/modules/MediaTool_main.iml" group="MediaTool" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MediaTool_test.iml" filepath="$PROJECT_DIR$/.idea/modules/MediaTool_test.iml" group="MediaTool" />
+    </modules>
+  </component>
+</project>

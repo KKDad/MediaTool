@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Mediainfo version="0.7.99">
+<File>
+<track type="General">
+<ID>17455 (0x442F)</ID>
+<Complete_name>Grizzy et les lemmings S01E51 20170608 [20171001-1336].mpg</Complete_name>
+<Format>MPEG-TS</Format>
+<File_size>1.02 GiB</File_size>
+<Duration>7 min 59 s</Duration>
+<Overall_bit_rate_mode>Variable</Overall_bit_rate_mode>
+<Overall_bit_rate>18.3 Mb/s</Overall_bit_rate>
+<Law_rating>G</Law_rating>
+<FileExtension_Invalid>ts m2t m2s m4t m4s tmf ts tp trp ty</FileExtension_Invalid>
+</track>
+
+<track type="Video">
+<ID>49 (0x31)</ID>
+<Menu_ID>3 (0x3)</Menu_ID>
+<Format>MPEG Video</Format>
+<Commercial_name>HDV 720p</Commercial_name>
+<Format_version>Version 2</Format_version>
+<Format_profile>Main@High</Format_profile>
+<Format_settings>CustomMatrix / BVOP</Format_settings>
+<Format_settings__BVOP>Yes</Format_settings__BVOP>
+<Format_settings__Matrix>Custom</Format_settings__Matrix>
+<Format_settings__GOP>M=3, N=15</Format_settings__GOP>
+<Codec_ID>2</Codec_ID>
+<Duration>7 min 59 s</Duration>
+<Bit_rate_mode>Constant</Bit_rate_mode>
+<Bit_rate>16.8 Mb/s</Bit_rate>
+<Maximum_bit_rate>17.2 Mb/s</Maximum_bit_rate>
+<Width>1 280 pixels</Width>
+<Height>720 pixels</Height>
+<Display_aspect_ratio>16:9</Display_aspect_ratio>
+<Active_Format_Description>Full frame 16:9 image</Active_Format_Description>
+<Frame_rate>59.940 (60000/1001) FPS</Frame_rate>
+<Color_space>YUV</Color_space>
+<Chroma_subsampling>4:2:0</Chroma_subsampling>
+<Bit_depth>8 bits</Bit_depth>
+<Scan_type>Progressive</Scan_type>
+<Compression_mode>Lossy</Compression_mode>
+<Bits__Pixel_Frame_>0.304</Bits__Pixel_Frame_>
+<Time_code_of_first_frame>16:53:08:58</Time_code_of_first_frame>
+<Time_code_source>Group of pictures header</Time_code_source>
+<GOP__Open_Closed>Open</GOP__Open_Closed>
+<Stream_size>958 MiB (92%)</Stream_size>
+</track>
+
+<track type="Audio" typeorder="1">
+<ID>52 (0x34)</ID>
+<Menu_ID>3 (0x3)</Menu_ID>
+<Format>AC-3</Format>
+<Format_Info>Audio Coding 3</Format_Info>
+<Format_settings__Endianness>Big</Format_settings__Endianness>
+<Codec_ID>129</Codec_ID>
+<Duration>7 min 59 s</Duration>
+<Bit_rate_mode>Constant</Bit_rate_mode>
+<Bit_rate>384 kb/s</Bit_rate>
+<Channel_s_>3 channels</Channel_s_>
+<Channel_positions>Front: L C R</Channel_positions>
+<Sampling_rate>48.0 kHz</Sampling_rate>
+<Frame_rate>31.250 FPS (1536 SPF)</Frame_rate>
+<Bit_depth>16 bits</Bit_depth>
+<Compression_mode>Lossy</Compression_mode>
+<Delay_relative_to_video>-388 ms</Delay_relative_to_video>
+<Stream_size>21.9 MiB (2%)</Stream_size>
+<Service_kind>Complete Main</Service_kind>
+</track>
+
+<track type="Audio" typeorder="2">
+<ID>53 (0x35)</ID>
+<Menu_ID>3 (0x3)</Menu_ID>
+<Format>AC-3</Format>
+<Format_Info>Audio Coding 3</Format_Info>
+<Format_settings__Endianness>Big</Format_settings__Endianness>
+<Codec_ID>129</Codec_ID>
+<Duration>7 min 59 s</Duration>
+<Bit_rate_mode>Constant</Bit_rate_mode>
+<Bit_rate>192 kb/s</Bit_rate>
+<Channel_s_>2 channels</Channel_s_>
+<Channel_positions>Front: L R</Channel_positions>
+<Sampling_rate>48.0 kHz</Sampling_rate>
+<Frame_rate>31.250 FPS (1536 SPF)</Frame_rate>
+<Bit_depth>16 bits</Bit_depth>
+<Compression_mode>Lossy</Compression_mode>
+<Delay_relative_to_video>-510 ms</Delay_relative_to_video>
+<Stream_size>11.0 MiB (1%)</Stream_size>
+<Service_kind>Complete Main</Service_kind>
+</track>
+
+<track type="Text" typeorder="1">
+<ID>49 (0x31)-CC1</ID>
+<Menu_ID>3 (0x3)</Menu_ID>
+<Format>EIA-608</Format>
+<Muxing_mode>A/53 / DTVCC Transport</Muxing_mode>
+<Muxing_mode__more_info>Muxed in Video #1</Muxing_mode__more_info>
+<Duration>7 min 59 s</Duration>
+<Bit_rate_mode>Constant</Bit_rate_mode>
+<Stream_size>0.00 Byte (0%)</Stream_size>
+<CaptionServiceName>CC1</CaptionServiceName>
+</track>
+
+<track type="Text" typeorder="2">
+<ID>49 (0x31)-CC3</ID>
+<Menu_ID>3 (0x3)</Menu_ID>
+<Format>EIA-608</Format>
+<Muxing_mode>A/53 / DTVCC Transport</Muxing_mode>
+<Muxing_mode__more_info>Muxed in Video #1</Muxing_mode__more_info>
+<Duration>7 min 59 s</Duration>
+<Bit_rate_mode>Constant</Bit_rate_mode>
+<Stream_size>0.00 Byte (0%)</Stream_size>
+<CaptionServiceName>CC3</CaptionServiceName>
+</track>
+
+<track type="Text" typeorder="3">
+<ID>49 (0x31)-1</ID>
+<Menu_ID>3 (0x3)</Menu_ID>
+<Format>EIA-708</Format>
+<Muxing_mode>A/53 / DTVCC Transport</Muxing_mode>
+<Muxing_mode__more_info>Muxed in Video #1</Muxing_mode__more_info>
+<Duration>7 min 59 s</Duration>
+<Bit_rate_mode>Constant</Bit_rate_mode>
+<Stream_size>0.00 Byte (0%)</Stream_size>
+</track>
+
+<track type="Text" typeorder="4">
+<ID>49 (0x31)-2</ID>
+<Menu_ID>3 (0x3)</Menu_ID>
+<Format>EIA-708</Format>
+<Muxing_mode>A/53 / DTVCC Transport</Muxing_mode>
+<Muxing_mode__more_info>Muxed in Video #1</Muxing_mode__more_info>
+<Duration>7 min 59 s</Duration>
+<Bit_rate_mode>Constant</Bit_rate_mode>
+<Stream_size>0.00 Byte (0%)</Stream_size>
+</track>
+
+<track type="Text" typeorder="5">
+<ID>49 (0x31)-3</ID>
+<Menu_ID>3 (0x3)</Menu_ID>
+<Format>EIA-708</Format>
+<Muxing_mode>A/53 / DTVCC Transport</Muxing_mode>
+<Muxing_mode__more_info>Muxed in Video #1</Muxing_mode__more_info>
+<Duration>7 min 59 s</Duration>
+<Bit_rate_mode>Constant</Bit_rate_mode>
+<Stream_size>0.00 Byte (0%)</Stream_size>
+</track>
+
+<track type="Text" typeorder="6">
+<ID>49 (0x31)-4</ID>
+<Menu_ID>3 (0x3)</Menu_ID>
+<Format>EIA-708</Format>
+<Muxing_mode>A/53 / DTVCC Transport</Muxing_mode>
+<Muxing_mode__more_info>Muxed in Video #1</Muxing_mode__more_info>
+<Duration>7 min 59 s</Duration>
+<Bit_rate_mode>Constant</Bit_rate_mode>
+<Stream_size>0.00 Byte (0%)</Stream_size>
+</track>
+
+<track type="Text" typeorder="7">
+<ID>49 (0x31)-5</ID>
+<Menu_ID>3 (0x3)</Menu_ID>
+<Format>EIA-708</Format>
+<Muxing_mode>A/53 / DTVCC Transport</Muxing_mode>
+<Muxing_mode__more_info>Muxed in Video #1</Muxing_mode__more_info>
+<Duration>7 min 59 s</Duration>
+<Bit_rate_mode>Constant</Bit_rate_mode>
+<Stream_size>0.00 Byte (0%)</Stream_size>
+</track>
+
+<track type="Text" typeorder="8">
+<ID>49 (0x31)-6</ID>
+<Menu_ID>3 (0x3)</Menu_ID>
+<Format>EIA-708</Format>
+<Muxing_mode>A/53 / DTVCC Transport</Muxing_mode>
+<Muxing_mode__more_info>Muxed in Video #1</Muxing_mode__more_info>
+<Duration>7 min 59 s</Duration>
+<Bit_rate_mode>Constant</Bit_rate_mode>
+<Stream_size>0.00 Byte (0%)</Stream_size>
+</track>
+
+</File>
+</Mediainfo>
+
