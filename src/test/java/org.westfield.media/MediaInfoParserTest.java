@@ -10,14 +10,13 @@ public class MediaInfoParserTest
 {
 
     @Test
-    public void ParserTest()
+    public void MediaInfoParserGetTest()
     {
-        MediaInfoParser subject = new MediaInfoParser();
-        Path item = TestHelper.getResourcePath("output.xml");
+        Path item = TestHelper.getResourcePath("grizzy_et_les_lemmings.xml");
+        MediaInfoParser subject = MediaInfoParser.get(item);
 
-        boolean result = subject.parse(item);
 
-        Assert.assertTrue(result);
+        Assert.assertNotNull(subject);
     }
 
 }

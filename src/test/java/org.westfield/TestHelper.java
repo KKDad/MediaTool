@@ -19,8 +19,12 @@ public class TestHelper
      */
     public static Path getResourcePath(String resourceName)
     {
-        Path resource = Paths.get(System.getProperty("user.dir"), "out/test/resources", resourceName);
+        Path resource = Paths.get(System.getProperty("user.dir"), "build/resources/test", resourceName);
         File f = resource.toFile();
+        if (!f.exists()) {
+            resource = Paths.get(System.getProperty("user.dir"), "out/test/resources", resourceName);
+            f = resource.toFile();
+        }
         Assert.assertTrue(String.format("Cannot locate expected resource %s", resourceName), f.exists());
         return resource;
     }
