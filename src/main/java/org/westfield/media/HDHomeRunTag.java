@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import java.io.*;
 
 @SuppressWarnings("squid:S00116")
-public class HDHomeRunTag
+public class HDHomeRunTag implements IMediaDetails
 {
     private static final Logger logger = LoggerFactory.getLogger(HDHomeRunTag.class);
 
@@ -69,7 +69,7 @@ public class HDHomeRunTag
                 do {
                     if (isHDHomeRunContinueTag(buffer, idx))
                         idx += 4;
-                    sb.appendCodePoint((char)buffer[idx]);
+                    sb.append((char)buffer[idx]);
                     idx++;
                 }
                 while (idx < length && buffer[idx] != 0xFFFFFFFF);
@@ -95,5 +95,22 @@ public class HDHomeRunTag
     private static boolean isHDHomeRunContinueTag(byte[] buffer, int idx)
     {
         return (buffer[idx] == continueTag[0] && buffer[idx + 1] == continueTag[1] && buffer[idx + 2] == continueTag[2]);
+    }
+
+    // IMediaDetails Implementation
+
+    @Override
+    public String getTitle() {
+        return this.Title;
+    }
+
+    @Override
+    public String getEpisodeNumber() {
+        return this.EpisodeNumber;
+    }
+
+    @Override
+    public String getEpisodeTitle() {
+        return this.EpisodeTitle;
     }
 }

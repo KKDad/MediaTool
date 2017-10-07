@@ -6,13 +6,9 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
-import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathExpression;
-import javax.xml.xpath.XPathExpressionException;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -24,9 +20,6 @@ public class MediaInfoParser
 
     private Document xmlDocument;
     private final File file;
-
-    private static final String TRACKS_SELECTOR = "/Mediainfo/File/track";   // /Mediainfo/File/track[@type='General']
-
 
     public static MediaInfoParser get(Path item) {
         Preconditions.checkNotNull(item);
@@ -59,28 +52,4 @@ public class MediaInfoParser
         }
         return false;
     }
-
-    private static Object executeXpathExpression(Document xmlDocument, String expression, XPath xPath, QName returnType)
-    {
-        Object result = null;
-        try {
-            XPathExpression xPathExpression = xPath.compile(expression);
-            result = xPathExpression.evaluate(xmlDocument, returnType);
-
-        } catch (XPathExpressionException e) {
-            logger.error("XPathExpressionException: {}", e.getMessage(), e);
-        }
-        return result;
-    }
-
-
-
-//            XPathFactory factory = XPathFactory.newInstance();
-//            XPath xPath = factory.newXPath();
-//
-//            String selectFirstNode = "/Mediainfo/track[@type='General']/Complete_name";
-//            Object result = executeXpathExpression(xmlDocument, selectFirstNode, xPath, XPathConstants.NODE);
-//            Node firstNode = (Node) result;
-//            String nodeName = firstNode.getNodeName();
-
 }
