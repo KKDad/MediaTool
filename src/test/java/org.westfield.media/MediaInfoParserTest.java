@@ -1,7 +1,11 @@
 package org.westfield.media;
 
 
+import org.junit.Assert;
 import org.junit.Test;
+import org.westfield.TestHelper;
+
+import java.nio.file.Path;
 
 public class MediaInfoParserTest
 {
@@ -10,10 +14,11 @@ public class MediaInfoParserTest
     public void ParserTest()
     {
         MediaInfoParser subject = new MediaInfoParser();
-        boolean result = subject.parse("output.xml");
+        Path item = TestHelper.getResourcePath("output.xml");
 
-        assert(result);
+        boolean result = subject.parse(item);
 
+        Assert.assertTrue(result);
     }
 
 }
