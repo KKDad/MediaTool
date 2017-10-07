@@ -1,8 +1,7 @@
 package org.westfield.media;
 
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.*;
 import org.westfield.TestHelper;
 
 import java.nio.file.Path;
