@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9a29e203-b7d5-41bf-ba60-2d5168cde449" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/westfield/action/IAction.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/westfield/action/RenameAction.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/westfield/media/IMediaDetails.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/org.westfield/action/RenameActionTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules/MediaTool_test.iml" afterPath="$PROJECT_DIR$/.idea/modules/MediaTool_test.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/westfield/Main.java" afterPath="$PROJECT_DIR$/src/main/java/org/westfield/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/westfield/media/HDHomeRunTag.java" afterPath="$PROJECT_DIR$/src/main/java/org/westfield/media/HDHomeRunTag.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/westfield/media/MediaInfoParser.java" afterPath="$PROJECT_DIR$/src/main/java/org/westfield/media/MediaInfoParser.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/resources/logback-test.xml" afterPath="$PROJECT_DIR$/src/test/resources/logback-test.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -972,7 +963,8 @@
     <MESSAGE value="Fixed logback, added helper method to access test resources" />
     <MESSAGE value="Moved test helper to correct directory" />
     <MESSAGE value="Extract and parse the HDHomerun Tags" />
-    <option name="LAST_COMMIT_MESSAGE" value="Extract and parse the HDHomerun Tags" />
+    <MESSAGE value="Adding support to run actions the the media files" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding support to run actions the the media files" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
