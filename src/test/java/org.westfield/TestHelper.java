@@ -17,7 +17,7 @@ public class TestHelper
      * @param resourceName Name of the resource to find
      * @return Fully Qualified path to the resource
      */
-    public static Path getResourcePath(String resourceName)
+    public static Path getTestResourcePath(String resourceName)
     {
         Path resource = Paths.get(System.getProperty("user.dir"), "build/resources/test", resourceName);
         File f = resource.toFile();

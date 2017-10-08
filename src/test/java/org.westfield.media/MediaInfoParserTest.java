@@ -12,7 +12,7 @@ public class MediaInfoParserTest
     @Test
     public void MediaInfoParserGetTest()
     {
-        Path item = TestHelper.getResourcePath("grizzy_et_les_lemmings.xml");
+        Path item = TestHelper.getTestResourcePath("grizzy_et_les_lemmings.xml");
         MediaInfoParser subject = MediaInfoParser.get(item);
 
 

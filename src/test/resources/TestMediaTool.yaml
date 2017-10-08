@@ -1,0 +1,8 @@
+source: /data/recordings
+destination: /data/recordings_renamed
+
+actions:
+- RenameAction
+
+renameAction:
+  format: <Show>/<Season>/<Episode>-<Title>.<Format>
