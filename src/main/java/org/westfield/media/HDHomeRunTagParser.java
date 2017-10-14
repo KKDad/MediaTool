@@ -8,30 +8,32 @@ import org.slf4j.LoggerFactory;
 
 import java.io.*;
 
-@SuppressWarnings("squid:S00116")
-public class HDHomeRunTag implements IMediaDetails
+public class HDHomeRunTagParser
 {
+    @SuppressWarnings("squid:S00116")
+    private class HDHomeRunTag
+    {
+        String Category;
+        String ChannelImageURL;
+        String ChannelName;
+        long EndTime;
+        String EpisodeNumber;
+        String EpisodeTitle;
+        String ImageURL;
+        long OriginalAirdate;
+        String ProgramID;
+        String RecordEndTime;
+        String RecordStartTime;
+        int RecordSuccess;
+        String SeriesID;
+        long StartTime;
+        String Title;
+    }
+
     private static final Logger logger = LoggerFactory.getLogger(HDHomeRunTag.class);
 
 
-    String Category;
-    String ChannelImageURL;
-    String ChannelName;
-    long EndTime;
-    String EpisodeNumber;
-    String EpisodeTitle;
-    String ImageURL;
-    long OriginalAirdate;
-    String ProgramID;
-    String RecordEndTime;
-    String RecordStartTime;
-    int RecordSuccess;
-    String SeriesID;
-    long StartTime;
-    String Title;
-
-
-    public static HDHomeRunTag fromFile(File file)
+    public static IMediaDetails fromFile(File file)
     {
         Preconditions.checkNotNull(file);
         Preconditions.checkArgument(file.exists() && !file.isDirectory() && file.canRead());
@@ -43,13 +45,15 @@ public class HDHomeRunTag implements IMediaDetails
             logger.info("Show: {}, Episode: {}, Title: {}", g.Title, g.EpisodeNumber, g.EpisodeTitle);
             if (g.RecordSuccess == 0)
                 logger.warn("Recording was not successful!");
-            return g;
+            int season = Integer.parseInt(g.EpisodeNumber.substring(1,3));
+            int episodeNumber = Integer.parseInt(g.EpisodeNumber.substring(4,6));
+            return new MediaDetails(g.Title, season, g.EpisodeTitle, episodeNumber);
         }
 
         return null;
     }
 
-    /**
+     /**
      * Attempt to parse a HDHomeRun json string out of the file
      * @param file File to parse
      * @return Located json string
@@ -95,22 +99,5 @@ public class HDHomeRunTag implements IMediaDetails
     private static boolean isHDHomeRunContinueTag(byte[] buffer, int idx)
     {
         return (buffer[idx] == continueTag[0] && buffer[idx + 1] == continueTag[1] && buffer[idx + 2] == continueTag[2]);
-    }
-
-    // IMediaDetails Implementation
-
-    @Override
-    public String getTitle() {
-        return this.Title;
-    }
-
-    @Override
-    public String getEpisodeNumber() {
-        return this.EpisodeNumber;
-    }
-
-    @Override
-    public String getEpisodeTitle() {
-        return this.EpisodeTitle;
     }
 }

@@ -12,43 +12,51 @@ public class HDHomeRunTagTest
     public void HDHomeRunTagParser_CriminalMinesTest()
     {
         Path item = TestHelper.getTestResourcePath("criminal-s11e03.dat");
-        HDHomeRunTag subject = HDHomeRunTag.fromFile(item.toFile());
+        IMediaDetails subject = HDHomeRunTagParser.fromFile(item.toFile());
 
         Assert.assertNotNull(subject);
-        Assert.assertEquals("S09E13", subject.EpisodeNumber);
-        Assert.assertEquals("Criminal Minds", subject.Title);
+        Assert.assertEquals(9, subject.getSeason());
+        Assert.assertEquals(13, subject.getEpisodeNumber());
+        Assert.assertEquals("Criminal Minds", subject.getShow());
+        Assert.assertEquals("The Road Home", subject.getEpisodeTitle());
     }
 
     @Test
     public void HDHomeRunTagParser_DiscoveryTest()
     {
         Path item = TestHelper.getTestResourcePath("discovery-s01e01.dat");
-        HDHomeRunTag subject = HDHomeRunTag.fromFile(item.toFile());
+        IMediaDetails subject = HDHomeRunTagParser.fromFile(item.toFile());
 
         Assert.assertNotNull(subject);
-        Assert.assertEquals("S01E01", subject.EpisodeNumber);
-        Assert.assertEquals("Star Trek: Discovery", subject.Title);
+        Assert.assertEquals(1, subject.getSeason());
+        Assert.assertEquals(1, subject.getEpisodeNumber());
+        Assert.assertEquals("Star Trek: Discovery", subject.getShow());
+        Assert.assertEquals("The Vulcan Hello", subject.getEpisodeTitle());
     }
 
     @Test
     public void HDHomeRunTagParser_JulianTest()
     {
         Path item = TestHelper.getTestResourcePath("julian-s02e12.dat");
-        HDHomeRunTag subject = HDHomeRunTag.fromFile(item.toFile());
+        IMediaDetails subject = HDHomeRunTagParser.fromFile(item.toFile());
 
         Assert.assertNotNull(subject);
-        Assert.assertEquals("S02E12", subject.EpisodeNumber);
-        Assert.assertEquals("Roi Julian!", subject.Title);
+        Assert.assertEquals(2, subject.getSeason());
+        Assert.assertEquals(12, subject.getEpisodeNumber());
+        Assert.assertEquals("Roi Julian!", subject.getShow());
+        Assert.assertEquals("Momo et Julian", subject.getEpisodeTitle());
     }
 
     @Test
     public void HDHomeRunTagParser_YouTest()
     {
         Path item = TestHelper.getTestResourcePath("you-s01e02.dat");
-        HDHomeRunTag subject = HDHomeRunTag.fromFile(item.toFile());
+        IMediaDetails subject = HDHomeRunTagParser.fromFile(item.toFile());
 
         Assert.assertNotNull(subject);
-        Assert.assertEquals("S01E02", subject.EpisodeNumber);
-        Assert.assertEquals("You Gotta Eat Here!", subject.Title);
+        Assert.assertEquals(1, subject.getSeason());
+        Assert.assertEquals(2, subject.getEpisodeNumber());
+        Assert.assertEquals("You Gotta Eat Here!", subject.getShow());
+        Assert.assertEquals("Pizzeria Napoletana; Floyd's Diner; Haugen's Chicken & Ribs", subject.getEpisodeTitle());
     }
 }
