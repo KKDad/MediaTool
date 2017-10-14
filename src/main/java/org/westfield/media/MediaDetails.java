@@ -4,10 +4,10 @@ import java.io.File;
 
 public class MediaDetails implements IMediaDetails
 {
-    private String show;
-    private String episodeTitle;
-    private int season;
-    private int episodeNumber;
+    private final String show;
+    private final String episodeTitle;
+    private final int season;
+    private final int episodeNumber;
     private File mediaFile;
 
 

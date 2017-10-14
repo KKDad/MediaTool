@@ -19,9 +19,9 @@ public class RenameAction implements IAction
     private String formatString;
     private List<String> tokens;
 
-    private final char START_TOKEN = '{';
-    private final char END_TOKEN = '}';
-    private final String SEPARATORS = "/\\.";
+    private static final char START_TOKEN = '{';
+    private static final char END_TOKEN = '}';
+    private static final String SEPARATORS = "/\\.";
 
     @Override
     public boolean configure(Map<String, String> config)
@@ -38,7 +38,7 @@ public class RenameAction implements IAction
 
     private List<String> parseTokens(String formatString) throws ParseException
     {
-        List<String> tokens = new ArrayList<>();
+        List<String> collectedTokens = new ArrayList<>();
         int i = 0;
         StringBuilder token = new StringBuilder();
         boolean inToken = false;
@@ -48,7 +48,7 @@ public class RenameAction implements IAction
                 if (inToken)
                     throw new ParseException(formatString, i);
                 if (token.length() > 0) {
-                    tokens.add(token.toString());
+                    collectedTokens.add(token.toString());
                     token = new StringBuilder();
                 }
                 token.append(ch);
@@ -58,20 +58,20 @@ public class RenameAction implements IAction
                 if (!inToken)
                     throw new ParseException(formatString, i);
                 token.append(ch);
-                tokens.add(token.toString());
+                collectedTokens.add(token.toString());
                 token = new StringBuilder();
                 inToken = false;
             }
             else if (SEPARATORS.indexOf(ch)> -1) {
                 token.append(ch);
-                tokens.add(token.toString());
+                collectedTokens.add(token.toString());
                 token = new StringBuilder();
             } else {
                 token.append(ch);
             }
             i++;
         } while(i < formatString.length());
-        return tokens;
+        return collectedTokens;
     }
 
     @Override
@@ -115,8 +115,7 @@ public class RenameAction implements IAction
                 return details.getEpisodeTitle();
 
             case "{Format}":
-                String ext = FilenameUtils.getExtension(details.getMediaFile().getName());
-                return ext;
+                return FilenameUtils.getExtension(details.getMediaFile().getName());
 
             default:
                 if (token.charAt(0) == START_TOKEN)

@@ -18,7 +18,6 @@ public class MediaInfoParser
 {
     private static final Logger logger = LoggerFactory.getLogger(MediaInfoParser.class);
 
-    private Document xmlDocument;
     private final File file;
 
     public static MediaInfoParser get(Path item) {
@@ -43,8 +42,10 @@ public class MediaInfoParser
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 
-            this.xmlDocument = documentBuilder.parse(file);
+            Document xmlDocument = documentBuilder.parse(file);
             logger.info("Parsed : {}", file.getName());
+            if (logger.isDebugEnabled())
+                logger.debug("{}", xmlDocument);
             return true;
 
         } catch (ParserConfigurationException | SAXException | IOException e) {

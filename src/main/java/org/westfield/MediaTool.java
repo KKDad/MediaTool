@@ -9,7 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class MediaTool {
+class MediaTool {
 
     private final MediaToolConfig config;
     private static final Logger logger = LoggerFactory.getLogger(MediaTool.class);

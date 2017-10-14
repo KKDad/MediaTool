@@ -4,7 +4,7 @@ import org.westfield.media.IMediaDetails;
 
 import java.util.Map;
 
-public interface IAction
+interface IAction
 {
     // Configure the Action from the supplied map
     boolean configure(Map<String, String> config);

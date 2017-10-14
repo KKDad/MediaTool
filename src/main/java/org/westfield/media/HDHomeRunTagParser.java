@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.*;
 
-public class HDHomeRunTagParser
+class HDHomeRunTagParser
 {
     @SuppressWarnings("squid:S00116")
     private class HDHomeRunTag
