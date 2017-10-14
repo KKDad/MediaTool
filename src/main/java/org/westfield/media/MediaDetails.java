@@ -1,18 +1,23 @@
 package org.westfield.media;
 
+import java.io.File;
+
 public class MediaDetails implements IMediaDetails
 {
     private String show;
     private String episodeTitle;
     private int season;
     private int episodeNumber;
+    private File mediaFile;
 
-    MediaDetails(String show, int season, String episodeTitle, int episodeNumber)
+
+    public MediaDetails(String show, int season, String episodeTitle, int episodeNumber)
     {
         this.show = show;
         this.season = season;
         this.episodeNumber = episodeNumber;
         this.episodeTitle = episodeTitle;
+        this.mediaFile = null;
     }
 
     public String getShow() {
@@ -23,6 +28,18 @@ public class MediaDetails implements IMediaDetails
         return episodeTitle;
     }
 
+    @Override
+    public File getMediaFile() {
+        return this.mediaFile;
+    }
+
+    @Override
+    public MediaDetails setMediaFile(File file)
+    {
+        this.mediaFile = file;
+        return this;
+    }
+
     public int getSeason() {
         return season;
     }
@@ -30,4 +47,6 @@ public class MediaDetails implements IMediaDetails
     public int getEpisodeNumber() {
         return episodeNumber;
     }
+
+
 }

@@ -47,7 +47,7 @@ public class HDHomeRunTagParser
                 logger.warn("Recording was not successful!");
             int season = Integer.parseInt(g.EpisodeNumber.substring(1,3));
             int episodeNumber = Integer.parseInt(g.EpisodeNumber.substring(4,6));
-            return new MediaDetails(g.Title, season, g.EpisodeTitle, episodeNumber);
+            return new MediaDetails(g.Title, season, g.EpisodeTitle, episodeNumber).setMediaFile(file);
         }
 
         return null;

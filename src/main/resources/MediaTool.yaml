@@ -5,4 +5,4 @@ actions:
 - RenameAction
 
 renameAction:
-  format: {Show}/{Season}/{Show}-{Episode}-{Title}.{Format}
+  format: '{Show}/{Season}/{Show}-{Episode}-{Title}.{Format}'
