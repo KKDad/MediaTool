@@ -3,6 +3,7 @@ package org.westfield.action;
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.westfield.configuration.MediaToolConfig;
 import org.westfield.media.IMediaDetails;
 import org.westfield.media.MediaDetails;
 
@@ -10,7 +11,6 @@ import java.io.File;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class RenameAction implements IAction
 {
@@ -24,10 +24,10 @@ public class RenameAction implements IAction
     private static final String SEPARATORS = "/\\.";
 
     @Override
-    public boolean configure(Map<String, String> config)
+    public boolean configure(MediaToolConfig config)
     {
         try {
-            this.formatString = config.get("format");
+            this.formatString = config.getRenameAction().get("format");
             this.tokens = parseTokens(this.formatString);
             return true;
         } catch (ParseException pe) {

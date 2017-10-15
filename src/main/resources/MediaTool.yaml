@@ -2,7 +2,7 @@ source: /data/recordings
 destination: /data/recordings_renamed
 
 actions:
-- RenameAction
+- org.westfield.action.RenameAction
 
 renameAction:
-  format: '{Show}/{Season}/{Show}-{Episode}-{Title}.{Format}'
+  format: "{Show}/Season {Season}/{Show}-S{Season}E{Episode}-{Title}.{Format}"

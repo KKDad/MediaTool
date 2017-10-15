@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.westfield.configuration.MediaToolConfig;
 import org.westfield.media.IMediaDetails;
 
 import java.io.File;
@@ -17,12 +18,13 @@ public class RenameActionTest
     @Test
     public void RenameSeasonTitleTest()
     {
-        final Map<String, String> test_config = ImmutableMap.of(
+        MediaToolConfig config =  Mockito.mock(MediaToolConfig.class);
+        when(config.getRenameAction()).thenReturn(ImmutableMap.of(
                 "format", "{Show}/Season {Season}/{Show}-S{Season}E{Episode}-{Title}.{Format}",
                 "enabled", "true"
-        );
+        ));
         RenameAction subject = new RenameAction();
-        boolean configureResult = subject.configure(test_config);
+        boolean configureResult = subject.configure(config);
         Assert.assertTrue (configureResult);
 
         IMediaDetails mock = Mockito.mock(IMediaDetails.class);
