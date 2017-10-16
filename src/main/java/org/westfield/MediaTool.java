@@ -20,7 +20,7 @@ class MediaTool {
     private final MediaToolConfig config;
     private static final Logger logger = LoggerFactory.getLogger(MediaTool.class);
 
-    private List<IAction> actions = new ArrayList<>();
+    List<IAction> actions = new ArrayList<>();
 
     public MediaTool(MediaToolConfig config)
     {
@@ -34,7 +34,7 @@ class MediaTool {
         return this;
     }
 
-    private void getAction(String actionClass)
+    void getAction(String actionClass)
     {
         IAction action = instantiate(actionClass, IAction.class);
         if (action != null) {
