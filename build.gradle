@@ -20,5 +20,14 @@ dependencies {
     testCompile group: 'org.mockito', name: 'mockito-core', version: '1.+'
 }
 
-apply plugin: 'application'
-mainClassName = "org.westfield.Main"
+// Create a single Jar with all dependencies
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Flexible tool to process HDHomeRun recordings and archive them',
+                'Implementation-Version': version,
+                'Main-Class': 'org.westfield.Main'
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
