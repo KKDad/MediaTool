@@ -2,7 +2,7 @@ source: /data/recordings
 destination: /data/recordings_renamed
 
 actions:
-- org.westfield.action.RenameAction
-
+- org.westfield.action.RenameMedia
 renameAction:
+  # https://support.plex.tv/hc/en-us/articles/200220687-Naming-Series-Season-Based-TV-Shows
   format: '{Show}/{Season}/{Show}-{Episode}-{Title}.{Format}'

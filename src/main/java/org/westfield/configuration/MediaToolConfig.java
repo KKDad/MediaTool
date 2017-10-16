@@ -8,17 +8,20 @@ public class MediaToolConfig {
     private String source;
     private String destination;
     private List<String> actions;
-    private Map< String, String > renameAction;
+    private Map< String, String > renameMedia;
+    private Map< String, String > infoCreator;
 
     public String getSource() { return this.source; }
     public String getDestination()  { return this.destination; }
     public List<String> getActions()  { return this.actions; }
-    public Map< String, String > getRenameAction()  { return this.renameAction; }
+    public Map< String, String > getRenameMedia()  { return this.renameMedia; }
+    public Map< String, String > getInfoCreator()  { return this.infoCreator; }
 
     public void setSource(String source) { this.source = source; }
     public void setDestination(String destination) { this.destination = destination; }
     public void setActions(List<String> actions) { this.actions = actions; }
-    public void setRenameAction(Map< String, String > renameAction) { this.renameAction = renameAction; }
+    public void setRenameMedia(Map< String, String > renameAction) { this.renameMedia = renameAction; }
+    public void setInfoCreator(Map< String, String > infoCreator) { this.infoCreator = infoCreator; }
 
     @Override
     public String toString()
@@ -27,6 +30,7 @@ public class MediaToolConfig {
                 String.format("Source: %s%n", this.source) +
                 String.format("Destination: %s%n", this.destination) +
                 String.format("Actions: %s%n", this.actions) +
-                String.format("RenameAction: %s%n", this.renameAction);
+                String.format("RenameMedia: %s%n", this.renameMedia) +
+                String.format("InfoCreator: %s%n", this.infoCreator);
     }
 }

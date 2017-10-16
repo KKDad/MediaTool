@@ -8,22 +8,21 @@ import org.westfield.configuration.MediaToolConfig;
 import org.westfield.media.IMediaDetails;
 
 import java.io.File;
-import java.util.Map;
 
 import static org.mockito.Mockito.when;
 
-public class RenameActionTest
+public class RenameMediaTest
 {
 
     @Test
     public void RenameSeasonTitleTest()
     {
         MediaToolConfig config =  Mockito.mock(MediaToolConfig.class);
-        when(config.getRenameAction()).thenReturn(ImmutableMap.of(
+        when(config.getRenameMedia()).thenReturn(ImmutableMap.of(
                 "format", "{Show}/Season {Season}/{Show}-S{Season}E{Episode}-{Title}.{Format}",
                 "enabled", "true"
         ));
-        RenameAction subject = new RenameAction();
+        RenameMedia subject = new RenameMedia();
         boolean configureResult = subject.configure(config);
         Assert.assertTrue (configureResult);
 

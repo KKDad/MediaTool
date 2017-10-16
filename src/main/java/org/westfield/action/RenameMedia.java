@@ -12,9 +12,9 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RenameAction implements IAction
+public class RenameMedia implements IAction
 {
-    private static final Logger logger = LoggerFactory.getLogger(RenameAction.class);
+    private static final Logger logger = LoggerFactory.getLogger(RenameMedia.class);
 
     private String formatString;
     private List<String> tokens;
@@ -27,7 +27,7 @@ public class RenameAction implements IAction
     public boolean configure(MediaToolConfig config)
     {
         try {
-            this.formatString = config.getRenameAction().get("format");
+            this.formatString = config.getRenameMedia().get("format");
             this.tokens = parseTokens(this.formatString);
             return true;
         } catch (ParseException pe) {
@@ -81,8 +81,11 @@ public class RenameAction implements IAction
             for (String token : this.tokens) {
                 destFileName.append(getMediaToken(details, token));
             }
-            if (logger.isDebugEnabled())
-                logger.debug("Generated new name: {}", destFileName.toString());
+            if (logger.isDebugEnabled()) {
+                logger.debug("----------------------------------");
+                logger.debug("Old Name: {}", details.getMediaFile().getName());
+                logger.debug("New Name: {}", destFileName.toString());
+            }
 
 
             MediaDetails md = new MediaDetails(details.getShow(), details.getSeason(), details.getEpisodeTitle(), details.getEpisodeNumber());

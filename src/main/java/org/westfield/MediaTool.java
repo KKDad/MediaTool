@@ -55,7 +55,7 @@ class MediaTool {
         }
         catch(InstantiationException | IllegalAccessException | ClassNotFoundException e)
         {
-            logger.error("Could not class class: {}: ", className, e);
+            logger.error("Could not instantiate: '{}':", className, e);
         }
         return null;
     }
@@ -103,6 +103,7 @@ class MediaTool {
         {
             logger.error("{}", ex.getMessage(), ex);
         }
+        logger.info("File finished\n\n");
 
     }
 }
