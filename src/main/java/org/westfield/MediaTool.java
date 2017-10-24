@@ -73,8 +73,12 @@ class MediaTool {
                 return;
             }
             if (!destination.isDirectory()) {
-                logger.error("Destination directory '{}' does not exist.", config.getDestination());
-                return;
+                if (destination.mkdirs()) {
+                    logger.error("Created Destination directory '{}'.", config.getDestination());
+                } else {
+                    logger.error("Destination directory '{}' does not exist, and cannot make it.", config.getDestination());
+                    return;
+                }
             }
             Files.find(source.toPath(),
                     Integer.MAX_VALUE,

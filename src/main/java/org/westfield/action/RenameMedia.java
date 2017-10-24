@@ -5,9 +5,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.westfield.configuration.MediaToolConfig;
 import org.westfield.media.IMediaDetails;
-import org.westfield.media.MediaDetails;
 
 import java.io.File;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +18,7 @@ public class RenameMedia implements IAction
 
     private String formatString;
     private List<String> tokens;
+    private String destination;
 
     private static final char START_TOKEN = '{';
     private static final char END_TOKEN = '}';
@@ -28,6 +29,7 @@ public class RenameMedia implements IAction
     {
         try {
             this.formatString = config.getRenameMedia().get("format");
+            this.destination = config.getDestination();
             this.tokens = parseTokens(this.formatString);
             return true;
         } catch (ParseException pe) {
@@ -77,24 +79,36 @@ public class RenameMedia implements IAction
     @Override
     public IMediaDetails process(IMediaDetails details) {
         try {
-            StringBuilder destFileName = new StringBuilder();
-            for (String token : this.tokens) {
-                destFileName.append(getMediaToken(details, token));
-            }
+            File originalFile = details.getMediaFile();
+            File destinationFile = generateDestinateFilename(details);
             if (logger.isDebugEnabled()) {
                 logger.debug("----------------------------------");
-                logger.debug("Old Name: {}", details.getMediaFile().getName());
-                logger.debug("New Name: {}", destFileName.toString());
+                logger.debug("Old Name: {}", originalFile.getName());
+                logger.debug("New Name: {}", destinationFile.getName());
             }
-
-
-            MediaDetails md = new MediaDetails(details.getShow(), details.getSeason(), details.getEpisodeTitle(), details.getEpisodeNumber());
-            md.setMediaFile(new File(destFileName.toString()));
-            return md;
-        } catch (UnknownTokenException u) {
+            if (destinationFile.mkdirs()) {
+                logger.debug("Parent folders created.");
+            }
+            if (originalFile.renameTo(destinationFile)) {
+                logger.debug("Rename successful");
+                details.setMediaFile(destinationFile);
+            }
+            return details;
+        }
+        catch (UnknownTokenException u)
+        {
             logger.error("Unknown Token {} in format string: {}", u.getToken(), this.formatString);
         }
         return null;
+    }
+
+    public File generateDestinateFilename(IMediaDetails details) throws UnknownTokenException
+    {
+        StringBuilder destFileName = new StringBuilder();
+        for (String token : this.tokens) {
+            destFileName.append(getMediaToken(details, token));
+        }
+        return Paths.get(this.destination, destFileName.toString()).toFile();
     }
 
     private String getMediaToken(IMediaDetails details, String token) throws UnknownTokenException
