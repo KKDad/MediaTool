@@ -5,10 +5,11 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
@@ -74,12 +75,6 @@ public class theTvDBClient
                 String result = IOUtils.toString(is, StandardCharsets.UTF_8.name());
                 logger.info("Failed Request: {}", result);
             }
-        } catch (UnsupportedEncodingException e) {
-            logger.error(e.getMessage(), e);
-        } catch (MalformedURLException e) {
-            logger.error(e.getMessage(), e);
-        } catch (ProtocolException e) {
-            logger.error(e.getMessage(), e);
         } catch (IOException e) {
             logger.error(e.getMessage(), e);
         } finally {

@@ -2,8 +2,18 @@ source: /data/recordings
 destination: /data/testing/TV Shows
 
 actions:
+- org.westfield.action.ProcessDelay
+- org.westfield.action.ShowLookup
 - org.westfield.action.RenameMedia
 - org.westfield.action.InfoCreator
+
+processDelay:
+  enable: true
+  minutesIdle: 60
+
+showLookup:
+  enable: true
+  key: 70FBF9A03F0D083D
 
 renameMedia:
   enable: true

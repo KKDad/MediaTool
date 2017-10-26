@@ -12,30 +12,40 @@ import org.westfield.media.IMediaDetails;
 import java.io.File;
 import java.nio.file.Path;
 
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.when;
 
 public class RenameMediaTest
 {
 
-//    @Test
-//    public void RenameSeasonTitleTest()
-//    {
-//        RenameMedia subject = getSubject();
-//
-//        IMediaDetails mock = Mockito.mock(IMediaDetails.class);
-//        File fileMock = Mockito.mock(File.class);
-//        when(mock.getShow()).thenReturn("myshow");
-//        when(mock.getEpisodeNumber()).thenReturn(3);
-//        when(mock.getEpisodeTitle()).thenReturn("theEpisodetitle");
-//        when(mock.getSeason()).thenReturn(9);
-//        when(mock.getMediaFile()).thenReturn(fileMock);
-//        when(fileMock.getName()).thenReturn("foo.bar.mpg");
-//
-//        IMediaDetails result = subject.process(mock);
-//        Assert.assertNotNull(result);
-//
-//        Assert.assertEquals("myshow-S09E03-theEpisodetitle.mpg", result.getMediaFile().getName());
-//    }
+    @Test
+    public void RenameSeasonTitleTest()
+    {
+        MediaToolConfig config =  Mockito.mock(MediaToolConfig.class);
+        when(config.getRenameMedia()).thenReturn(ImmutableMap.of(
+                "format", "{Show}/Season {Season}/{Show}-S{Season}E{Episode}-{Title}.{Format}",
+                "enabled", "false"
+        ));
+        RenameMedia subject = getSubject();
+        subject.configure(config);
+
+        IMediaDetails mock = Mockito.mock(IMediaDetails.class);
+        File fileMock = Mockito.mock(File.class);
+        when(mock.getShow()).thenReturn("myshow");
+        when(mock.getEpisodeNumber()).thenReturn(3);
+        when(mock.getEpisodeTitle()).thenReturn("theEpisodetitle");
+        when(mock.getSeason()).thenReturn(9);
+        when(mock.getMediaFile()).thenReturn(fileMock);
+        when(fileMock.getName()).thenReturn("foo.bar.mp4");
+
+        try {
+            File result = subject.generateDestinationFilename(mock);
+            Assert.assertNotNull(result);
+            Assert.assertEquals("myshow-S09E03-theEpisodetitle.mp4", result.getName());
+        } catch (Exception ex) {
+            fail();
+        }
+    }
 
 
     @Test
@@ -48,10 +58,10 @@ public class RenameMediaTest
             IMediaDetails media_details = HDHomeRunTagParser.fromFile(item.toFile());
 
 
-            File result = subject.generateDestinateFilename(media_details);
+            File result = subject.generateDestinationFilename(media_details);
             Assert.assertNotNull(result);
         } catch (Exception ex) {
-            Assert.fail();
+            fail();
         }
     }
 
@@ -61,7 +71,7 @@ public class RenameMediaTest
         MediaToolConfig config =  Mockito.mock(MediaToolConfig.class);
         when(config.getRenameMedia()).thenReturn(ImmutableMap.of(
                 "format", "{Show}/Season {Season}/{Show}-S{Season}E{Episode}-{Title}.{Format}",
-                "enabled", "true"
+                "enabled", "false"
         ));
         RenameMedia subject = new RenameMedia();
         boolean configureResult = subject.configure(config);

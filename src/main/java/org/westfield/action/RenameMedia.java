@@ -19,6 +19,7 @@ public class RenameMedia implements IAction
     private String formatString;
     private List<String> tokens;
     private String destination;
+    private boolean enabled;
 
     private static final char START_TOKEN = '{';
     private static final char END_TOKEN = '}';
@@ -31,6 +32,7 @@ public class RenameMedia implements IAction
             this.formatString = config.getRenameMedia().get("format");
             this.destination = config.getDestination();
             this.tokens = parseTokens(this.formatString);
+            this.enabled = Boolean.parseBoolean(config.getRenameMedia().get("enabled"));
             return true;
         } catch (ParseException pe) {
             logger.error(pe.getMessage());
@@ -80,7 +82,7 @@ public class RenameMedia implements IAction
     public IMediaDetails process(IMediaDetails details) {
         try {
             File originalFile = details.getMediaFile();
-            File destinationFile = generateDestinateFilename(details);
+            File destinationFile = generateDestinationFilename(details);
             if (logger.isDebugEnabled()) {
                 logger.debug("----------------------------------");
                 logger.debug("Old Name: {}", originalFile.getName());
@@ -89,9 +91,14 @@ public class RenameMedia implements IAction
             if (destinationFile.mkdirs()) {
                 logger.debug("Parent folders created.");
             }
-            if (originalFile.renameTo(destinationFile)) {
-                logger.debug("Rename successful");
-                details.setMediaFile(destinationFile);
+            if (this.enabled) {
+                if (originalFile.renameTo(destinationFile)) {
+                    logger.debug("Rename successful");
+                    details.setMediaFile(destinationFile);
+                }
+            } else 
+            {
+                logger.debug("Rename disabled by configuration.");
             }
             return details;
         }
@@ -102,7 +109,7 @@ public class RenameMedia implements IAction
         return null;
     }
 
-    public File generateDestinateFilename(IMediaDetails details) throws UnknownTokenException
+    public File generateDestinationFilename(IMediaDetails details) throws UnknownTokenException
     {
         StringBuilder destFileName = new StringBuilder();
         for (String token : this.tokens) {
