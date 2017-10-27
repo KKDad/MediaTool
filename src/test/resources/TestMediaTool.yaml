@@ -7,3 +7,7 @@ actions:
 renameMedia:
   # https://support.plex.tv/hc/en-us/articles/200220687-Naming-Series-Season-Based-TV-Shows
   format: '{Show}/{Season}/{Show}-{Episode}-{Title}.{Format}'
+
+processDelay:
+  enable: true
+  minutesIdle: 30

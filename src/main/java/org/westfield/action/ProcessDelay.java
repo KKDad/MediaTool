@@ -21,8 +21,8 @@ public class ProcessDelay implements IAction
     @Override
     public boolean configure(MediaToolConfig config)
     {
-        this.enabled = Boolean.parseBoolean(config.getRenameMedia().get("enabled"));
-        this.minutesIdle = Integer.parseInt(config.getRenameMedia().get("minutesIdle"));
+        this.enabled = Boolean.parseBoolean(config.getProcessDelay().get("enabled"));
+        this.minutesIdle = Integer.parseInt(config.getProcessDelay().get("minutesIdle"));
         return this.enabled;
     }
 

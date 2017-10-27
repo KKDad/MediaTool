@@ -17,6 +17,8 @@ import static org.mockito.Mockito.when;
 public class ProcessDelayTest
 {
 
+
+
     @Test
     public void processShowSkip()
     {
@@ -26,7 +28,7 @@ public class ProcessDelayTest
             long epoch = time.atZone(zoneId).toEpochSecond();
 
             MediaToolConfig config = Mockito.mock(MediaToolConfig.class);
-            when(config.getRenameMedia()).thenReturn(ImmutableMap.of(
+            when(config.getProcessDelay()).thenReturn(ImmutableMap.of(
                     "enabled", "true",
                     "minutesIdle", "60"
             ));
@@ -58,7 +60,7 @@ public class ProcessDelayTest
             long epoch = time.atZone(zoneId).toEpochSecond();
 
             MediaToolConfig config = Mockito.mock(MediaToolConfig.class);
-            when(config.getRenameMedia()).thenReturn(ImmutableMap.of(
+            when(config.getProcessDelay()).thenReturn(ImmutableMap.of(
                     "enabled", "true",
                     "minutesIdle", "45"
             ));
