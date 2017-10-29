@@ -59,4 +59,17 @@ public class HDHomeRunTagTest
         Assert.assertEquals("You Gotta Eat Here!", subject.getShow());
         Assert.assertEquals("Pizzeria Napoletana; Floyd's Diner; Haugen's Chicken & Ribs", subject.getEpisodeTitle());
     }
+
+    @Test
+    public void HDHomeRunTagParser_JungleTest()
+    {
+        Path item = TestHelper.getTestResourcePath("jungle-s01e53.dat");
+        IMediaDetails subject = HDHomeRunTagParser.fromFile(item.toFile());
+
+        Assert.assertNotNull(subject);
+//        Assert.assertEquals(2, subject.getSeason());
+//        Assert.assertEquals(12, subject.getEpisodeNumber());
+//        Assert.assertEquals("Roi Julian!", subject.getShow());
+//        Assert.assertEquals("Momo et Julian", subject.getEpisodeTitle());
+    }
 }

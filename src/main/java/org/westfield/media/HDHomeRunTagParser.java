@@ -1,5 +1,6 @@
 package org.westfield.media;
 
+import com.google.common.base.Charsets;
 import com.google.common.base.Preconditions;
 
 import com.google.gson.Gson;
@@ -7,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HDHomeRunTagParser
 {
@@ -66,7 +69,7 @@ public class HDHomeRunTagParser
     private static String extractHDHomeRunJson(File file) {
         try {
 
-            StringBuilder sb = new StringBuilder();
+            List<Byte> bytes = new ArrayList<>();
             try (InputStream is = new FileInputStream(file)) {
                 byte[] buffer = new byte[1024];
                 int length = is.read(buffer);
@@ -78,13 +81,21 @@ public class HDHomeRunTagParser
                 do {
                     if (isHDHomeRunContinueTag(buffer, idx))
                         idx += 4;
-                    sb.append((char)buffer[idx]);
+                    if (buffer[idx] > 240) {
+                        int i  = 0;
+                    }
+
+                    bytes.add(buffer[idx]);
                     idx++;
                 }
+
                 while (idx < length && buffer[idx] != 0xFFFFFFFF);
-                if (logger.isDebugEnabled())
-                    logger.debug("Found: {}", sb.toString());
-                return sb.toString();
+                String result = new String(toPrimitive(bytes), Charsets.UTF_8);
+                if (logger.isDebugEnabled()) {
+                    logger.debug("Found: {}", result);
+                    dumpDebug(toPrimitive(bytes));
+                }
+                return result;
             }
         } catch (IOException e) {
             logger.error("Caught Exception: {}", e.getMessage(), e);
@@ -105,4 +116,30 @@ public class HDHomeRunTagParser
     {
         return (buffer[idx] == continueTag[0] && buffer[idx + 1] == continueTag[1] && buffer[idx + 2] == continueTag[2]);
     }
+
+    private static byte[] toPrimitive(List<Byte> Bytes)
+    {
+        byte[] bytes = new byte[Bytes.size()];
+
+        int j=0;
+        for(Byte b: Bytes)
+            bytes[j++] = b;
+
+        return bytes;
+    }
+
+    private static void dumpDebug(byte[] bytes)
+    {
+        try (BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream("/tmp/debug_dump.txt"))) {
+            bos.write(bytes);
+            bos.flush();
+            bos.close();
+
+        }
+        catch (IOException e)
+        {
+            logger.error("Caught Exception: {}", e.getMessage(), e);
+        }
+    }
+
 }
