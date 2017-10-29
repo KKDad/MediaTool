@@ -85,16 +85,23 @@ public class RenameMedia implements IAction
             File destinationFile = generateDestinationFilename(details);
             if (logger.isDebugEnabled()) {
                 logger.debug("----------------------------------");
-                logger.debug("Old Name: {}", originalFile.getName());
-                logger.debug("New Name: {}", destinationFile.getName());
+                logger.debug("Old Name: {}", originalFile);
+                logger.debug("New Name: {}", destinationFile);
             }
-            if (destinationFile.mkdirs()) {
-                logger.debug("Parent folders created.");
+            if (destinationFile.isDirectory()) {
+                logger.error("Generated destination file exists & it is a directory!");
+                System.exit(1);
+            }
+            if (!ensureDirectoryExists(destinationFile)) {
+                logger.error("Cannot ensure the destination parent directory exists.");
+                return details;
             }
             if (this.enabled) {
                 if (originalFile.renameTo(destinationFile)) {
                     logger.debug("Rename successful");
                     details.setMediaFile(destinationFile);
+                } else {
+                    logger.debug("Rename failed");
                 }
             } else 
             {
@@ -116,6 +123,19 @@ public class RenameMedia implements IAction
             destFileName.append(getMediaToken(details, token));
         }
         return Paths.get(this.destination, destFileName.toString()).toFile();
+    }
+
+    boolean ensureDirectoryExists(File fileName)
+    {
+        File parent = fileName.getParentFile();
+        if (parent.isFile()) {
+            logger.error("Parent exists and is a file?");
+            return false;
+        }
+        if (!parent.exists() && parent.mkdirs()) {
+            logger.info("Parent created: {}", parent);
+        }
+        return parent.exists() && parent.isDirectory();
     }
 
     private String getMediaToken(IMediaDetails details, String token) throws UnknownTokenException

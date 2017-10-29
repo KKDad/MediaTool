@@ -23,9 +23,7 @@ public class ProcessDelayTest
     public void processShowSkip()
     {
         try {
-            LocalDateTime time = LocalDateTime.now().minusMinutes(30);
-            ZoneId zoneId = ZoneId.systemDefault(); // or: ZoneId.of("Europe/Oslo");
-            long epoch = time.atZone(zoneId).toEpochSecond();
+            long tenMinutesAgo = System.currentTimeMillis() - (60000 * 10);
 
             MediaToolConfig config = Mockito.mock(MediaToolConfig.class);
             when(config.getProcessDelay()).thenReturn(ImmutableMap.of(
@@ -39,7 +37,7 @@ public class ProcessDelayTest
             IMediaDetails mock = Mockito.mock(IMediaDetails.class);
             File fileMock = Mockito.mock(File.class);
             when(mock.getMediaFile()).thenReturn(fileMock);
-            when(fileMock.lastModified()).thenReturn(epoch);
+            when(fileMock.lastModified()).thenReturn(tenMinutesAgo);
 
             IMediaDetails result = subject.process(mock);
             Assert.assertNull(result);
@@ -55,9 +53,8 @@ public class ProcessDelayTest
     public void processShowProcess()
     {
         try {
-            LocalDateTime time = LocalDateTime.now().minusMinutes(90);
-            ZoneId zoneId = ZoneId.systemDefault(); // or: ZoneId.of("Europe/Oslo");
-            long epoch = time.atZone(zoneId).toEpochSecond();
+            long nintyMinutesAgo = System.currentTimeMillis() - (60000 * 90);
+
 
             MediaToolConfig config = Mockito.mock(MediaToolConfig.class);
             when(config.getProcessDelay()).thenReturn(ImmutableMap.of(
@@ -71,7 +68,8 @@ public class ProcessDelayTest
             IMediaDetails mock = Mockito.mock(IMediaDetails.class);
             File fileMock = Mockito.mock(File.class);
             when(mock.getMediaFile()).thenReturn(fileMock);
-            when(fileMock.lastModified()).thenReturn(epoch);
+            when(mock.getMediaFile().getName()).thenReturn("processShowProcess");
+            when(fileMock.lastModified()).thenReturn(nintyMinutesAgo);
 
             IMediaDetails result = subject.process(mock);
             Assert.assertNotNull(result);

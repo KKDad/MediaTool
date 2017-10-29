@@ -38,18 +38,23 @@ public class HDHomeRunTagParser
         Preconditions.checkNotNull(file);
         Preconditions.checkArgument(file.exists() && !file.isDirectory() && file.canRead());
 
-        String json = extractHDHomeRunJson(file);
-        if (json != null) {
-            Gson gson = new Gson();
-            HDHomeRunTag g = gson.fromJson(json, HDHomeRunTag.class);
-            logger.info("Show: {}, Episode: {}, Title: {}", g.Title, g.EpisodeNumber, g.EpisodeTitle);
-            if (g.RecordSuccess == 0)
-                logger.warn("Recording was not successful!");
-            int season = Integer.parseInt(g.EpisodeNumber.substring(1,3));
-            int episodeNumber = Integer.parseInt(g.EpisodeNumber.substring(4,6));
-            return new MediaDetails(g.Title, season, g.EpisodeTitle, episodeNumber).setMediaFile(file);
+        try {
+            String json = extractHDHomeRunJson(file);
+            if (json != null) {
+                Gson gson = new Gson();
+                HDHomeRunTag g = gson.fromJson(json, HDHomeRunTag.class);
+                logger.info("Show: {}, Episode: {}, Title: {}", g.Title, g.EpisodeNumber, g.EpisodeTitle);
+                if (g.RecordSuccess == 0)
+                    logger.warn("Recording was not successful!");
+                int season = Integer.parseInt(g.EpisodeNumber.substring(1,3));
+                int episodeNumber = Integer.parseInt(g.EpisodeNumber.substring(4,6));
+                return new MediaDetails(g.Title, season, g.EpisodeTitle, episodeNumber).setMediaFile(file);
+            }
         }
-
+        catch (NullPointerException | IllegalArgumentException ex)
+        {
+            logger.error("Unable to extract Recording {}", ex.getMessage(), ex);
+        }
         return null;
     }
 

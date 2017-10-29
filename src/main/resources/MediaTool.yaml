@@ -8,17 +8,17 @@ actions:
 - org.westfield.action.InfoCreator
 
 processDelay:
-  enable: true
+  enabled: true
   minutesIdle: 60
 
 showLookup:
-  enable: true
+  enabled: true
   key: 70FBF9A03F0D083D
 
 renameMedia:
-  enable: true
+  enabled: true
   # https://support.plex.tv/hc/en-us/articles/200220687-Naming-Series-Season-Based-TV-Shows
   format: "{Show}/Season {Season}/{Show} - s{Season}s{Episode} - {Title}.{Format}"
 
 infoCreator:
-  enable: true
+  enabled: true

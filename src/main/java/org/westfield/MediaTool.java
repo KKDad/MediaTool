@@ -31,6 +31,7 @@ class MediaTool {
     {
         logger.info("Setting up");
         this.config.getActions().forEach(this::getAction);
+        logger.info("Setup Complete\n--------------------------------------------\n\n");
         return this;
     }
 
@@ -108,6 +109,5 @@ class MediaTool {
             logger.error("{}", ex.getMessage(), ex);
         }
         logger.info("File finished\n\n");
-
     }
 }

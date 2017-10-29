@@ -12,22 +12,46 @@ import org.westfield.media.IMediaDetails;
 import java.io.File;
 import java.nio.file.Path;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.when;
 
 public class RenameMediaTest
 {
+    @Test
+    public void configure() throws Exception {
+        RenameMedia subject = getSubject();
+    }
+
+    @Test
+    public void generateDestinationFilename() throws Exception
+    {
+    }
+
+    @Test
+    public void ensureDirectoryExists() throws Exception
+    {
+        RenameMedia subject = getSubject();
+
+        File parentFileMock = Mockito.mock(File.class);
+        when(parentFileMock.getName()).thenReturn("/data/testing/TV Shows/Criminal Minds/Season 09");
+        when(parentFileMock.isFile()).thenReturn(false);
+        when(parentFileMock.exists()).thenReturn(true);
+        when(parentFileMock.isDirectory()).thenReturn(true);
+
+        File fileMock = Mockito.mock(File.class);
+        when(fileMock.getName()).thenReturn("Criminal Minds - s09s13 - The Road Home.mpg");
+        when(fileMock.isFile()).thenReturn(false);
+        when(fileMock.getParentFile()).thenReturn(parentFileMock);
+
+        boolean result = subject.ensureDirectoryExists(fileMock);
+        assertTrue(result);
+    }
 
     @Test
     public void RenameSeasonTitleTest()
     {
-        MediaToolConfig config =  Mockito.mock(MediaToolConfig.class);
-        when(config.getRenameMedia()).thenReturn(ImmutableMap.of(
-                "format", "{Show}/Season {Season}/{Show}-S{Season}E{Episode}-{Title}.{Format}",
-                "enabled", "false"
-        ));
         RenameMedia subject = getSubject();
-        subject.configure(config);
 
         IMediaDetails mock = Mockito.mock(IMediaDetails.class);
         File fileMock = Mockito.mock(File.class);

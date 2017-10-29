@@ -5,17 +5,17 @@ import org.slf4j.LoggerFactory;
 import org.westfield.configuration.MediaToolConfig;
 import org.westfield.media.IMediaDetails;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.util.Date;
 
 public class ProcessDelay implements IAction
 {
     private static final Logger logger = LoggerFactory.getLogger(ProcessDelay.class);
 
+    private static final long ONE_MINUTE_IN_MILLIS=60000;
 
     private boolean enabled;
     private int minutesIdle;
+    private long millisIdle;
 
 
     @Override
@@ -23,6 +23,7 @@ public class ProcessDelay implements IAction
     {
         this.enabled = Boolean.parseBoolean(config.getProcessDelay().get("enabled"));
         this.minutesIdle = Integer.parseInt(config.getProcessDelay().get("minutesIdle"));
+        this.millisIdle = (ONE_MINUTE_IN_MILLIS) * this.minutesIdle;
         return this.enabled;
     }
 
@@ -31,12 +32,14 @@ public class ProcessDelay implements IAction
     {
         if (!this.enabled)
             return details;
-        LocalDateTime waitUntil = LocalDateTime.now().minusMinutes(this.minutesIdle);
-        LocalDateTime lastModified = Instant.ofEpochSecond(details.getMediaFile().lastModified()).atZone(ZoneId.systemDefault()).toLocalDateTime();
-        if (lastModified.isBefore(waitUntil))
+        Date waitUntil =  new Date(System.currentTimeMillis() - this.millisIdle);
+        Date mediaLastModified = new Date(details.getMediaFile().lastModified());
+        if (mediaLastModified.before(waitUntil))
             return details;
         else {
             logger.info("Not processing {}, waiting until last modified is > {} minutes.", details.getMediaFile().getName(), this.minutesIdle);
+            logger.info("    Skipping media modified after: {}", waitUntil);
+            logger.info("                           Media : {}", mediaLastModified);
             return null;
         }
     }
