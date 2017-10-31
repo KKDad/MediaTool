@@ -67,9 +67,9 @@ public class HDHomeRunTagTest
         IMediaDetails subject = HDHomeRunTagParser.fromFile(item.toFile());
 
         Assert.assertNotNull(subject);
-//        Assert.assertEquals(2, subject.getSeason());
-//        Assert.assertEquals(12, subject.getEpisodeNumber());
-//        Assert.assertEquals("Roi Julian!", subject.getShow());
-//        Assert.assertEquals("Momo et Julian", subject.getEpisodeTitle());
+        Assert.assertEquals(1, subject.getSeason());
+        Assert.assertEquals(53, subject.getEpisodeNumber());
+        Assert.assertEquals("Les as de la jungle à la rescousse", subject.getShow());
+        Assert.assertEquals("Drôle d'oiseau", subject.getEpisodeTitle());
     }
 }

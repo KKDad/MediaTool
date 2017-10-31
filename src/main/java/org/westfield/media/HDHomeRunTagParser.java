@@ -81,10 +81,6 @@ public class HDHomeRunTagParser
                 do {
                     if (isHDHomeRunContinueTag(buffer, idx))
                         idx += 4;
-                    if (buffer[idx] > 240) {
-                        int i  = 0;
-                    }
-
                     bytes.add(buffer[idx]);
                     idx++;
                 }
@@ -117,12 +113,12 @@ public class HDHomeRunTagParser
         return (buffer[idx] == continueTag[0] && buffer[idx + 1] == continueTag[1] && buffer[idx + 2] == continueTag[2]);
     }
 
-    private static byte[] toPrimitive(List<Byte> Bytes)
+    private static byte[] toPrimitive(List<Byte> byteList)
     {
-        byte[] bytes = new byte[Bytes.size()];
+        byte[] bytes = new byte[byteList.size()];
 
         int j=0;
-        for(Byte b: Bytes)
+        for(Byte b: byteList)
             bytes[j++] = b;
 
         return bytes;
