@@ -53,7 +53,7 @@ public class HDHomeRunTagParser
                 // Note: Special Episodes don't always have a EpisodeNumber, so assume none for them.
                 int season = 0;
                 int episodeNumber = 0;
-                if (!g.EpisodeNumber.trim().isEmpty()) {
+                if (g.EpisodeNumber != null && !g.EpisodeNumber.trim().isEmpty()) {
                     season = Integer.parseInt(g.EpisodeNumber.substring(1, 3));
                     episodeNumber = Integer.parseInt(g.EpisodeNumber.substring(4, 6));
                 }

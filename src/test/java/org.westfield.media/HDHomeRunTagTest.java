@@ -72,4 +72,17 @@ public class HDHomeRunTagTest
         Assert.assertEquals("Les as de la jungle à la rescousse", subject.getShow());
         Assert.assertEquals("Drôle d'oiseau", subject.getEpisodeTitle());
     }
+
+    @Test
+    public void HDHomeRunTagParser_GrizzyTest()
+    {
+        Path item = TestHelper.getTestResourcePath("grizzy-20170919.dat");
+        IMediaDetails subject = HDHomeRunTagParser.fromFile(item.toFile());
+
+        Assert.assertNotNull(subject);
+        Assert.assertEquals(0, subject.getSeason());
+        Assert.assertEquals(0, subject.getEpisodeNumber());
+        Assert.assertEquals("Grizzy et les lemmings", subject.getShow());
+        Assert.assertEquals("Piñata Party", subject.getEpisodeTitle());
+    }
 }
