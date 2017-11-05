@@ -49,8 +49,14 @@ public class HDHomeRunTagParser
                 logger.info("Show: {}, Episode: {}, Title: {}", g.Title, g.EpisodeNumber, g.EpisodeTitle);
                 if (g.RecordSuccess == 0)
                     logger.warn("Recording was not successful!");
-                int season = Integer.parseInt(g.EpisodeNumber.substring(1,3));
-                int episodeNumber = Integer.parseInt(g.EpisodeNumber.substring(4,6));
+
+                // Note: Special Episodes don't always have a EpisodeNumber, so assume none for them.
+                int season = 0;
+                int episodeNumber = 0;
+                if (!g.EpisodeNumber.trim().isEmpty()) {
+                    season = Integer.parseInt(g.EpisodeNumber.substring(1, 3));
+                    episodeNumber = Integer.parseInt(g.EpisodeNumber.substring(4, 6));
+                }
                 return new MediaDetails(g.Title, season, g.EpisodeTitle, episodeNumber).setMediaFile(file);
             }
         }

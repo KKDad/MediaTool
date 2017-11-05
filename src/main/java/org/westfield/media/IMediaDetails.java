@@ -2,6 +2,7 @@ package org.westfield.media;
 
 
 import java.io.File;
+import java.util.Map;
 
 public interface IMediaDetails
 {
@@ -12,4 +13,6 @@ public interface IMediaDetails
 
     File getMediaFile();
     IMediaDetails setMediaFile(File file);
+
+    Map<String, Object> getExtendedDetails();
 }

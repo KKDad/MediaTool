@@ -19,16 +19,6 @@ import static org.mockito.Mockito.when;
 public class RenameMediaTest
 {
     @Test
-    public void configure() throws Exception {
-        RenameMedia subject = getSubject();
-    }
-
-    @Test
-    public void generateDestinationFilename() throws Exception
-    {
-    }
-
-    @Test
     public void ensureDirectoryExists() throws Exception
     {
         RenameMedia subject = getSubject();
@@ -83,7 +73,7 @@ public class RenameMediaTest
 
 
             File result = subject.generateDestinationFilename(media_details);
-            Assert.assertNotNull(result);
+            Assert.assertNotNull("Les as de la jungle à la rescousse-S01E53-Drôle d'oiseau.dat", result.getName());
         } catch (Exception ex) {
             fail();
         }

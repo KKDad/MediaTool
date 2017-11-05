@@ -8,17 +8,12 @@ import org.westfield.configuration.MediaToolConfig;
 import org.westfield.media.IMediaDetails;
 
 import java.io.File;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.when;
 
 public class ProcessDelayTest
 {
-
-
-
     @Test
     public void processShowSkip()
     {

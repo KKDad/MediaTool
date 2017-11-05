@@ -1,6 +1,8 @@
 package org.westfield.media;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MediaDetails implements IMediaDetails
 {
@@ -9,6 +11,7 @@ public class MediaDetails implements IMediaDetails
     private final int season;
     private final int episodeNumber;
     private File mediaFile;
+    private Map<String, Object> extendedDetails = new HashMap<>();
 
 
     public MediaDetails(String show, int season, String episodeTitle, int episodeNumber)
@@ -38,6 +41,12 @@ public class MediaDetails implements IMediaDetails
     {
         this.mediaFile = file;
         return this;
+    }
+
+    @Override
+    public Map<String, Object> getExtendedDetails()
+    {
+        return this.extendedDetails;
     }
 
     public int getSeason() {

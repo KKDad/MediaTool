@@ -16,7 +16,8 @@ public class InfoCreator implements IAction
 
     @Override
     public boolean configure(MediaToolConfig config) {
-        this.enabled = Boolean.parseBoolean(config.getRenameMedia().get("enabled"));
+        this.enabled = Boolean.parseBoolean(config.getInfoCreator().get("enabled"));
+        logger.debug("InfoCreator is {}", this.enabled ? "Enabled" : "Disabled");
         return true;
     }
 

@@ -35,4 +35,22 @@ public class theTvDBClientTest
             fail();
         }
     }
+
+    @Test
+    public void searchCriminalMindsTest()
+    {
+        try {
+
+            theTvDBClient subject = new theTvDBClient();
+            subject.login("70FBF9A03F0D083D");
+
+            theTvDBClient.SearchResponse result = subject.search("Criminal Minds");
+
+            Assert.assertEquals(4, result.data.size());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            fail();
+        }
+    }
+
 }

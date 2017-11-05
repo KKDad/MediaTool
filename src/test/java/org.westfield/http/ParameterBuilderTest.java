@@ -14,7 +14,7 @@ public class ParameterBuilderTest
     public void oneParameterTest() {
         try {
 
-            Map input = ImmutableMap.of("key", "value");
+            Map<String,String> input = ImmutableMap.of("key", "value");
 
             String result = ParameterBuilder.build(input);
             Assert.assertEquals("key=value", result);
@@ -27,7 +27,7 @@ public class ParameterBuilderTest
     public void twoParametersTest() {
         try {
 
-            Map input = ImmutableMap.of("key1", "value1", "key2", "value2");
+            Map<String,String> input = ImmutableMap.of("key1", "value1", "key2", "value2");
 
             String result = ParameterBuilder.build(input);
             Assert.assertEquals("key1=value1&key2=value2", result);
@@ -39,7 +39,7 @@ public class ParameterBuilderTest
     @Test
     public void urlEncodedTest() {
         try {
-            Map input = ImmutableMap.of("key with space", "value with space");
+            Map<String,String> input = ImmutableMap.of("key with space", "value with space");
 
             String result = ParameterBuilder.build(input);
             Assert.assertEquals("key+with+space=value+with+space", result);
