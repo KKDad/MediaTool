@@ -12,3 +12,13 @@ renameMedia:
 processDelay:
   enabled: true
   minutesIdle: 30
+
+showLookup:
+  enabled: true
+  key: 70FBF9A03F0D083D
+
+lookupHints:
+  - show: Border Security
+    id:  261999
+  - show: The Strain
+    id:  276564

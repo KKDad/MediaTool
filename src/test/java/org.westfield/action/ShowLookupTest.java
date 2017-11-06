@@ -31,6 +31,6 @@ public class ShowLookupTest
         subject.configure(config);
         IMediaDetails result = subject.process(media_details);
 
-        Assert.assertEquals(6, result.getExtendedDetails().size());
+        Assert.assertEquals(14, result.getExtendedDetails().size());
     }
 }

@@ -28,9 +28,15 @@ public class Main {
             return;
         }
         MediaToolConfig config  = YamlConfigLoader.get(configFile.toPath());
+        if (args.length == 2)
         new MediaTool(config)
                 .setup()
-                .run();
+                .run(args[1]);
+        else
+            new MediaTool(config)
+                    .setup()
+                    .run();
+
     }
 
     private static void help()

@@ -15,10 +15,16 @@ showLookup:
   enabled: true
   key: 70FBF9A03F0D083D
 
+
+
 renameMedia:
-  enabled: true
+  enabled: false
   # https://support.plex.tv/hc/en-us/articles/200220687-Naming-Series-Season-Based-TV-Shows
   format: "{Show}/Season {Season}/{Show} - s{Season}s{Episode} - {Title}.{Format}"
 
 infoCreator:
   enabled: true
+
+lookupHints:
+  - show: Border Security
+    id:  261999

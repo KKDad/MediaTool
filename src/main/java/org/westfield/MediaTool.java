@@ -91,6 +91,11 @@ class MediaTool {
         }
     }
 
+    public void run(String item) {
+        Path source = Paths.get(item);
+        this.process(source);
+    }
+
     private void process(Path item)
     {
         try {
@@ -110,4 +115,5 @@ class MediaTool {
         }
         logger.info("File finished\n\n");
     }
+
 }

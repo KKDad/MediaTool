@@ -1,0 +1,3 @@
+- Make ShowLookup caching to reduce hits to theTVDB site
+- Integrate a commercial scanner and write out a skip list
+- Allow re-encoding of the shows

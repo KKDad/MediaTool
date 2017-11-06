@@ -15,7 +15,7 @@ InfoCreator | Generate a .NFO file for your PlexServer/Kodi or other media clien
 
 Template Options:
 -----------
-All Text inside curly-brases is assumed to be a tag. Text outside braces is considered a string literal.
+All Text inside curly-braces is assumed to be a tag. Text outside braces is considered a string literal.
 
 Example:
 
@@ -24,7 +24,7 @@ Example:
 Supported Tags
 - {Show} - Name of the Show
 - {Season} - Two digit Season of the show
-- {Episode} - Two digit Espisode Number of the show
+- {Episode} - Two digit Episode Number of the show
 - {Title} - Title of the Show
 - {Format} - Extension of the show (Eg: MP4, MPG, etc)
 
