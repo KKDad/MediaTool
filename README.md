@@ -25,8 +25,22 @@ Supported Tags
 - {Show} - Name of the Show
 - {Season} - Two digit Season of the show
 - {Episode} - Two digit Episode Number of the show
-- {Title} - Title of the Show
+- {Title} - Title of the Show. When absent, wil return {episodeName}
 - {Format} - Extension of the show (Eg: MP4, MPG, etc)
+Additional Tags from theTVDB.com:
+- {absoluteNumber} - Absolute number of the episode
+- {airedEpisodeNumber} - Aired season number
+- {airedSeason} - Aired episode number
+- {dvdEpisodeNumber} - DVD season number
+- {dvdSeason} - DVD episode number
+- {episodeName} - Title of the show
+- {firstAired} - Date when Episode was originally showwn on TV
+- {episodeOverview} - Synopsis of the Episode
+- {banner} -
+- {id} - theTvVB show Id
+- {network} - Network that show is on
+- {showOverview} - Short description of the Show
+- {status} - Status of the show. One of: Continuing, Ended
 
 
 

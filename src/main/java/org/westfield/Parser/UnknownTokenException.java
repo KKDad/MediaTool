@@ -1,6 +1,6 @@
-package org.westfield.action;
+package org.westfield.Parser;
 
-class UnknownTokenException extends Exception
+public class UnknownTokenException extends Exception
 {
     private final String token;
 
@@ -9,7 +9,7 @@ class UnknownTokenException extends Exception
         this.token = token;
     }
 
-    String getToken()
+    public String getToken()
     {
         return this.token;
     }

@@ -13,7 +13,7 @@ public class MediaToolConfig {
     private Map< String, String > renameMedia;
     private Map< String, String > infoCreator;
     private Map< String, String > showLookup;
-    private List<LookupHint> overides;
+    private List<LookupHint> lookupHints;
 
     public String getSource() { return this.source; }
     public String getDestination()  { return this.destination; }
@@ -22,7 +22,7 @@ public class MediaToolConfig {
     public Map< String, String> getRenameMedia()  { return this.renameMedia; }
     public Map< String, String> getInfoCreator()  { return this.infoCreator; }
     public Map< String, String> getShowLookup()  { return this.showLookup; }
-    public List<LookupHint> getLookupHints()  { return this.overides; }
+    public List<LookupHint> getLookupHints()  { return this.lookupHints; }
 
     public void setSource(String source) { this.source = source; }
     public void setDestination(String destination) { this.destination = destination; }
@@ -31,7 +31,7 @@ public class MediaToolConfig {
     public void setRenameMedia(Map< String, String > renameAction) { this.renameMedia = renameAction; }
     public void setInfoCreator(Map< String, String > infoCreator) { this.infoCreator = infoCreator; }
     public void setShowLookup(Map< String, String > showLookup) { this.showLookup = showLookup; }
-    public void setLookupHints(List<LookupHint> hints)  { this.overides = hints; }
+    public void setLookupHints(List<LookupHint> hints)  { this.lookupHints = hints; }
 
     @Override
     public String toString()
@@ -46,6 +46,6 @@ public class MediaToolConfig {
                 String.format("RenameMedia: %s%n", this.renameMedia) +
                 String.format("InfoCreator: %s%n", this.infoCreator) +
                 String.format("ShowLookup: %s%n", this.showLookup) +
-                String.format("LookupHint: %s%n", this.overides);
+                String.format("LookupHints: %s%n", this.lookupHints);
     }
 }

@@ -29,9 +29,9 @@ public class Main {
         }
         MediaToolConfig config  = YamlConfigLoader.get(configFile.toPath());
         if (args.length == 2)
-        new MediaTool(config)
-                .setup()
-                .run(args[1]);
+            new MediaTool(config)
+                    .setup()
+                    .run(args[1]);
         else
             new MediaTool(config)
                     .setup()
@@ -42,6 +42,9 @@ public class Main {
     private static void help()
     {
         System.out.printf("Usage:%n");
-        System.out.printf("\tMediaTool <configuration.yaml>%n");
+        System.out.printf("\tMediaTool <configuration.yaml> <[File]>%n%n");
+        System.out.printf("Where:%n");
+        System.out.printf(" configuration.yaml: Configuration for the Rename tool. Required.%n");
+        System.out.printf(" File: Process a single file. Optional. If not specified, then all files are processed.%n");
     }
 }

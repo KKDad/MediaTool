@@ -1,8 +1,9 @@
 package org.westfield.action;
 
-import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.westfield.Parser.TokenParser;
+import org.westfield.Parser.UnknownTokenException;
 import org.westfield.configuration.MediaToolConfig;
 import org.westfield.media.IMediaDetails;
 
@@ -21,17 +22,13 @@ public class RenameMedia implements IAction
     private String destination;
     private boolean enabled;
 
-    private static final char START_TOKEN = '{';
-    private static final char END_TOKEN = '}';
-    private static final String SEPARATORS = "/\\.";
-
     @Override
     public boolean configure(MediaToolConfig config)
     {
         try {
             this.formatString = config.getRenameMedia().get("format");
             this.destination = config.getDestination();
-            this.tokens = parseTokens(this.formatString);
+            this.tokens = TokenParser.parseTokens(this.formatString);
             this.enabled = Boolean.parseBoolean(config.getRenameMedia().get("enabled"));
             return true;
         } catch (ParseException pe) {
@@ -40,43 +37,6 @@ public class RenameMedia implements IAction
         return false;
     }
 
-    private List<String> parseTokens(String formatString) throws ParseException
-    {
-        List<String> collectedTokens = new ArrayList<>();
-        int i = 0;
-        StringBuilder token = new StringBuilder();
-        boolean inToken = false;
-        do {
-            char ch = formatString.charAt(i);
-            if (ch == START_TOKEN) {
-                if (inToken)
-                    throw new ParseException(formatString, i);
-                if (token.length() > 0) {
-                    collectedTokens.add(token.toString());
-                    token = new StringBuilder();
-                }
-                token.append(ch);
-               inToken = true;
-            }
-            else if (ch == END_TOKEN) {
-                if (!inToken)
-                    throw new ParseException(formatString, i);
-                token.append(ch);
-                collectedTokens.add(token.toString());
-                token = new StringBuilder();
-                inToken = false;
-            }
-            else if (SEPARATORS.indexOf(ch)> -1) {
-                token.append(ch);
-                collectedTokens.add(token.toString());
-                token = new StringBuilder();
-            } else {
-                token.append(ch);
-            }
-            i++;
-        } while(i < formatString.length());
-        return collectedTokens;
-    }
 
     @Override
     public IMediaDetails process(IMediaDetails details) {
@@ -120,7 +80,7 @@ public class RenameMedia implements IAction
     {
         StringBuilder destFileName = new StringBuilder();
         for (String token : this.tokens) {
-            destFileName.append(getMediaToken(details, token));
+            destFileName.append(TokenParser.getMediaToken(details, token));
         }
         return Paths.get(this.destination, destFileName.toString()).toFile();
     }
@@ -138,33 +98,4 @@ public class RenameMedia implements IAction
         return parent.exists() && parent.isDirectory();
     }
 
-    private String getMediaToken(IMediaDetails details, String token) throws UnknownTokenException
-    {
-        switch (token) {
-            case "/":
-            case "-":
-            case ".":
-                return token;
-
-            case "{Show}":
-                return details.getShow();
-
-            case "{Season}":
-                return String.format("%02d", details.getSeason());
-
-            case "{Episode}":
-                return String.format("%02d", details.getEpisodeNumber());
-
-            case "{Title}":
-                return details.getEpisodeTitle();
-
-            case "{Format}":
-                return FilenameUtils.getExtension(details.getMediaFile().getName());
-
-            default:
-                if (token.charAt(0) == START_TOKEN)
-                    throw new UnknownTokenException(token);
-                return token;
-        }
-    }
 }
