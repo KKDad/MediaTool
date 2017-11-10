@@ -13,6 +13,8 @@ import java.util.List;
 
 public class HDHomeRunTagParser
 {
+    private static final int MAX_TAG = 2048;
+
     @SuppressWarnings("squid:S00116")
     private class HDHomeRunTag
     {
@@ -77,7 +79,7 @@ public class HDHomeRunTagParser
 
             List<Byte> bytes = new ArrayList<>();
             try (InputStream is = new FileInputStream(file)) {
-                byte[] buffer = new byte[1024];
+                byte[] buffer = new byte[MAX_TAG];
                 int length = is.read(buffer);
                 if (!isHDHomeRunStartTag(buffer)) {
                     logger.warn("Magic Header not detected on file: {}", file.getName());

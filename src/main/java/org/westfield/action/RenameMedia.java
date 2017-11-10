@@ -2,15 +2,14 @@ package org.westfield.action;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.westfield.Parser.TokenParser;
-import org.westfield.Parser.UnknownTokenException;
+import org.westfield.parser.TokenParser;
+import org.westfield.parser.UnknownTokenException;
 import org.westfield.configuration.MediaToolConfig;
 import org.westfield.media.IMediaDetails;
 
 import java.io.File;
 import java.nio.file.Paths;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class RenameMedia implements IAction
@@ -30,7 +29,7 @@ public class RenameMedia implements IAction
             this.destination = config.getDestination();
             this.tokens = TokenParser.parseTokens(this.formatString);
             this.enabled = Boolean.parseBoolean(config.getRenameMedia().get("enabled"));
-            return true;
+            return this.enabled;
         } catch (ParseException pe) {
             logger.error(pe.getMessage());
         }

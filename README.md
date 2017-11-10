@@ -27,7 +27,8 @@ Supported Tags
 - {Episode} - Two digit Episode Number of the show
 - {Title} - Title of the Show. When absent, wil return {episodeName}
 - {Format} - Extension of the show (Eg: MP4, MPG, etc)
-Additional Tags from theTVDB.com:
+
+Additional Tags from [theTVDB](https://www.thetvdb.com/):
 - {absoluteNumber} - Absolute number of the episode
 - {airedEpisodeNumber} - Aired season number
 - {airedSeason} - Aired episode number
@@ -41,7 +42,3 @@ Additional Tags from theTVDB.com:
 - {network} - Network that show is on
 - {showOverview} - Short description of the Show
 - {status} - Status of the show. One of: Continuing, Ended
-
-
-
-### This is a work in Progress.

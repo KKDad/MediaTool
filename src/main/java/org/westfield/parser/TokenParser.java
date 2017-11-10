@@ -1,6 +1,8 @@
-package org.westfield.Parser;
+package org.westfield.parser;
 
 import org.apache.commons.io.FilenameUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.westfield.media.IMediaDetails;
 
 import java.text.ParseException;
@@ -13,6 +15,9 @@ public class TokenParser
     private static final char END_TOKEN = '}';
     private static final String SEPARATORS = "/\\.";
 
+    private static final Logger logger = LoggerFactory.getLogger(TokenParser.class);
+
+    private TokenParser() {}
 
     public static List<String> parseTokens(String formatString) throws ParseException
     {
@@ -71,8 +76,14 @@ public class TokenParser
 
             case "{Title}":
                 String title = details.getEpisodeTitle();
-                if (title == null || title.length() == 0)
-                    title = (String)details.getExtendedDetails().getOrDefault("episodeName", null);
+                if (title == null || title.length() == 0) {
+                    Object result = details.getExtendedDetails().getOrDefault("episodeName", null);
+                    if (result instanceof ArrayList) {
+                        logger.error("result: {}", result);
+                        return (String)((ArrayList) result).get(0);
+                    } else
+                        title = (String)result;
+                }
                 return title;
 
             case "{Format}":

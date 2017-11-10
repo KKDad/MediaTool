@@ -1,4 +1,4 @@
-package org.westfield.Parser;
+package org.westfield.parser;
 
 public class UnknownTokenException extends Exception
 {
