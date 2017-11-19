@@ -1,16 +1,21 @@
 # MediaTool
-Flexible tool to process HDHomeRun recordings and archive them
+MediaTool is a flexible media manager designed to process HDHomeRun recordings and archive them.
 
-This tool automates the renaming of programs recorded by your HDHomeRun. It Parses the HDHomeRun tags out of recordings to determine what the show it and allows you to rename them based on a template of your choosing.
+This tool can automate the process of renaming of recording make by your HDHomeRun. It will parse the HDHomeRun tags out of recordings to determine the show it and allows you to rename them based on a template of your choosing. You can also optional have .NFO files create to ease importing your recordings into Plex or Kodi.
+
+
 
 Contains the following options:
 
 Option | Description
 ------------ | -------------
-ProcessDelay | Configurable delay before processing file
+ProcessDelay | Configurable delay before processing file. Useful if you wish to keep the recording availible to 
 ShowLookup | Augment information parsed out of the HDHomeRun tags with show information looked up from [theTVDB](https://www.thetvdb.com/)
 RenameMedia | Rename the show based on a configurable template. Will create the directory if it does not exist
 InfoCreator | Generate a .NFO file for your PlexServer/Kodi or other media client
+CommercialDetector | Detect commercials using [Comskip](https://github.com/erikkaashoek/Comskip). The results of the commercial detection can be feed into a Chapter list for fast forward or can be used to create a cut list to strip commercials from the recording.  
+RemoveCommercials | Use [ffmpeg](https://ffmpeg.org/) to remove commercials. Requires a cut list as created by the CommercialDetect option 
+Transcoding | Convert the recordings to h265 to save storage space.   
 
 
 Template Options:

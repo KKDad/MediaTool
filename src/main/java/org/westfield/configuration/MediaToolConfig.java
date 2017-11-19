@@ -13,6 +13,10 @@ public class MediaToolConfig {
     private Map< String, String > renameMedia;
     private Map< String, String > infoCreator;
     private Map< String, String > showLookup;
+    private Map< String, String > commercialDetect;
+    private Map< String, String > removeCommercials;
+    private Map< String, String > transcode;
+
     private List<LookupHint> lookupHints;
 
     public String getSource() { return this.source; }
@@ -22,6 +26,9 @@ public class MediaToolConfig {
     public Map< String, String> getRenameMedia()  { return this.renameMedia; }
     public Map< String, String> getInfoCreator()  { return this.infoCreator; }
     public Map< String, String> getShowLookup()  { return this.showLookup; }
+    public Map< String, String> getCommercialDetect()  { return this.commercialDetect; }
+    public Map< String, String> getRemoveCommercials()  { return this.removeCommercials; }
+    public Map< String, String> getTranscode()  { return this.transcode; }
     public List<LookupHint> getLookupHints()  { return this.lookupHints; }
 
     public void setSource(String source) { this.source = source; }
@@ -31,6 +38,9 @@ public class MediaToolConfig {
     public void setRenameMedia(Map< String, String > renameAction) { this.renameMedia = renameAction; }
     public void setInfoCreator(Map< String, String > infoCreator) { this.infoCreator = infoCreator; }
     public void setShowLookup(Map< String, String > showLookup) { this.showLookup = showLookup; }
+    public void setCommercialDetect(Map< String, String > commercialDetect) { this.commercialDetect = commercialDetect; }
+    public void setRemoveCommercials(Map< String, String > removeCommercials) { this.removeCommercials = removeCommercials; }
+    public void setTranscode(Map< String, String > transcode) { this.transcode = transcode; }
     public void setLookupHints(List<LookupHint> hints)  { this.lookupHints = hints; }
 
     @Override
@@ -46,6 +56,9 @@ public class MediaToolConfig {
                 String.format("RenameMedia: %s%n", this.renameMedia) +
                 String.format("InfoCreator: %s%n", this.infoCreator) +
                 String.format("ShowLookup: %s%n", this.showLookup) +
+                String.format("CommercialDetect: %s%n", this.commercialDetect) +
+                String.format("RemoveCommercials: %s%n", this.removeCommercials) +
+                String.format("Transcode: %s%n", this.transcode) +
                 String.format("LookupHints: %s%n", this.lookupHints);
     }
 }

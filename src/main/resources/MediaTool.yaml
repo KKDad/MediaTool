@@ -6,6 +6,9 @@ actions:
 - org.westfield.action.ShowLookup
 - org.westfield.action.RenameMedia
 - org.westfield.action.InfoCreator
+- org.westfield.action.CommercialDetect
+- org.westfield.action.RemoveCommercials
+- org.westfield.action.Transcode
 
 processDelay:
   enabled: true
@@ -21,7 +24,22 @@ renameMedia:
   format: "{Show}/Season {Season}/{Show} - s{Season}s{Episode} - {Title}.{Format}"
 
 infoCreator:
+  # http://kodi.wiki/view/NFO_files/tvshows
+  enabled: false
+
+commercialDetect:
   enabled: true
+  comskip: /data/git/Comskip/comskip
+  threads: 6
+  hwassist: true
+
+removeCommercials:
+  enabled: true
+  ffmpeg: /usr/bin/ffmpeg
+
+transcode:
+  enabled: true
+
 
 lookupHints:
   - show: Border Security

@@ -85,7 +85,7 @@ public class RenameMediaTest
         MediaToolConfig config =  Mockito.mock(MediaToolConfig.class);
         when(config.getRenameMedia()).thenReturn(ImmutableMap.of(
                 "format", "{Show}/Season {Season}/{Show}-S{Season}E{Episode}-{Title}.{Format}",
-                "enabled", "false"
+                "enabled", "true"
         ));
         RenameMedia subject = new RenameMedia();
         boolean configureResult = subject.configure(config);
