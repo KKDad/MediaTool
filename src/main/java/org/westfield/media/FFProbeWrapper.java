@@ -55,12 +55,13 @@ class FFProbeWrapper
             final Process p=pb.start();
             int errCode = p.waitFor();
             if (logger.isDebugEnabled())
-                logger.debug("Error detected?: {}", (errCode == 0 ? "No" : "Yes"));
+                logger.debug("File processed successfully?: {}", (errCode == 0 ? "No" : "Yes"));
             if (errCode > 0) {
                 InputStream in = new BufferedInputStream(p.getErrorStream());
                 String error = IOUtils.toString(in, StandardCharsets.UTF_8.name());
                 in.close();
-                logger.debug("Error: {}", error);
+                if (!error.isEmpty())
+                    logger.debug("Error: {}", error);
             } else {
                 InputStream in = new BufferedInputStream(p.getInputStream());
                 String result = IOUtils.toString(in, StandardCharsets.UTF_8.name());

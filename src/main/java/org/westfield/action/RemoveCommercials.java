@@ -29,7 +29,7 @@ public class RemoveCommercials implements IAction
     // And we want to pull out the from and to double values
     private static final Pattern pattern = Pattern.compile("From=(\\d*.\\d*).*To=(\\d*.\\d*)");
 
-    private class Chapter {
+    class Chapter {
         int chapterNumber;
         float start;
         float length;
@@ -96,16 +96,15 @@ public class RemoveCommercials implements IAction
 
     private int combineChapters(List<Chapter> chapters, String fileName)
     {
-        StringBuilder sb = new StringBuilder();
-        sb.append("concat:");
+        StringBuilder concat = new StringBuilder();
+        concat.append("concat:");
         for(Chapter chapter: chapters)
-            sb.append(chapterFilename(fileName, chapter.chapterNumber)).append("|");
-        sb.setLength(sb.length() - 1);
+            concat.append(chapterFilename(fileName, chapter.chapterNumber)).append("|");
+        concat.setLength(concat.length() - 1);
 
-        String cmd = String.format("%s -i %s -c copy %s", this.ffmpeg, sb.toString(), finalFilename(fileName));
-        logger.info("{}", cmd);
         try {
-            Process process = new ProcessBuilder(cmd.split("\\s+")).start();
+            Process process = new ProcessBuilder(this.ffmpeg, "-i", concat.toString(), "-c", "copy", finalFilename(fileName)).start();
+            logger.info("CombineChapters: {}", process.toString());
             int rc = process.waitFor();
             if (rc != 0)
                 logger.warn("Command exited with code: {}", rc);
@@ -140,11 +139,12 @@ public class RemoveCommercials implements IAction
     }
 
 
-    private String generateMap(int numberOfStreams)
+    String generateMap(int numberOfStreams)
     {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i <= numberOfStreams; i++)
-            sb.append("-map 0:)").append(i);
+        for (int i = 0; i < numberOfStreams; i++)
+            sb.append("-map 0:").append(i).append(" ");
+        sb.setLength(sb.length() - 1);
         return sb.toString();
     }
 
@@ -158,7 +158,7 @@ public class RemoveCommercials implements IAction
         return Paths.get(this.tmpDir, String.format("%s-new.%s", Files.getNameWithoutExtension(fileName), Files.getFileExtension(fileName))).toString();
     }
 
-    private List<Chapter> getChapterLists(List<String> cutList)
+    List<Chapter> getChapterLists(List<String> cutList)
     {
         List<Chapter> chapters = new ArrayList<>();
         int chapter = 1;
@@ -184,14 +184,14 @@ public class RemoveCommercials implements IAction
     }
 
 
-    private String formatTime(float totalSecs)
+    String formatTime(float totalSecs)
     {
         int hours = (int)(totalSecs / 3600);
         int minutes = (int)((totalSecs % 3600) / 60);
         int seconds = (int)totalSecs % 60;
 
         if (hours > 0)
-            return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+            return String.format("%d:%02d:%02d", hours, minutes, seconds);
         else if (minutes > 0)
             return String.format("%d:%02d", minutes, seconds);
         return String.format("%d", seconds);
