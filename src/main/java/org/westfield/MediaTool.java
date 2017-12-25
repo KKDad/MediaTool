@@ -19,12 +19,18 @@ class MediaTool {
 
     private final MediaToolConfig config;
     private static final Logger logger = LoggerFactory.getLogger(MediaTool.class);
+    private Args options;
 
     List<IAction> actions = new ArrayList<>();
 
     public MediaTool(MediaToolConfig config)
     {
         this.config = config;
+    }
+
+    public MediaTool setOptions(Args options) {
+        this.options = options;
+        return this;
     }
 
     MediaTool setup()
@@ -112,8 +118,9 @@ class MediaTool {
         catch (Exception ex)
         {
             logger.error("{}", ex.getMessage(), ex);
+            if (this.options.failOnError)
+                System.exit(1);
         }
         logger.info("File finished\n\n");
     }
-
 }

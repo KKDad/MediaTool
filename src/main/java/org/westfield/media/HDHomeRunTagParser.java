@@ -95,6 +95,11 @@ public class HDHomeRunTagParser
 
                 while (idx < length && buffer[idx] != 0xFFFFFFFF);
                 String result = new String(toPrimitive(bytes), Charsets.UTF_8);
+                if (!result.endsWith("}")) {
+                    while(!result.isEmpty() && !result.endsWith("}"))
+                        result = result.substring(0, result.length() - 1);
+                }
+
                 if (logger.isDebugEnabled()) {
                     logger.debug("Found: {}", result);
                     dumpDebug(toPrimitive(bytes));

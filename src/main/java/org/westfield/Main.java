@@ -1,5 +1,6 @@
 package org.westfield;
 
+import com.beust.jcommander.JCommander;
 import org.westfield.configuration.MediaToolConfig;
 import org.westfield.configuration.YamlConfigLoader;
 
@@ -9,42 +10,40 @@ import java.nio.file.Paths;
 @SuppressWarnings("squid:S106")
 public class Main {
 
-    public static void main(String[] args)
+    public static void main(String[] argv)
     {
-        if (args.length < 1) {
-            Main.help();
+        Args args = new Args();
+        JCommander jc = JCommander.newBuilder()
+                .addObject(args)
+                .build();
+        jc.parse(argv);
+        if (args.help) {
+            jc.usage();
             return;
         }
 
-        File configFile = Paths.get(args[0]).toFile();
+
+        File configFile = Paths.get(args.config).toFile();
         if (!configFile.isFile()) {
-            System.out.printf("%s does not exist or is not a valid configuration file.%n%n", args[0]);
-            Main.help();
+            System.out.printf("%s does not exist or is not a valid configuration file.%n%n", args.config);
+            jc.usage();
             return;
         }
         if (!configFile.canRead()) {
-            System.out.printf("Cannot read %s.%n%n", args[0]);
-            Main.help();
+            System.out.printf("Cannot read %s.%n%n", args.config);
+            jc.usage();
             return;
         }
         MediaToolConfig config  = YamlConfigLoader.get(configFile.toPath());
-        if (args.length == 2)
+        if (args.process != null && !args.process.isEmpty())
             new MediaTool(config)
+                    .setOptions(args)
                     .setup()
-                    .run(args[1]);
+                    .run(args.process);
         else
             new MediaTool(config)
+                    .setOptions(args)
                     .setup()
                     .run();
-
-    }
-
-    private static void help()
-    {
-        System.out.printf("Usage:%n");
-        System.out.printf("\tMediaTool <configuration.yaml> <[File]>%n%n");
-        System.out.printf("Where:%n");
-        System.out.printf(" configuration.yaml: Configuration for the Rename tool. Required.%n");
-        System.out.printf(" File: Process a single file. Optional. If not specified, then all files are processed.%n");
     }
 }

@@ -6,9 +6,9 @@ actions:
 - org.westfield.action.ShowLookup
 - org.westfield.action.RenameMedia
 - org.westfield.action.InfoCreator
-- org.westfield.action.CommercialDetect
-- org.westfield.action.RemoveCommercials
-- org.westfield.action.Transcode
+#- org.westfield.action.CommercialDetect
+#- org.westfield.action.RemoveCommercials
+#- org.westfield.action.Transcode
 
 processDelay:
   enabled: true
@@ -30,6 +30,7 @@ infoCreator:
 commercialDetect:
   enabled: true
   comskip: /data/git/Comskip/comskip
+  configuration: /data/git/comskip.ini
   threads: 6
   hwassist: true
 
