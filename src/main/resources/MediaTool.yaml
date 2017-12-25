@@ -21,7 +21,10 @@ showLookup:
 renameMedia:
   enabled: true
   # https://support.plex.tv/hc/en-us/articles/200220687-Naming-Series-Season-Based-TV-Shows
-  format: "{Show}/Season {Season}/{Show} - s{Season}s{Episode} - {Title}.{Format}"
+  regular: "{Show}/Season {Season}/{Show} - s{Season}e{Episode} - {Title}.{Format}"
+  regularNoTitle: "{Show}/Season {Season}/{Show} - s{Season}e{Episode}.{Format}"
+  specials: "{Show}/Specials/{Show} - s{Season}e{Episode} - {Title}.{Format}"
+  specialsNoTitle: "{Show}/Specials/{Show} - s{Season}e{Episode}.{Format}"
 
 infoCreator:
   # http://kodi.wiki/view/NFO_files/tvshows

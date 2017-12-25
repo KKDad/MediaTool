@@ -125,7 +125,7 @@ public class RemoveCommercials implements IAction
 
     private void move()
     {
-
+        throw new UnsupportedOperationException();
     }
 
     private boolean combineChapters(List<Chapter> chapters, String fileName)

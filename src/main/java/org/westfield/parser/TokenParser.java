@@ -116,4 +116,16 @@ public class TokenParser
     {
         return token.substring(1, token.length() - 1);
     }
+
+    public static boolean hasEpisodeTitle(IMediaDetails details)
+    {
+        try {
+            String title = getMediaToken(details, "{Title}");
+            return title != null && !title.isEmpty();
+        }  catch (UnknownTokenException e) {
+            return false;
+        }
+
+
+    }
 }

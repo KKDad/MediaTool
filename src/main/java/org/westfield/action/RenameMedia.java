@@ -16,32 +16,38 @@ public class RenameMedia implements IAction
 {
     private static final Logger logger = LoggerFactory.getLogger(RenameMedia.class);
 
-    private String formatString;
-    private List<String> tokens;
+    private String  regular;
+    private String  regularNoTitle;
+    private String  specials;
+    private String  specialsNoTitle;
+
     private String destination;
     private boolean enabled;
 
     @Override
     public boolean configure(MediaToolConfig config)
     {
-        try {
-            this.formatString = config.getRenameMedia().get("format");
-            this.destination = config.getDestination();
-            this.tokens = TokenParser.parseTokens(this.formatString);
-            this.enabled = Boolean.parseBoolean(config.getRenameMedia().get("enabled"));
-            return this.enabled;
-        } catch (ParseException pe) {
-            logger.error(pe.getMessage());
-        }
-        return false;
+        this.regular = config.getRenameMedia().get("regular");
+        this.regularNoTitle = config.getRenameMedia().get("regularNoTitle");
+        this.specials = config.getRenameMedia().get("specials");
+        this.specialsNoTitle = config.getRenameMedia().get("specialsNoTitle");
+        this.destination = config.getDestination();
+        this.enabled = Boolean.parseBoolean(config.getRenameMedia().get("enabled"));
+        return this.enabled;
     }
 
 
     @Override
     public IMediaDetails process(IMediaDetails details) {
+        String formatString = null;
         try {
+            if (details.getSeason() == 0) {
+                formatString = TokenParser.hasEpisodeTitle(details) ? this.regular : this.regularNoTitle;
+            } else {
+                formatString = TokenParser.hasEpisodeTitle(details) ? this.specials : this.specialsNoTitle;
+            }
             File originalFile = details.getMediaFile();
-            File destinationFile = generateDestinationFilename(details);
+            File destinationFile = generateDestinationFilename(details, formatString);
             if (logger.isDebugEnabled()) {
                 logger.debug("----------------------------------");
                 logger.debug("Old Name: {}", originalFile);
@@ -68,17 +74,20 @@ public class RenameMedia implements IAction
             }
             return details;
         }
-        catch (UnknownTokenException u)
-        {
-            logger.error("Unknown Token {} in format string: {}", u.getToken(), this.formatString);
+        catch (ParseException p) {
+            logger.error(p.getMessage());
+        }
+        catch (UnknownTokenException u) {
+            logger.error("Unknown Token {} in format string: {}", u.getToken(), formatString);
         }
         return null;
     }
 
-    public File generateDestinationFilename(IMediaDetails details) throws UnknownTokenException
+    File generateDestinationFilename(IMediaDetails details, String formatString) throws UnknownTokenException, ParseException
     {
+        List<String> tokens = TokenParser.parseTokens(formatString);
         StringBuilder destFileName = new StringBuilder();
-        for (String token : this.tokens) {
+        for (String token : tokens) {
             destFileName.append(TokenParser.getMediaToken(details, token));
         }
         return Paths.get(this.destination, destFileName.toString()).toFile();

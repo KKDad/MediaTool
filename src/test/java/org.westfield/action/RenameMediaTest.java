@@ -8,6 +8,7 @@ import org.westfield.TestHelper;
 import org.westfield.configuration.MediaToolConfig;
 import org.westfield.media.HDHomeRunTagParser;
 import org.westfield.media.IMediaDetails;
+import org.westfield.parser.TokenParser;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -18,6 +19,7 @@ import static org.mockito.Mockito.when;
 
 public class RenameMediaTest
 {
+    private static String testFormat = "{Show}/Season {Season}/{Show}-S{Season}E{Episode}-{Title}.{Format}";
     @Test
     public void ensureDirectoryExists() throws Exception
     {
@@ -53,7 +55,7 @@ public class RenameMediaTest
         when(fileMock.getName()).thenReturn("foo.bar.mp4");
 
         try {
-            File result = subject.generateDestinationFilename(mock);
+            File result = subject.generateDestinationFilename(mock, testFormat);
             Assert.assertNotNull(result);
             Assert.assertEquals("myshow-S09E03-theEpisodetitle.mp4", result.getName());
         } catch (Exception ex) {
@@ -72,19 +74,45 @@ public class RenameMediaTest
             IMediaDetails media_details = HDHomeRunTagParser.fromFile(item.toFile());
 
 
-            File result = subject.generateDestinationFilename(media_details);
+            File result = subject.generateDestinationFilename(media_details, testFormat);
             Assert.assertNotNull("Les as de la jungle à la rescousse-S01E53-Drôle d'oiseau.dat", result.getName());
         } catch (Exception ex) {
             fail();
         }
     }
 
+    @Test
+    public void HasEpisodeTitleTest()
+    {
+        try {
+            Path item = TestHelper.getTestResourcePath("jungle-s01e53.dat");
+            IMediaDetails media_details = HDHomeRunTagParser.fromFile(item.toFile());
 
+            boolean result = TokenParser.hasEpisodeTitle(media_details);
+            Assert.assertTrue(result);
+        } catch (Exception ex) {
+            fail();
+        }
+    }
+
+    @Test
+    public void HasNoEpisodeTitleTest()
+    {
+        try {
+            Path item = TestHelper.getTestResourcePath("grizzy-special.dat");
+            IMediaDetails media_details = HDHomeRunTagParser.fromFile(item.toFile());
+
+            boolean result = TokenParser.hasEpisodeTitle(media_details);
+            Assert.assertFalse(result);
+        } catch (Exception ex) {
+            fail();
+        }
+    }
 
     private RenameMedia getSubject() {
         MediaToolConfig config =  Mockito.mock(MediaToolConfig.class);
         when(config.getRenameMedia()).thenReturn(ImmutableMap.of(
-                "format", "{Show}/Season {Season}/{Show}-S{Season}E{Episode}-{Title}.{Format}",
+                "regular", testFormat,
                 "enabled", "true"
         ));
         RenameMedia subject = new RenameMedia();

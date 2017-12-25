@@ -6,8 +6,6 @@ import org.westfield.ProcessingLoggingHandler;
 import org.westfield.configuration.MediaToolConfig;
 import org.westfield.media.IMediaDetails;
 
-import java.util.List;
-
 public class CommercialDetect implements IAction {
     private static final Logger logger = LoggerFactory.getLogger(CommercialDetect.class);
 
