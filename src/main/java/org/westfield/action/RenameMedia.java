@@ -41,10 +41,10 @@ public class RenameMedia implements IAction
     public IMediaDetails process(IMediaDetails details) {
         String formatString = null;
         try {
-            if (details.getSeason() == 0) {
-                formatString = TokenParser.hasEpisodeTitle(details) ? this.regular : this.regularNoTitle;
-            } else {
+            if (TokenParser.isSpecial(details)) {
                 formatString = TokenParser.hasEpisodeTitle(details) ? this.specials : this.specialsNoTitle;
+            } else {
+                formatString = TokenParser.hasEpisodeTitle(details) ? this.regular : this.regularNoTitle;
             }
             File originalFile = details.getMediaFile();
             File destinationFile = generateDestinationFilename(details, formatString);

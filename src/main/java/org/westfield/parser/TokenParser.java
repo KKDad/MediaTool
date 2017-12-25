@@ -125,7 +125,10 @@ public class TokenParser
         }  catch (UnknownTokenException e) {
             return false;
         }
+    }
 
-
+    public static boolean isSpecial(IMediaDetails details)
+    {
+        return details.getSeason() <= 0;
     }
 }

@@ -109,6 +109,34 @@ public class RenameMediaTest
         }
     }
 
+    @Test
+    public void isRegularSeasonTest()
+    {
+        try {
+            Path item = TestHelper.getTestResourcePath("jungle-s01e53.dat");
+            IMediaDetails media_details = HDHomeRunTagParser.fromFile(item.toFile());
+
+            boolean result = TokenParser.isSpecial(media_details);
+            Assert.assertFalse(result);
+        } catch (Exception ex) {
+            fail();
+        }
+    }
+
+    @Test
+    public void isSpecialTest()
+    {
+        try {
+            Path item = TestHelper.getTestResourcePath("grizzy-special.dat");
+            IMediaDetails media_details = HDHomeRunTagParser.fromFile(item.toFile());
+
+            boolean result = TokenParser.isSpecial(media_details);
+            Assert.assertTrue(result);
+        } catch (Exception ex) {
+            fail();
+        }
+    }
+
     private RenameMedia getSubject() {
         MediaToolConfig config =  Mockito.mock(MediaToolConfig.class);
         when(config.getRenameMedia()).thenReturn(ImmutableMap.of(
