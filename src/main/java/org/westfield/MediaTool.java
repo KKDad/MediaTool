@@ -28,7 +28,7 @@ class MediaTool {
         this.config = config;
     }
 
-    public MediaTool setOptions(Args options) {
+    MediaTool setOptions(Args options) {
         this.options = options;
         return this;
     }
@@ -97,7 +97,7 @@ class MediaTool {
         }
     }
 
-    public void run(String item) {
+    void run(String item) {
         Path source = Paths.get(item);
         this.process(source);
     }

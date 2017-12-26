@@ -21,10 +21,10 @@ showLookup:
 renameMedia:
   enabled: true
   # https://support.plex.tv/hc/en-us/articles/200220687-Naming-Series-Season-Based-TV-Shows
-  regular: "{Show}/Season {Season}/{Show} - s{Season}e{Episode} - {Title}.{Format}"
-  regularNoTitle: "{Show}/Season {Season}/{Show} - s{Season}e{Episode}.{Format}"
-  specials: "{Show}/Specials/{Show} - s{Season}e{Episode} - {Title}.{Format}"
-  specialsNoTitle: "{Show}/Specials/{Show} - s{Season}e{Episode}.{Format}"
+  regular: "{Series Name}/Season {Season}/{Show} - s{Season}e{Episode} - {Title}.{Format}"
+  regularNoTitle: "{Series Name}/Season {Season}/{Show} - s{Season}e{Episode}.{Format}"
+  specials: "{Series Name}/Specials/{Show} - s{Season}e{Episode} - {Title}.{Format}"
+  specialsNoTitle: "{Series Name}/Specials/{Show} - s{Season}e{Episode}.{Format}"
 
 infoCreator:
   # http://kodi.wiki/view/NFO_files/tvshows
@@ -48,3 +48,5 @@ transcode:
 lookupHints:
   - show: Border Security
     id:  261999
+  - show: S.W.A.T.
+    id:  328687

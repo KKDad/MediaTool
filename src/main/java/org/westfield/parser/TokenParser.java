@@ -68,6 +68,10 @@ public class TokenParser
             case "{Show}":
                 return details.getShow();
 
+            case "{Series Name}":
+                return (String) details.getExtendedDetails().getOrDefault("seriesName", details.getShow());
+
+
             case "{Season}":
                 return String.format("%02d", details.getSeason());
 
@@ -98,12 +102,16 @@ public class TokenParser
             case "{firstAired}":
             case "{episodeOverview}":
             case "{banner}":
-            case "{id}":
             case "{network}":
             case "{showOverview}":
             case "{status}":
-
                 return (String)details.getExtendedDetails().getOrDefault(stripBraces(token), null);
+
+            case "{id}":
+                Integer id = (Integer) details.getExtendedDetails().getOrDefault(stripBraces(token), null);
+                if (id == null)
+                    return "";
+                return id.toString();
 
             default:
                 if (token.charAt(0) == START_TOKEN)

@@ -27,7 +27,8 @@ Example:
 `{Show}/Season {Season}/{Show} - s{Season}s{Episode} - {Title}.{Format}`
 
 Supported Tags
-- {Show} - Name of the Show
+- {Show} - Name of the Show (Eg: (S.W.A.T.))
+- {Series Name} - Name of the Show with Year if multiple shows with the same name exist (Eg: S.W.A.T (2017))
 - {Season} - Two digit Season of the show
 - {Episode} - Two digit Episode Number of the show
 - {Title} - Title of the Show. When absent, wil return {episodeName}

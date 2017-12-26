@@ -137,6 +137,20 @@ public class RenameMediaTest
         }
     }
 
+    @Test
+    public void GrizzySeriesNameLookupTest()
+    {
+        try {
+            Path item = TestHelper.getTestResourcePath("grizzy-special.dat");
+            IMediaDetails media_details = HDHomeRunTagParser.fromFile(item.toFile());
+
+            String name = TokenParser.getMediaToken(media_details, "{Series Name}");
+            Assert.assertEquals("Grizzy et les lemmings", name);
+        } catch (Exception ex) {
+            fail();
+        }
+    }
+
     private RenameMedia getSubject() {
         MediaToolConfig config =  Mockito.mock(MediaToolConfig.class);
         when(config.getRenameMedia()).thenReturn(ImmutableMap.of(

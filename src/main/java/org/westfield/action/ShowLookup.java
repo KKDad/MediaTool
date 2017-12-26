@@ -58,6 +58,7 @@ public class ShowLookup implements IAction {
             details.getExtendedDetails().putIfAbsent("network", item.network);
             details.getExtendedDetails().putIfAbsent("showOverview", item.overview);
             details.getExtendedDetails().putIfAbsent("status", item.status);
+            details.getExtendedDetails().putIfAbsent("seriesName", item.seriesName);
             getEpisodeDetails(details, item);
         } else
             logger.debug("    Found: {}", item);
@@ -69,14 +70,15 @@ public class ShowLookup implements IAction {
         if (episodes != null && !episodes.data.isEmpty()) {
             theTvDBClient.EpisodeItem episode = episodes.data.get(0);
             logger.info("Found Episode Information: {}", episode);
-            details.getExtendedDetails().putIfAbsent("absoluteNumber", item.aliases);
-            details.getExtendedDetails().putIfAbsent("airedEpisodeNumber", item.aliases);
-            details.getExtendedDetails().putIfAbsent("airedSeason", item.aliases);
-            details.getExtendedDetails().putIfAbsent("dvdEpisodeNumber", item.aliases);
-            details.getExtendedDetails().putIfAbsent("dvdSeason", item.aliases);
-            details.getExtendedDetails().putIfAbsent("episodeName", item.aliases);
-            details.getExtendedDetails().putIfAbsent("firstAired", item.aliases);
-            details.getExtendedDetails().putIfAbsent("episodeOverview", item.aliases);
+            details.getExtendedDetails().putIfAbsent("absoluteNumber", episode.absoluteNumber);
+            details.getExtendedDetails().putIfAbsent("airedEpisodeNumber", episode.airedEpisodeNumber);
+            details.getExtendedDetails().putIfAbsent("airedSeason", episode.airedSeason);
+            details.getExtendedDetails().putIfAbsent("dvdEpisodeNumber", episode.dvdEpisodeNumber);
+            details.getExtendedDetails().putIfAbsent("dvdSeason", episode.dvdSeason);
+            details.getExtendedDetails().putIfAbsent("episodeName", episode.episodeName);
+            details.getExtendedDetails().putIfAbsent("firstAired", episode.firstAired);
+            details.getExtendedDetails().putIfAbsent("episodeOverview", episode.overview);
+            details.getExtendedDetails().putIfAbsent("id", episode.id);
         }
     }
 }
