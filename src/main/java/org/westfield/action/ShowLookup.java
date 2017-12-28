@@ -22,8 +22,11 @@ public class ShowLookup implements IAction {
     public boolean configure(MediaToolConfig config) {
         this.enabled = Boolean.parseBoolean(config.getShowLookup().get("enabled"));
         this.overides = config.getLookupHints();
+        boolean cacheKey = Boolean.parseBoolean(config.getShowLookup().get("cache_key"));
+        String cacheLocation = config.getShowLookup().get("cache_location");
+
         if (this.enabled) {
-            this.client = new theTvDBClient();
+            this.client = new theTvDBClient(cacheKey, cacheLocation);
             this.client.login(config.getShowLookup().get("key"));
         }
         return true;

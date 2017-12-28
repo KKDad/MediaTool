@@ -7,13 +7,14 @@ import static org.junit.Assert.*;
 
 public class theTvDBClientTest
 {
+    private static final String CACHE_LOCATION = "/tmp/theTvdbKey.dat";
 
     @Test
     public void badLoginTest()
     {
         try {
 
-            theTvDBClient subject = new theTvDBClient();
+            theTvDBClient subject = new theTvDBClient(false, CACHE_LOCATION);
             boolean result = subject.login("mykey");
 
             Assert.assertFalse(result);
@@ -27,7 +28,7 @@ public class theTvDBClientTest
     {
         try {
 
-            theTvDBClient subject = new theTvDBClient();
+            theTvDBClient subject = new theTvDBClient(false, CACHE_LOCATION);
             boolean result = subject.login("70FBF9A03F0D083D");
 
             Assert.assertTrue(result);
@@ -53,7 +54,7 @@ public class theTvDBClientTest
     }
 
     private theTvDBClient getSubject() {
-        theTvDBClient subject = new theTvDBClient();
+        theTvDBClient subject = new theTvDBClient(true, CACHE_LOCATION);
         subject.login("70FBF9A03F0D083D");
         return subject;
     }

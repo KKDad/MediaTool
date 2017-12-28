@@ -22,6 +22,8 @@ backupOriginal:
 showLookup:
   enabled: true
   key: 70FBF9A03F0D083D
+  cache_key: true
+  cache_location: /tmp/theTvdbKey.dat
 
 renameMedia:
   enabled: true

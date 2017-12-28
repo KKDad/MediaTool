@@ -1,17 +1,16 @@
 package org.westfield.lookup;
 
+import com.google.common.io.Files;
 import com.google.gson.Gson;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.westfield.http.ParameterBuilder;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +21,7 @@ public class theTvDBClient
 {
     private static final Logger logger = LoggerFactory.getLogger(theTvDBClient.class);
     private static final Gson json = new Gson();
+    private static final long MILLIS_IN_ONE_DAY = 1000L*60*60*24;
 
     private static final String LOGIN_REQUEST_URL = "https://api.thetvdb.com/login";
     private static final String SEARCH_REQUEST_URL = "https://api.thetvdb.com/search/series?";
@@ -31,7 +31,16 @@ public class theTvDBClient
     private static final String FAILED_REQUEST = "Failed Request: {}";
     private static final String APPLICATION_JSON_CHARSET_UTF_8 = "application/json; charset=UTF-8";
 
+    private final boolean cacheKey;
+    private final String cacheLocation;
+
+
     private String token;
+
+    public theTvDBClient(boolean cacheKey, String cacheLocation) {
+        this.cacheKey = cacheKey;
+        this.cacheLocation = cacheLocation;
+    }
 
     // Gson serializer and deserializer helper classes
     protected class AuthRequest
@@ -90,6 +99,9 @@ public class theTvDBClient
     // Log in and get a JWT token
     public boolean login(String apiKey)
     {
+        if (cacheKey && loadCachedKey())
+            return true;
+
         AuthRequest auth = new AuthRequest();
         auth.apikey = apiKey;
 
@@ -114,8 +126,9 @@ public class theTvDBClient
                 InputStream in = new BufferedInputStream(conn.getInputStream());
                 String result = IOUtils.toString(in, StandardCharsets.UTF_8.name());
                 in.close();
-
                 logger.debug(RESULT, result);
+                saveCachedKey(result);
+
                 AuthResponse response = json.fromJson(result, AuthResponse.class);
                 this.token = response.token;
                 return true;
@@ -131,6 +144,42 @@ public class theTvDBClient
             if (conn != null) {
                 conn.disconnect();
             }
+        }
+        return false;
+    }
+
+    private void saveCachedKey(String result) throws IOException
+    {
+        // Cache the key for reuse later  if requested.
+        if (this.cacheKey) {
+            File cacheFile = new File(this.cacheLocation);
+            if (cacheFile.exists()) {
+                if (!cacheFile.delete()) {
+                    logger.warn("Cannot remove previous cached key! Caching disabled.");
+                }
+            } else
+                Files.asCharSink(cacheFile, Charset.forName("UTF-8")).write(result);
+        }
+    }
+
+    private boolean loadCachedKey() {
+        long cacheKeyExpiryMillis = System.currentTimeMillis() - MILLIS_IN_ONE_DAY;
+        try {
+            File cacheFile = new File(this.cacheLocation);
+            if (cacheFile.exists()) {
+                if (cacheFile.lastModified() < cacheKeyExpiryMillis) {
+                    logger.warn("Cached key has expired.");
+                    return false;
+                } else {
+                    String result = Files.asCharSource(cacheFile, Charset.forName("UTF-8")).read();
+                    AuthResponse response = json.fromJson(result, AuthResponse.class);
+                    this.token = response.token;
+                    logger.info("Using cached key.");
+                    return true;
+                }
+            }
+        } catch (IOException e) {
+            logger.error(e.getMessage(), e);
         }
         return false;
     }
