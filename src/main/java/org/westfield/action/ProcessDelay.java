@@ -17,6 +17,11 @@ public class ProcessDelay implements IAction
     private int minutesIdle;
     private long millisIdle;
 
+    @Override
+    public void describe()
+    {
+        logger.warn("ProcessDelay will skip processing of file recorded within  the last {} minutes.", this.minutesIdle);
+    }
 
     @Override
     public boolean configure(MediaToolConfig config)

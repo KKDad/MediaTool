@@ -13,12 +13,12 @@
             <maxFileSize>1MB</maxFileSize>
         </triggeringPolicy>
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1} - %m%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5p %-23c{1} - %m%n</pattern>
         </encoder>
     </appender>
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1} - %m%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5p %-23c{1} - %m%n</pattern>
         </encoder>
     </appender>
 

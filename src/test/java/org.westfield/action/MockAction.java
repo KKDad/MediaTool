@@ -16,4 +16,9 @@ public class MockAction implements IAction
     public IMediaDetails process(IMediaDetails details) {
         return null;
     }
+
+    @Override
+    public void describe() {
+        // MockAction, does nothing
+    }
 }

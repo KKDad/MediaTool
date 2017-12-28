@@ -27,6 +27,7 @@ showLookup:
 
 renameMedia:
   enabled: true
+  skip_duplicate_files: true;
   # https://support.plex.tv/hc/en-us/articles/200220687-Naming-Series-Season-Based-TV-Shows
   regular: "{Series Name}/Season {Season}/{Show} - s{Season}e{Episode} - {Title}.{Format}"
   regularNoTitle: "{Series Name}/Season {Season}/{Show} - s{Season}e{Episode}.{Format}"

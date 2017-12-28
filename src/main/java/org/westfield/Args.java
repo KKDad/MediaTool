@@ -21,6 +21,10 @@ public class Args {
     @Parameter(names = {"-p", "--process"}, description = "Process the specified file and then exit")
     public String process;
 
+    @Parameter(names = {"-s", "--showOrder"}, description = "Show the order that the actions will be applied to the media files, then exit")
+    public boolean showOrder;
+
+
     @Parameter(names = {"-?", "-h", "--help"}, help = true, description = "Display this help and exit.")
     public boolean help = false;
 }

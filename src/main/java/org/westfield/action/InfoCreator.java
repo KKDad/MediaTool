@@ -15,6 +15,12 @@ public class InfoCreator implements IAction
     private boolean enabled;
 
     @Override
+    public void describe()
+    {
+        logger.warn("InfoCreator will create a Kodi-compatible NFO file");
+    }
+
+    @Override
     public boolean configure(MediaToolConfig config) {
         this.enabled = Boolean.parseBoolean(config.getInfoCreator().get("enabled"));
         logger.debug("InfoCreator is {}", this.enabled ? "Enabled" : "Disabled");

@@ -11,6 +11,13 @@ public class Transcode implements IAction {
     private boolean enabled;
 
     @Override
+    public void describe()
+    {
+        logger.warn("Transcode use ffmpeg to convert media to H265 to reduce storage requirements.");
+    }
+
+
+    @Override
     public boolean configure(MediaToolConfig config) {
         this.enabled = Boolean.parseBoolean(config.getTranscode().get("enabled"));
         logger.debug("Transcode is {}", this.enabled ? "Enabled" : "Disabled");

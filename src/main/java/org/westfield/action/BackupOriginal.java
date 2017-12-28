@@ -8,12 +8,19 @@ import org.westfield.media.IMediaDetails;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 
 public class BackupOriginal implements IAction {
     private static final Logger logger = LoggerFactory.getLogger(BackupOriginal.class);
 
     private boolean enabled;
     private String backupLocation;
+
+    @Override
+    public void describe()
+    {
+        logger.warn("BackupOriginal will copy media files to {}", this.backupLocation);
+    }
 
     @Override
     public boolean configure(MediaToolConfig config) {
@@ -31,13 +38,18 @@ public class BackupOriginal implements IAction {
             return details;
         File destinationFile = new File(backupLocation);
         try {
-            if (!destinationFile.exists() && !destinationFile.mkdirs()) {
-                logger.error("Destination {} does not exist and cannot make it", this.backupLocation);
-                return null;
-            }
-            destinationFile = new File(destinationFile, details.getMediaFile().getName());
+            if (!destinationFile.exists() && !destinationFile.mkdirs())
+                throw new InvalidPathException(destinationFile.getAbsolutePath(), String.format("Destination %s does not exist and cannot make it", this.backupLocation));
 
+            destinationFile = new File(destinationFile, details.getMediaFile().getName());
+            if (destinationFile.exists()) {
+                logger.info("Media {} has already been backed up to {}...", details.getMediaFile().toPath(), destinationFile.toPath());
+            }
+
+            logger.info("Backing up {} to {}...", details.getMediaFile().toPath(), destinationFile.toPath());
             Files.copy(details.getMediaFile().toPath(), destinationFile.toPath());
+            logger.debug("Backup complete");
+
             return details;
         } catch (IOException e) {
             logger.error("Unable to copy {} to {}", details.getMediaFile().getName(), destinationFile);

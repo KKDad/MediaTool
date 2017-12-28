@@ -54,6 +54,12 @@ public class RemoveCommercials implements IAction
         }
     }
 
+    @Override
+    public void describe()
+    {
+        logger.warn("RemoveCommercials will use ffmpeg to remove commercials from the media. Required CommercialDetect.");
+    }
+
 
     @Override
     public boolean configure(MediaToolConfig config) {

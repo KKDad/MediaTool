@@ -8,6 +8,7 @@ import org.westfield.configuration.MediaToolConfig;
 import org.westfield.media.IMediaDetails;
 
 import java.io.File;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.util.List;
@@ -23,6 +24,18 @@ public class RenameMedia implements IAction
 
     private String destination;
     private boolean enabled;
+    private boolean skipDuplicateFiles;
+
+    @Override
+    public void describe()
+    {
+        logger.warn("RenameMedia rename media into a standard format as configured.");
+        logger.warn("         regular: {}", this.regular);
+        logger.warn("  regularNoTitle: {}", this.regularNoTitle);
+        logger.warn("        specials: {}", this.specials);
+        logger.warn(" specialsNoTitle: {}", this.specialsNoTitle);
+    }
+
 
     @Override
     public boolean configure(MediaToolConfig config)
@@ -33,64 +46,80 @@ public class RenameMedia implements IAction
         this.specialsNoTitle = config.getRenameMedia().get("specialsNoTitle");
         this.destination = config.getDestination();
         this.enabled = Boolean.parseBoolean(config.getRenameMedia().get("enabled"));
+        this.skipDuplicateFiles = Boolean.parseBoolean(config.getRenameMedia().get("skip_duplicate_files"));
         return this.enabled;
     }
 
 
     @Override
     public IMediaDetails process(IMediaDetails details) {
-        String formatString = null;
-        try {
-            if (TokenParser.isSpecial(details)) {
-                formatString = TokenParser.hasEpisodeTitle(details) ? this.specials : this.specialsNoTitle;
-            } else {
-                formatString = TokenParser.hasEpisodeTitle(details) ? this.regular : this.regularNoTitle;
+        if (!this.enabled)
+            return details;
+
+        String formatString = getNameFormatForMediaFile(details);
+        File originalFile = details.getMediaFile();
+        File destinationFile = generateDestinationFilename(details, formatString);
+        if (destinationFile == null)
+            return null;
+
+        if (destinationFile.isDirectory())
+            throw new InvalidPathException(destinationFile.getAbsolutePath(), "Destination is a directory");
+
+        if (!ensureDirectoryExists(destinationFile))
+            throw new InvalidPathException(destinationFile.getAbsolutePath(), "Cannot create destination parent directory");
+
+        if (destinationFile.exists()) {
+            if (this.skipDuplicateFiles)
+                throw new InvalidPathException(destinationFile.getAbsolutePath(), "Destination already exists");
+            else {
+                logger.info("File has already been recorded and processed, skipping...");
+                return null;
             }
-            File originalFile = details.getMediaFile();
-            File destinationFile = generateDestinationFilename(details, formatString);
+        }
+
+        if (originalFile.renameTo(destinationFile)) {
+            logger.debug("Rename successful");
+            details.setMediaFile(destinationFile);
+        } else {
+            logger.debug("Rename failed");
+        }
+        return details;
+    }
+
+    private String getNameFormatForMediaFile(IMediaDetails details) {
+        String formatString;
+        if (TokenParser.isSpecial(details)) {
+            formatString = TokenParser.hasEpisodeTitle(details) ? this.specials : this.specialsNoTitle;
+        } else {
+            formatString = TokenParser.hasEpisodeTitle(details) ? this.regular : this.regularNoTitle;
+        }
+        return formatString;
+    }
+
+    File generateDestinationFilename(IMediaDetails details, String formatString)
+    {
+        try {
+            List<String> tokens = TokenParser.parseTokens(formatString);
+            StringBuilder destFileName = new StringBuilder();
+            for (String token : tokens) {
+                destFileName.append(TokenParser.getMediaToken(details, token));
+            }
+            File destinationFile = Paths.get(this.destination, destFileName.toString()).toFile();
             if (logger.isDebugEnabled()) {
                 logger.debug("----------------------------------");
-                logger.debug("Old Name: {}", originalFile);
+                logger.debug("Old Name: {}", details.getMediaFile());
                 logger.debug("New Name: {}", destinationFile);
             }
-            if (destinationFile.isDirectory()) {
-                logger.error("Generated destination file exists & it is a directory!");
-                System.exit(1);
-            }
-            if (!ensureDirectoryExists(destinationFile)) {
-                logger.error("Cannot ensure the destination parent directory exists.");
-                return details;
-            }
-            if (this.enabled) {
-                if (originalFile.renameTo(destinationFile)) {
-                    logger.debug("Rename successful");
-                    details.setMediaFile(destinationFile);
-                } else {
-                    logger.debug("Rename failed");
-                }
-            } else 
-            {
-                logger.debug("Rename disabled by configuration.");
-            }
-            return details;
+            return destinationFile;
         }
         catch (ParseException p) {
             logger.error(p.getMessage());
+            return null;
         }
         catch (UnknownTokenException u) {
             logger.error("Unknown Token {} in format string: {}", u.getToken(), formatString);
+            return null;
         }
-        return null;
-    }
-
-    File generateDestinationFilename(IMediaDetails details, String formatString) throws UnknownTokenException, ParseException
-    {
-        List<String> tokens = TokenParser.parseTokens(formatString);
-        StringBuilder destFileName = new StringBuilder();
-        for (String token : tokens) {
-            destFileName.append(TokenParser.getMediaToken(details, token));
-        }
-        return Paths.get(this.destination, destFileName.toString()).toFile();
     }
 
     boolean ensureDirectoryExists(File fileName)

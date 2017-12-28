@@ -35,15 +35,16 @@ public class Main {
             return;
         }
         MediaToolConfig config  = YamlConfigLoader.get(configFile.toPath());
+
+        MediaTool mediaTool = new MediaTool(config)
+                .setOptions(args)
+                .setup();
+        if (args.showOrder)
+            mediaTool.showOrder();
+
         if (args.process != null && !args.process.isEmpty())
-            new MediaTool(config)
-                    .setOptions(args)
-                    .setup()
-                    .run(args.process);
+            mediaTool.run(args.process);
         else
-            new MediaTool(config)
-                    .setOptions(args)
-                    .setup()
-                    .run();
+            mediaTool.run();
     }
 }

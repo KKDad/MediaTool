@@ -6,12 +6,22 @@
   <component name="ChangeListManager">
     <list default="true" id="9a29e203-b7d5-41bf-ba60-2d5168cde449" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CHANGELOG.md" afterPath="$PROJECT_DIR$/CHANGELOG.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/westfield/Args.java" afterPath="$PROJECT_DIR$/src/main/java/org/westfield/Args.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/westfield/Main.java" afterPath="$PROJECT_DIR$/src/main/java/org/westfield/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/westfield/MediaTool.java" afterPath="$PROJECT_DIR$/src/main/java/org/westfield/MediaTool.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/westfield/action/BackupOriginal.java" afterPath="$PROJECT_DIR$/src/main/java/org/westfield/action/BackupOriginal.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/westfield/action/CommercialDetect.java" afterPath="$PROJECT_DIR$/src/main/java/org/westfield/action/CommercialDetect.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/westfield/action/IAction.java" afterPath="$PROJECT_DIR$/src/main/java/org/westfield/action/IAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/westfield/action/InfoCreator.java" afterPath="$PROJECT_DIR$/src/main/java/org/westfield/action/InfoCreator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/westfield/action/ProcessDelay.java" afterPath="$PROJECT_DIR$/src/main/java/org/westfield/action/ProcessDelay.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/westfield/action/RemoveCommercials.java" afterPath="$PROJECT_DIR$/src/main/java/org/westfield/action/RemoveCommercials.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/westfield/action/RenameMedia.java" afterPath="$PROJECT_DIR$/src/main/java/org/westfield/action/RenameMedia.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/westfield/action/ShowLookup.java" afterPath="$PROJECT_DIR$/src/main/java/org/westfield/action/ShowLookup.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/westfield/lookup/theTvDBClient.java" afterPath="$PROJECT_DIR$/src/main/java/org/westfield/lookup/theTvDBClient.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/westfield/action/Transcode.java" afterPath="$PROJECT_DIR$/src/main/java/org/westfield/action/Transcode.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/MediaTool.yaml" afterPath="$PROJECT_DIR$/src/main/resources/MediaTool.yaml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/org/westfield/lookup/theTvDBClientTest.java" afterPath="$PROJECT_DIR$/src/test/java/org/westfield/lookup/theTvDBClientTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/resources/TestMediaTool.yaml" afterPath="$PROJECT_DIR$/src/test/resources/TestMediaTool.yaml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/logback.xml" afterPath="$PROJECT_DIR$/src/main/resources/logback.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/org.westfield/action/MockAction.java" afterPath="$PROJECT_DIR$/src/test/java/org.westfield/action/MockAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/resources/logback-test.xml" afterPath="$PROJECT_DIR$/src/test/resources/logback-test.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -80,96 +90,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MediaTool.yaml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/MediaTool.yaml">
+      <file leaf-file-name="RenameMedia.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/westfield/action/RenameMedia.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="159">
-              <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="25" selection-end-column="37" />
+            <state relative-caret-position="72">
+              <caret line="15" column="24" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="24" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="theTvDBClient.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/westfield/lookup/theTvDBClient.java">
+      <file leaf-file-name="RemoveCommercials.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/westfield/action/RemoveCommercials.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="339">
-              <caret line="180" column="33" lean-forward="false" selection-start-line="180" selection-start-column="33" selection-end-line="180" selection-end-column="33" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#456#545#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TestMediaTool.yaml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/resources/TestMediaTool.yaml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="19" selection-end-column="37" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="theTvDBClientTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/org/westfield/lookup/theTvDBClientTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-133">
-              <caret line="60" column="0" lean-forward="true" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TODO.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/TODO.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="18" column="45" lean-forward="false" selection-start-line="18" selection-start-column="45" selection-end-line="18" selection-end-column="45" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BackupOriginal.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/westfield/action/BackupOriginal.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="369">
-              <caret line="37" column="33" lean-forward="false" selection-start-line="37" selection-start-column="33" selection-end-line="37" selection-end-column="33" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="File.class" pinned="false" current-in-tab="false">
-        <entry file="jar:///usr/lib/jvm/java-1.8.0-openjdk/jre/lib/rt.jar!/java/io/File.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="307" column="48" lean-forward="true" selection-start-line="307" selection-start-column="48" selection-end-line="307" selection-end-column="48" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FileSystem.class" pinned="false" current-in-tab="false">
-        <entry file="jar:///usr/lib/jvm/java-1.8.0-openjdk/jre/lib/rt.jar!/java/io/FileSystem.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="156">
-              <caret line="50" column="24" lean-forward="false" selection-start-line="50" selection-start-column="20" selection-end-line="50" selection-end-column="24" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Files.java" pinned="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/22.0/55edc69e4fc937f4e58e577bb144b824c0ec7c55/guava-22.0-sources.jar!/com/google/common/io/Files.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="167">
-              <caret line="235" column="77" lean-forward="false" selection-start-line="235" selection-start-column="64" selection-end-line="235" selection-end-column="77" />
+            <state relative-caret-position="191">
+              <caret line="125" column="35" lean-forward="false" selection-start-line="125" selection-start-column="35" selection-end-line="125" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -178,9 +113,83 @@
       <file leaf-file-name="ShowLookup.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/westfield/action/ShowLookup.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="28" column="42" lean-forward="true" selection-start-line="28" selection-start-column="42" selection-end-line="28" selection-end-column="42" />
+            <state relative-caret-position="144">
+              <caret line="16" column="28" lean-forward="true" selection-start-line="16" selection-start-column="28" selection-end-line="16" selection-end-column="28" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="logback.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/logback.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="360">
+              <caret line="20" column="58" lean-forward="true" selection-start-line="20" selection-start-column="50" selection-end-line="20" selection-end-column="58" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MockAction.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/org.westfield/action/MockAction.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="324">
+              <caret line="21" column="35" lean-forward="false" selection-start-line="21" selection-start-column="35" selection-end-line="21" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="logback-test.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/resources/logback-test.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="216">
+              <caret line="12" column="16" lean-forward="true" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Args.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/westfield/Args.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="246">
+              <caret line="18" column="4" lean-forward="false" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MediaToolTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/org.westfield/MediaToolTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="288">
+              <caret line="23" column="5" lean-forward="true" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MediaTool.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/westfield/MediaTool.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="432">
+              <caret line="129" column="75" lean-forward="false" selection-start-line="129" selection-start-column="75" selection-end-line="129" selection-end-column="75" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InfoCreator.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/westfield/action/InfoCreator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="10" column="24" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="24" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#452#453#0" expanded="true" />
+                <element signature="e#533#534#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -511,15 +520,9 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/test/java/org.westfield/action/InfoCreatorTest.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/logback.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/org/westfield/action/RenameAction.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/westfield/http/ParameterBuilder.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/westfield/action/ProcessDelay.java" />
         <option value="/usr/lib/jvm/java-1.8.0-openjdk/jre/lib/rt.jar!/java/util/Date.class" />
         <option value="$PROJECT_DIR$/src/main/java/org/westfield/media/IMediaDetails.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/westfield/media/MediaDetails.java" />
-        <option value="$PROJECT_DIR$/src/test/java/org.westfield/MediaToolTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/org.westfield/http/ParameterBuilderTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/org.westfield/action/ProcessDelayTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/org.westfield.media/HDHomeRunTagTest.java" />
@@ -530,7 +533,6 @@
         <option value="$PROJECT_DIR$/src/test/java/org/westfield/Parser/TokenParserTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/westfield/Parser/TokenParser.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/westfield/action/CommersialDetect.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/westfield/action/Transcode.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/westfield/media/FFProbe.java" />
         <option value="$PROJECT_DIR$/src/test/java/org.westfield.media/FFProbeWrapperTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/org.westfield/action/RemoveCommercialsTest.java" />
@@ -541,27 +543,34 @@
         <option value="$PROJECT_DIR$/src/main/java/org/westfield/ProcessingLoggingHandler.java" />
         <option value="$PROJECT_DIR$/TODO.txt" />
         <option value="$PROJECT_DIR$/build.gradle" />
-        <option value="$PROJECT_DIR$/src/main/java/org/westfield/Main.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/westfield/Args.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/westfield/media/HDHomeRunTagParser.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/westfield/action/CommercialDetect.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/westfield/action/RemoveCommercials.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/westfield/action/RenameMedia.java" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/src/main/java/org/westfield/MediaTool.java" />
         <option value="$PROJECT_DIR$/src/test/java/org.westfield/action/RenameMediaTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/westfield/parser/TokenParser.java" />
         <option value="$PROJECT_DIR$/src/test/java/org.westfield/action/ShowLookupTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/westfield/configuration/LookupHint.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/westfield/configuration/MediaToolConfig.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/westfield/action/InfoCreator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/westfield/action/BackupOriginal.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/MediaTool.yaml" />
-        <option value="$PROJECT_DIR$/src/main/java/org/westfield/action/ShowLookup.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/westfield/lookup/theTvDBClient.java" />
         <option value="$PROJECT_DIR$/src/test/resources/TestMediaTool.yaml" />
         <option value="$PROJECT_DIR$/src/test/java/org/westfield/lookup/theTvDBClientTest.java" />
         <option value="$PROJECT_DIR$/CHANGELOG.md" />
+        <option value="$PROJECT_DIR$/src/main/resources/MediaTool.yaml" />
+        <option value="$PROJECT_DIR$/src/main/java/org/westfield/Args.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/westfield/Main.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/westfield/action/IAction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/westfield/action/BackupOriginal.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/westfield/action/CommercialDetect.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/westfield/action/InfoCreator.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/westfield/action/ProcessDelay.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/westfield/action/RemoveCommercials.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/westfield/action/RenameMedia.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/westfield/action/Transcode.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/westfield/MediaTool.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/westfield/action/ShowLookup.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/logback.xml" />
+        <option value="$PROJECT_DIR$/src/test/java/org.westfield/MediaToolTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/org.westfield/action/MockAction.java" />
+        <option value="$PROJECT_DIR$/src/test/resources/logback-test.xml" />
       </list>
     </option>
   </component>
@@ -646,18 +655,7 @@
               <item name="MediaTool" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="westfield" type="462c0819:PsiDirectoryNode" />
-              <item name="configuration" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="MediaTool" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MediaTool" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="westfield" type="462c0819:PsiDirectoryNode" />
-              <item name="lookup" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="MediaTool" type="b2602c69:ProjectViewProjectNode" />
@@ -671,23 +669,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="MediaTool" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MediaTool" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="westfield" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="MediaTool" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MediaTool" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="westfield" type="462c0819:PsiDirectoryNode" />
-              <item name="parser" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="MediaTool" type="b2602c69:ProjectViewProjectNode" />
@@ -723,14 +704,6 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="org.westfield" type="462c0819:PsiDirectoryNode" />
               <item name="http" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="MediaTool" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MediaTool" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="org.westfield.media" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="MediaTool" type="b2602c69:ProjectViewProjectNode" />
@@ -800,7 +773,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.All in MediaTool_test (3)">
+  <component name="RunManager" selected="JUnit.All in MediaTool_test (2)">
     <configuration name="All in MediaTool_test (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="MediaTool_test" />
@@ -841,7 +814,7 @@
       <envs />
       <patterns />
     </configuration>
-    <configuration name="All in MediaTool_test (3)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="All in MediaTool_test (4)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="MediaTool_test" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -893,7 +866,7 @@
         <option name="LOCAL" value="false" />
       </RunnerSettings>
     </configuration>
-    <configuration name="MediaTool [fatJar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="MediaTool [processResources]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -904,7 +877,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value="fatJar" />
+            <option value="processResources" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -1040,19 +1013,19 @@
       <item index="0" class="java.lang.String" itemvalue="Application.runIt" />
       <item index="1" class="java.lang.String" itemvalue="Remote.Unnamed" />
       <item index="2" class="java.lang.String" itemvalue="Remote.Connect Locall" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.All in MediaTool_test (1)" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.All in MediaTool_test" />
-      <item index="5" class="java.lang.String" itemvalue="Gradle.MediaTool [fatJar]" />
-      <item index="6" class="java.lang.String" itemvalue="JUnit.All in MediaTool_test (2)" />
-      <item index="7" class="java.lang.String" itemvalue="JUnit.All in MediaTool_test (3)" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.All in MediaTool_test (4)" />
+      <item index="4" class="java.lang.String" itemvalue="Gradle.MediaTool [processResources]" />
+      <item index="5" class="java.lang.String" itemvalue="JUnit.All in MediaTool_test" />
+      <item index="6" class="java.lang.String" itemvalue="JUnit.All in MediaTool_test (1)" />
+      <item index="7" class="java.lang.String" itemvalue="JUnit.All in MediaTool_test (2)" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.All in MediaTool_test (3)" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.All in MediaTool_test (2)" />
-        <item index="2" class="java.lang.String" itemvalue="Gradle.MediaTool [fatJar]" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.All in MediaTool_test" />
-        <item index="4" class="java.lang.String" itemvalue="JUnit.All in MediaTool_test (1)" />
+        <item index="0" class="java.lang.String" itemvalue="JUnit.All in MediaTool_test (2)" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.All in MediaTool_test (1)" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.All in MediaTool_test" />
+        <item index="3" class="java.lang.String" itemvalue="Gradle.MediaTool [processResources]" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.All in MediaTool_test (4)" />
       </list>
     </recent_temporary>
   </component>
@@ -1165,7 +1138,14 @@
       <option name="project" value="LOCAL" />
       <updated>1514477572527</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Cache the retrieved theTVDb.com API key so we make fewer hits to the API.">
+      <created>1514480498707</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1514480498708</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1175,14 +1155,14 @@
     <history-entry file="All_in_MediaTool_test_(1) - 2017.12.26 at 10h 11m 08s.xml">
       <configuration name="All in MediaTool_test (1)" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="All_in_MediaTool_test_(2) - 2017.12.28 at 13h 00m 35s.xml">
+      <configuration name="All in MediaTool_test (2)" configurationId="JUnit" />
+    </history-entry>
     <history-entry file="All_in_MediaTool_test_(3) - 2017.12.28 at 12h 00m 11s.xml">
       <configuration name="All in MediaTool_test (3)" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ShowLookupTest - 2017.12.26 at 10h 04m 28s.xml">
-      <configuration name="ShowLookupTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ShowLookupTest - 2017.12.26 at 10h 06m 50s.xml">
-      <configuration name="ShowLookupTest" configurationId="JUnit" />
+    <history-entry file="All_in_MediaTool_test_(4) - 2017.12.28 at 12h 32m 39s.xml">
+      <configuration name="All in MediaTool_test (4)" configurationId="JUnit" />
     </history-entry>
     <history-entry file="ShowLookupTest - 2017.12.26 at 10h 10m 57s.xml">
       <configuration name="ShowLookupTest" configurationId="JUnit" />
@@ -1213,19 +1193,19 @@
     <frame x="1920" y="0" width="1920" height="1080" extended-state="6" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32977587" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32657418" sideWeight="0.45625" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32657418" sideWeight="0.45625" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37886873" sideWeight="0.24786325" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3062967" sideWeight="0.84668803" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3062967" sideWeight="0.84668803" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32977587" sideWeight="0.72328043" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1784188" sideWeight="0.53384614" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1784188" sideWeight="0.5340729" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32977587" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16399573" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16399573" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="SonarLint" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40554962" sideWeight="0.7532051" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32870865" sideWeight="0.49166667" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1784188" sideWeight="0.46615386" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1784188" sideWeight="0.4659271" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3778015" sideWeight="0.75213677" order="3" side_tool="false" content_ui="tabs" />
@@ -1275,8 +1255,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Fixed gradle issue, added tests for MediaTool class" />
-    <MESSAGE value="Create a stand alone jar instead of using the gradle application plugin." />
     <MESSAGE value="Light refactoring of the RenameAction to RenameMedia" />
     <MESSAGE value="Renamed the RenameAction to RenameMedia, Added loading of multiple IAction classes." />
     <MESSAGE value="Starting to add a Lookup from theTvDB to fix badly parsed show information such as jungle-s01e53" />
@@ -1300,7 +1278,9 @@
     <MESSAGE value="Fixed renaming Specials" />
     <MESSAGE value="Added keyword new keyword &quot;{Series Name}&quot; which will include the year if multiple shows with the same name exist." />
     <MESSAGE value="Added a option to backup the original media before processing it with the Commercial Detector/Transcoding, etc." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added a option to backup the original media before processing it with the Commercial Detector/Transcoding, etc." />
+    <MESSAGE value="Cache the retrieved theTVDb.com API key so we make fewer hits to the API." />
+    <MESSAGE value="Added an option to show what actions will be applied to media files and in which order" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added an option to show what actions will be applied to media files and in which order" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1323,68 +1303,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/westfield/action/Transcode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="20" column="39" lean-forward="true" selection-start-line="20" selection-start-column="39" selection-end-line="20" selection-end-column="39" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/lib/jvm/java-1.8.0-openjdk/jre/lib/rt.jar!/java/util/Map.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="244">
-          <caret line="43" column="68" lean-forward="false" selection-start-line="43" selection-start-column="47" selection-end-line="43" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/lib/jvm/java-1.8.0-openjdk/jre/lib/rt.jar!/java/lang/String.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="793" column="0" lean-forward="false" selection-start-line="793" selection-start-column="0" selection-end-line="793" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/lib/jvm/java-1.8.0-openjdk/jre/lib/rt.jar!/java/text/DecimalFormat.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-54">
-          <caret line="98" column="25" lean-forward="false" selection-start-line="98" selection-start-column="13" selection-end-line="98" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-exec/1.3/efd2543e352e55ce5a685eed6db8af028b737905/commons-exec-1.3-sources.jar!/org/apache/commons/exec/DefaultExecutor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2463">
-          <caret line="415" column="7" lean-forward="true" selection-start-line="415" selection-start-column="7" selection-end-line="415" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/org.westfield/MediaToolTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="19" column="47" lean-forward="false" selection-start-line="19" selection-start-column="47" selection-end-line="19" selection-end-column="47" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/lib/jvm/java-1.8.0-openjdk/jre/lib/rt.jar!/java/lang/ProcessBuilder.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="314">
-          <caret line="31" column="11" lean-forward="false" selection-start-line="31" selection-start-column="11" selection-end-line="31" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/lib/jvm/java-1.8.0-openjdk/jre/lib/rt.jar!/sun/reflect/NativeMethodAccessorImpl.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="33" column="33" lean-forward="false" selection-start-line="33" selection-start-column="33" selection-end-line="33" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///usr/lib/jvm/java-1.8.0-openjdk/jre/lib/rt.jar!/java/lang/Process.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -1471,16 +1389,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/westfield/Args.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="17" column="34" lean-forward="false" selection-start-line="17" selection-start-column="34" selection-end-line="17" selection-end-column="34" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/westfield/media/HDHomeRunTagParser.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
@@ -1494,28 +1402,6 @@
         <state relative-caret-position="216">
           <caret line="18" column="28" lean-forward="false" selection-start-line="18" selection-start-column="28" selection-end-line="18" selection-end-column="28" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/westfield/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="21" column="19" lean-forward="true" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/westfield/action/RemoveCommercials.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="22" column="74" lean-forward="true" selection-start-line="22" selection-start-column="74" selection-end-line="22" selection-end-column="74" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#4024#4025#0" expanded="false" />
-            <element signature="e#4081#4082#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1534,14 +1420,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="16" column="17" lean-forward="false" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/westfield/action/RenameMedia.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="427">
-          <caret line="54" column="13" lean-forward="true" selection-start-line="54" selection-start-column="13" selection-end-line="54" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -1573,17 +1451,6 @@
           <folding>
             <element signature="e#4061#4062#0" expanded="false" />
             <element signature="e#4104#4105#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/westfield/MediaTool.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-32">
-          <caret line="98" column="0" lean-forward="true" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
-          <folding>
-            <element signature="e#685#686#0" expanded="false" />
-            <element signature="e#721#722#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1623,29 +1490,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/westfield/action/CommercialDetect.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/westfield/configuration/MediaToolConfig.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="292">
           <caret line="31" column="20" lean-forward="false" selection-start-line="31" selection-start-column="20" selection-end-line="31" selection-end-column="20" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/westfield/action/InfoCreator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="10" column="35" lean-forward="false" selection-start-line="10" selection-start-column="25" selection-end-line="10" selection-end-column="35" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1670,16 +1519,8 @@
         <state relative-caret-position="167">
           <caret line="18" column="13" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/westfield/action/ShowLookup.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="28" column="42" lean-forward="true" selection-start-line="28" selection-start-column="42" selection-end-line="28" selection-end-column="42" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1718,10 +1559,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/MediaTool.yaml">
+    <entry file="file://$PROJECT_DIR$/CHANGELOG.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="18">
+            <caret line="1" column="75" lean-forward="false" selection-start-line="1" selection-start-column="75" selection-end-line="1" selection-end-column="75" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TODO.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="159">
-          <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="25" selection-end-column="37" />
+        <state relative-caret-position="324">
+          <caret line="18" column="45" lean-forward="false" selection-start-line="18" selection-start-column="45" selection-end-line="18" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/java-1.8.0-openjdk/jre/lib/rt.jar!/java/nio/file/InvalidPathException.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="26" column="38" lean-forward="false" selection-start-line="26" selection-start-column="32" selection-end-line="26" selection-end-column="38" />
           <folding />
         </state>
       </provider>
@@ -1742,32 +1602,147 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CHANGELOG.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="18">
-            <caret line="1" column="75" lean-forward="false" selection-start-line="1" selection-start-column="75" selection-end-line="1" selection-end-column="75" />
-            <folding />
-          </first_editor>
-          <second_editor />
+    <entry file="file://$PROJECT_DIR$/src/main/resources/MediaTool.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" column="35" lean-forward="false" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="35" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TODO.txt">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/westfield/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="18" column="45" lean-forward="false" selection-start-line="18" selection-start-column="45" selection-end-line="18" selection-end-column="45" />
+        <state relative-caret-position="405">
+          <caret line="42" column="23" lean-forward="false" selection-start-line="42" selection-start-column="23" selection-end-line="42" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/westfield/action/IAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/westfield/action/BackupOriginal.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="369">
-          <caret line="37" column="33" lean-forward="false" selection-start-line="37" selection-start-column="33" selection-end-line="37" selection-end-column="33" />
+        <state relative-caret-position="306">
+          <caret line="23" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#552#553#0" expanded="true" />
+            <element signature="e#646#647#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/westfield/action/ProcessDelay.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="24" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/westfield/action/CommercialDetect.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="8" column="29" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/westfield/action/InfoCreator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="10" column="24" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#452#453#0" expanded="true" />
+            <element signature="e#533#534#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/westfield/action/RenameMedia.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="15" column="24" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/westfield/action/Transcode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/westfield/MediaTool.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="129" column="75" lean-forward="false" selection-start-line="129" selection-start-column="75" selection-end-line="129" selection-end-column="75" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/westfield/action/ShowLookup.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="16" column="28" lean-forward="true" selection-start-line="16" selection-start-column="28" selection-end-line="16" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/org.westfield/MediaToolTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="23" column="5" lean-forward="true" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/org.westfield/action/MockAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="21" column="35" lean-forward="false" selection-start-line="21" selection-start-column="35" selection-end-line="21" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/logback.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="20" column="58" lean-forward="true" selection-start-line="20" selection-start-column="50" selection-end-line="20" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/logback-test.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="12" column="16" lean-forward="true" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/westfield/Args.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="246">
+          <caret line="18" column="4" lean-forward="false" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/westfield/action/RemoveCommercials.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="125" column="35" lean-forward="false" selection-start-line="125" selection-start-column="35" selection-end-line="125" selection-end-column="35" />
+          <folding />
         </state>
       </provider>
     </entry>

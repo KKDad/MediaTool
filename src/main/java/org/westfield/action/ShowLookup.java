@@ -12,11 +12,17 @@ import java.util.Optional;
 
 
 public class ShowLookup implements IAction {
-    private static final Logger logger = LoggerFactory.getLogger(RenameMedia.class);
+    private static final Logger logger = LoggerFactory.getLogger(ShowLookup.class);
 
     private boolean enabled;
     private theTvDBClient client;
     private List<LookupHint> overides;
+
+    @Override
+    public void describe()
+    {
+        logger.warn("ShowLookup will augment the tags available for InfoCreator and RenameMedia with details from theTvDB.com");
+    }
 
     @Override
     public boolean configure(MediaToolConfig config) {

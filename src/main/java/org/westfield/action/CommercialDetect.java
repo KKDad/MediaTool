@@ -15,6 +15,12 @@ public class CommercialDetect implements IAction {
     private String threads;
     private Boolean hwassist;
 
+    @Override
+    public void describe()
+    {
+        logger.warn("CommercialDetect will use comskip to locate commercials inside the media file");
+    }
+
 
     @Override
     public boolean configure(MediaToolConfig config) {

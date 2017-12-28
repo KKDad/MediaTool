@@ -117,10 +117,19 @@ class MediaTool {
         }
         catch (Exception ex)
         {
-            logger.error("{}", ex.getMessage(), ex);
+            logger.error("{}", ex.getMessage());
             if (this.options.failOnError)
                 System.exit(1);
         }
         logger.info("File finished\n\n");
+    }
+
+    void showOrder()
+    {
+        logger.error("The following actions will be applied in this order: ");
+        logger.error("*****************************************************");
+        for (IAction action : this.actions)
+                action.describe();
+        System.exit(0);
     }
 }

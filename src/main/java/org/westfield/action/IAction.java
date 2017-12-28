@@ -10,4 +10,7 @@ public interface IAction
 
     // Process the media file. Return null to prevent further processing.
     IMediaDetails process(IMediaDetails details);
+
+    // Describe what the configured action will do.
+    void describe();
 }
