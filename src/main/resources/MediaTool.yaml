@@ -3,16 +3,21 @@ destination: /data/testing/TV Shows
 
 actions:
 - org.westfield.action.ProcessDelay
+- org.westfield.action.BackupOriginal
 - org.westfield.action.ShowLookup
 - org.westfield.action.RenameMedia
 - org.westfield.action.InfoCreator
-#- org.westfield.action.CommercialDetect
-#- org.westfield.action.RemoveCommercials
+- org.westfield.action.CommercialDetect
+- org.westfield.action.RemoveCommercials
 #- org.westfield.action.Transcode
 
 processDelay:
   enabled: true
   minutesIdle: 60
+
+backupOriginal:
+  enabled: true
+  backup_location: /data/backups
 
 showLookup:
   enabled: true
@@ -47,6 +52,10 @@ transcode:
 
 lookupHints:
   - show: Border Security
-    id:  261999
+    id: 261999
   - show: S.W.A.T.
-    id:  328687
+    id: 328687
+  - show: Food Factory
+    id: 261524
+  - show: The Flash
+    id: 279121

@@ -10,7 +10,7 @@ import org.westfield.media.IMediaDetails;
  */
 public class InfoCreator implements IAction
 {
-    private static final Logger logger = LoggerFactory.getLogger(RenameMedia.class);
+    private static final Logger logger = LoggerFactory.getLogger(InfoCreator.class);
 
     private boolean enabled;
 
