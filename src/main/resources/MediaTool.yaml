@@ -5,7 +5,7 @@ actions:
 - org.westfield.action.ProcessDelay
 - org.westfield.action.BackupOriginal
 - org.westfield.action.ShowLookup
-- org.westfield.action.RenameMedia
+#- org.westfield.action.RenameMedia
 - org.westfield.action.InfoCreator
 - org.westfield.action.CommercialDetect
 - org.westfield.action.RemoveCommercials

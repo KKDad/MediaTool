@@ -17,6 +17,34 @@ import static org.mockito.Mockito.when;
 public class RemoveCommercialsTest
 {
     @Test
+    public void configEnabledTest() {
+        MediaToolConfig config = Mockito.mock(MediaToolConfig.class);
+        when(config.getRemoveCommercials()).thenReturn(ImmutableMap.of(
+                "enabled", "true"
+        ));
+
+        RemoveCommercials subject = new RemoveCommercials();
+        subject.configure(config);
+        subject.describe();
+
+        Assert.assertTrue(subject.enabled());
+    }
+
+    @Test
+    public void configDisabledTest() {
+        MediaToolConfig config = Mockito.mock(MediaToolConfig.class);
+        when(config.getRemoveCommercials()).thenReturn(ImmutableMap.of(
+                "enabled", "false"
+        ));
+
+        RemoveCommercials subject = new RemoveCommercials();
+        subject.configure(config);
+        subject.describe();
+
+        Assert.assertFalse(subject.enabled());
+    }
+
+    @Test
     public void formatTimeTest() throws Exception {
 
         RemoveCommercials subject = getSubject();

@@ -160,6 +160,8 @@ public class RenameMediaTest
         RenameMedia subject = new RenameMedia();
         boolean configureResult = subject.configure(config);
         Assert.assertTrue (configureResult);
+
+        subject.describe();
         return subject;
     }
 }

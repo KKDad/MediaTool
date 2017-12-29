@@ -10,10 +10,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 
-public class BackupOriginal implements IAction {
+public class BackupOriginal extends Action {
     private static final Logger logger = LoggerFactory.getLogger(BackupOriginal.class);
 
-    private boolean enabled;
     private String backupLocation;
 
     @Override
@@ -26,7 +25,7 @@ public class BackupOriginal implements IAction {
     public boolean configure(MediaToolConfig config) {
         this.enabled = Boolean.parseBoolean(config.getBackupOriginal().get("enabled"));
         this.backupLocation = config.getBackupOriginal().get("backup_location");
-        logger.debug("BackupOriginal is {}", this.enabled ? "Enabled" : "Disabled");
+        logger.debug("BackupOriginal is {}", this.enabled ? "enabled" : "Disabled");
         logger.debug("   Backing up to: {}", this.backupLocation);
         return true;
     }
@@ -34,7 +33,8 @@ public class BackupOriginal implements IAction {
     @Override
     public IMediaDetails process(IMediaDetails details)
     {
-        if (this.enabled)
+        logger.info("Processing {}", details.getMediaFile());
+        if (!this.enabled)
             return details;
         File destinationFile = new File(backupLocation);
         try {
@@ -44,6 +44,7 @@ public class BackupOriginal implements IAction {
             destinationFile = new File(destinationFile, details.getMediaFile().getName());
             if (destinationFile.exists()) {
                 logger.info("Media {} has already been backed up to {}...", details.getMediaFile().toPath(), destinationFile.toPath());
+                return details;
             }
 
             logger.info("Backing up {} to {}...", details.getMediaFile().toPath(), destinationFile.toPath());

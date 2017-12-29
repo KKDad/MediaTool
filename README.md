@@ -18,8 +18,7 @@ RemoveCommercials | Use [ffmpeg](https://ffmpeg.org/) to remove commercials. Req
 Transcoding | Convert the recordings to h265 to save storage space.   
 
 
-Template Options:
------------
+# Template Options
 All Text inside curly-braces is assumed to be a tag. Text outside braces is considered a string literal.
 
 Example:
@@ -48,3 +47,28 @@ Additional Tags from [theTVDB](https://www.thetvdb.com/):
 - {network} - Network that show is on
 - {showOverview} - Short description of the Show
 - {status} - Status of the show. One of: Continuing, Ended
+
+# Usage
+java -jar ./MediaTool-all-1.0-SNAPSHOT.jar --config MediaTool.yaml
+
+Note: MediaTool requires Java 1.8 or better 
+
+# Available command line options
+
+  * -c, --config
+      Choose which configuration file MediaTool to uses.
+    -?, -h, --help
+      Display this help and exit.
+    -p, --process
+      Process the specified file and then exit
+    -s, --showOrder
+      Show the order that the actions will be applied to the media files, then 
+      exit. 
+      Default: false
+    -v, --verbose
+      Set the level of verbosity that MediaTool uses as it runs.
+      Default: 1
+    -exit-on-error
+      Stop immediately when an error is detected. Set false to continue 
+      processing files.
+      Default: true

@@ -32,6 +32,7 @@ public class ShowLookupTest
 
         ShowLookup subject = new ShowLookup();
         subject.configure(config);
+        subject.describe();
         IMediaDetails result = subject.process(media_details);
 
         Assert.assertEquals(15, result.getExtendedDetails().size());

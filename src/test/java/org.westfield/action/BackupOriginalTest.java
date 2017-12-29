@@ -8,20 +8,18 @@ import org.westfield.configuration.MediaToolConfig;
 
 import static org.mockito.Mockito.when;
 
-public class InfoCreatorTest
+public class BackupOriginalTest
 {
-
     @Test
     public void configEnabledTest() {
         MediaToolConfig config = Mockito.mock(MediaToolConfig.class);
-        when(config.getInfoCreator()).thenReturn(ImmutableMap.of(
+        when(config.getBackupOriginal()).thenReturn(ImmutableMap.of(
                 "enabled", "true"
         ));
 
-        InfoCreator subject = new InfoCreator();
+        BackupOriginal subject = new BackupOriginal();
         subject.configure(config);
         subject.describe();
-
 
         Assert.assertTrue(subject.enabled());
     }
@@ -29,15 +27,15 @@ public class InfoCreatorTest
     @Test
     public void configDisabledTest() {
         MediaToolConfig config = Mockito.mock(MediaToolConfig.class);
-        when(config.getInfoCreator()).thenReturn(ImmutableMap.of(
+        when(config.getBackupOriginal()).thenReturn(ImmutableMap.of(
                 "enabled", "false"
         ));
 
-        InfoCreator subject = new InfoCreator();
+        BackupOriginal subject = new BackupOriginal();
         subject.configure(config);
         subject.describe();
 
-
         Assert.assertFalse(subject.enabled());
     }
+
 }

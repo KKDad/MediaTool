@@ -23,7 +23,7 @@
     </appender>
 
     <root level="DEBUG">
-        <appender-ref ref="FILE"/>l
+        <appender-ref ref="FILE"/>
         <appender-ref ref="STDOUT"/>
     </root>
 </configuration>

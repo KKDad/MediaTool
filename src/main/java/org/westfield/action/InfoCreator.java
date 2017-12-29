@@ -8,11 +8,9 @@ import org.westfield.media.IMediaDetails;
 /**
  * Create a Info file for the TV Show for use by Kodi
  */
-public class InfoCreator implements IAction
+public class InfoCreator extends Action
 {
     private static final Logger logger = LoggerFactory.getLogger(InfoCreator.class);
-
-    private boolean enabled;
 
     @Override
     public void describe()
@@ -23,15 +21,15 @@ public class InfoCreator implements IAction
     @Override
     public boolean configure(MediaToolConfig config) {
         this.enabled = Boolean.parseBoolean(config.getInfoCreator().get("enabled"));
-        logger.debug("InfoCreator is {}", this.enabled ? "Enabled" : "Disabled");
+        logger.debug("InfoCreator is {}", this.enabled ? "enabled" : "Disabled");
         return true;
     }
 
     @Override
     public IMediaDetails process(IMediaDetails details) {
-        if (this.enabled)
+        if (!this.enabled)
             return details;
 
-        return null;
+        return details;
     }
 }

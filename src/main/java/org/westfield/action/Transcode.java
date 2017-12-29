@@ -5,10 +5,9 @@ import org.slf4j.LoggerFactory;
 import org.westfield.configuration.MediaToolConfig;
 import org.westfield.media.IMediaDetails;
 
-public class Transcode implements IAction {
+public class Transcode extends Action {
     private static final Logger logger = LoggerFactory.getLogger(Transcode.class);
 
-    private boolean enabled;
 
     @Override
     public void describe()
@@ -20,7 +19,7 @@ public class Transcode implements IAction {
     @Override
     public boolean configure(MediaToolConfig config) {
         this.enabled = Boolean.parseBoolean(config.getTranscode().get("enabled"));
-        logger.debug("Transcode is {}", this.enabled ? "Enabled" : "Disabled");
+        logger.debug("Transcode is {}", this.enabled ? "enabled" : "Disabled");
         return true;
     }
 

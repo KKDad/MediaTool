@@ -11,10 +11,9 @@ import java.util.List;
 import java.util.Optional;
 
 
-public class ShowLookup implements IAction {
+public class ShowLookup extends Action {
     private static final Logger logger = LoggerFactory.getLogger(ShowLookup.class);
 
-    private boolean enabled;
     private theTvDBClient client;
     private List<LookupHint> overides;
 

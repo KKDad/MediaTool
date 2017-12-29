@@ -18,13 +18,12 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class RemoveCommercials implements IAction
+public class RemoveCommercials extends Action
 {
     private static final List<String> DEFAULT_CUTLIST = new ArrayList<>();
     private static final Logger logger = LoggerFactory.getLogger(RemoveCommercials.class);
     static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.####");
 
-    private boolean enabled;
     private String ffmpeg;
     private String tmpDir;
 
@@ -71,7 +70,7 @@ public class RemoveCommercials implements IAction
             logger.error(e.getMessage());
             return false;
         }
-        logger.debug("RemoveCommercials is {}", this.enabled ? "Enabled" : "Disabled");
+        logger.debug("RemoveCommercials is {}", this.enabled ? "enabled" : "Disabled");
         return true;
     }
 
@@ -101,7 +100,7 @@ public class RemoveCommercials implements IAction
 
         boolean success = combineChapters(chapters, details.getMediaFile().getAbsolutePath());
         if (success) {
-            move();
+            move(details);
             cleanup();
         }
 
@@ -129,9 +128,18 @@ public class RemoveCommercials implements IAction
         }
     }
 
-    private void move()
+    private void move(IMediaDetails details)
     {
-        throw new UnsupportedOperationException();
+        if (!details.getMediaFile().delete())
+            return;
+
+        try {
+            File f = new File(finalFilename(details.getMediaFile().getAbsolutePath()));
+            logger.error("Renaming {} to {}", f.getAbsolutePath(), details.getMediaFile().getAbsolutePath());
+            Files.move(f, details.getMediaFile());
+        } catch (IOException ioe) {
+            logger.error(ioe.getMessage());
+        }
     }
 
     private boolean combineChapters(List<Chapter> chapters, String fileName)

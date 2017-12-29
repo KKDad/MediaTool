@@ -28,6 +28,7 @@ public class ProcessDelayTest
 
             ProcessDelay subject = new ProcessDelay();
             subject.configure(config);
+            subject.describe();
 
             IMediaDetails mock = Mockito.mock(IMediaDetails.class);
             File fileMock = Mockito.mock(File.class);
@@ -59,6 +60,8 @@ public class ProcessDelayTest
 
             ProcessDelay subject = new ProcessDelay();
             subject.configure(config);
+            subject.describe();
+
 
             IMediaDetails mock = Mockito.mock(IMediaDetails.class);
             File fileMock = Mockito.mock(File.class);

@@ -7,13 +7,12 @@ import org.westfield.media.IMediaDetails;
 
 import java.util.Date;
 
-public class ProcessDelay implements IAction
+public class ProcessDelay extends Action
 {
     private static final Logger logger = LoggerFactory.getLogger(ProcessDelay.class);
 
     private static final long ONE_MINUTE_IN_MILLIS=60000;
 
-    private boolean enabled;
     private int minutesIdle;
     private long millisIdle;
 

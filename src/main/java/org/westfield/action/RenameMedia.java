@@ -13,7 +13,7 @@ import java.nio.file.Paths;
 import java.text.ParseException;
 import java.util.List;
 
-public class RenameMedia implements IAction
+public class RenameMedia extends Action
 {
     private static final Logger logger = LoggerFactory.getLogger(RenameMedia.class);
 
@@ -23,7 +23,6 @@ public class RenameMedia implements IAction
     private String  specialsNoTitle;
 
     private String destination;
-    private boolean enabled;
     private boolean skipDuplicateFiles;
 
     @Override

@@ -102,24 +102,38 @@ class MediaTool {
         this.process(source);
     }
 
+    @SuppressWarnings("squid:S1181")
     private void process(Path item)
     {
+        long sizeBefore;
+        long sizeAfter;
         try {
             IMediaDetails media = HDHomeRunTagParser.fromFile(item.toFile());
             if (media != null) {
+                sizeBefore= media.getMediaFile().length();
                 logger.info("Processing {}", item.getFileName());
                 for (IAction action : this.actions) {
                     if (media != null)
                         media = action.process(media);
                 }
                 logger.info("{}", item);
+                if (media != null) {
+                    sizeAfter = media.getMediaFile().length();
+                    logger.info("   Before Processing: {} bytes", sizeBefore);
+                    logger.info("   Before Processing: {} bytes", sizeAfter);
+                }
+
             }
         }
         catch (Exception ex)
         {
-            logger.error("{}", ex.getMessage());
+            logger.error("Exception: {}", ex.getMessage());
             if (this.options.failOnError)
                 System.exit(1);
+        }
+        catch (Throwable rte) {
+            logger.error("Throwable: {}", rte.getMessage());
+            System.exit(1);
         }
         logger.info("File finished\n\n");
     }

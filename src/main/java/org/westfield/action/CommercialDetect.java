@@ -1,15 +1,21 @@
 package org.westfield.action;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.io.Files;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.westfield.ProcessingLoggingHandler;
 import org.westfield.configuration.MediaToolConfig;
 import org.westfield.media.IMediaDetails;
 
-public class CommercialDetect implements IAction {
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.List;
+
+public class CommercialDetect  extends Action {
     private static final Logger logger = LoggerFactory.getLogger(CommercialDetect.class);
 
-    private boolean enabled;
     private String comskip;
     private String comskipIni;
     private String threads;
@@ -19,6 +25,8 @@ public class CommercialDetect implements IAction {
     public void describe()
     {
         logger.warn("CommercialDetect will use comskip to locate commercials inside the media file");
+        logger.warn("               Binary: {}", this.comskip);
+        logger.warn("        Configuration: {}", this.comskipIni);
     }
 
 
@@ -30,25 +38,31 @@ public class CommercialDetect implements IAction {
         this.threads = config.getCommercialDetect().get("threads");
         this.hwassist = Boolean.parseBoolean(config.getCommercialDetect().get("hwassist"));
 
-        logger.debug("CommercialDetect is {}", this.enabled ? "Enabled" : "Disabled");
+        logger.debug("CommercialDetect is {}", this.enabled ? "enabled" : "Disabled");
         return true;
     }
 
     @Override
-    public IMediaDetails process(IMediaDetails details) {
-        if (this.enabled)
+    public IMediaDetails process(IMediaDetails details)
+    {
+        if (!this.enabled)
             return details;
 
-        if (!detectCommercials(details.getMediaFile().getAbsolutePath()))
-            return details;
-        return null;
+        boolean hasCommercials = detectCommercials(details);
+        if (hasCommercials)
+            loadCutList(details);
+
+        cleanup(details);
+
+        return details;
     }
 
-    private boolean detectCommercials(String fileName)
+    private boolean detectCommercials(IMediaDetails details)
     {
+
         try {
             logger.info("Checking for Commercials...");
-            Process process = new ProcessBuilder(this.comskip, "--ini", this.comskipIni, "--threads", this.threads, this.hwassist ? "--hwassist" : "", "-zpcut", fileName).start();
+            Process process = new ProcessBuilder(this.comskip, "--ini", this.comskipIni, "--threads", this.threads, this.hwassist ? "--hwassist" : "", "--zpcut", details.getMediaFile().getAbsolutePath()).start();
             ProcessingLoggingHandler outputHandler = new ProcessingLoggingHandler(process.getInputStream(), logger, null);
             ProcessingLoggingHandler errorHandler = new ProcessingLoggingHandler(process.getErrorStream(), logger, null);
             outputHandler.start();
@@ -62,6 +76,32 @@ public class CommercialDetect implements IAction {
             logger.error(ex.getMessage(), ex);
         }
         return false;
+    }
+
+    private void loadCutList(IMediaDetails details)
+    {
+        try {
+            File cutFile = new File(details.getMediaFile().getParent(), Files.getNameWithoutExtension(details.getMediaFile().getAbsolutePath()) + ".cut");
+            if (cutFile.exists()) {
+                List<String> jumpSegments = Files.asCharSource(cutFile, Charset.forName("UTF-8")).readLines();
+                details.getExtendedDetails().putIfAbsent("CutList", jumpSegments);
+            } else {
+                logger.warn("No CutList located after comskip exited.");
+            }
+        } catch (IOException ioe) {
+            logger.error(ioe.getMessage(), ioe);
+        }
+    }
+
+    @SuppressWarnings("squid:S899")
+    void cleanup(IMediaDetails details) {
+        List<String> tempExtensions = ImmutableList.of(".cut", ".txt", ".VPrj");
+
+        for (String ext : tempExtensions) {
+            File cutFile = new File(details.getMediaFile().getParent(), Files.getNameWithoutExtension(details.getMediaFile().getAbsolutePath()) + ext);
+            if (cutFile.exists())
+                cutFile.delete();
+        }
     }
 
 
