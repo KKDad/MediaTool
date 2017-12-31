@@ -1,5 +1,9 @@
 package org.westfield.action;
 
+import com.google.common.base.Charsets;
+import com.google.common.base.Joiner;
+import com.google.common.collect.ImmutableList;
+import com.google.common.hash.Hashing;
 import com.google.common.io.Files;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -99,12 +103,11 @@ public class RemoveCommercials extends Action
                 return null;
 
         boolean success = combineChapters(chapters, details.getMediaFile().getAbsolutePath());
-        if (success) {
+        if (success)
             move(details);
-            cleanup();
-        }
+        cleanup();
 
-        return details;
+        return success ? details : null;
     }
 
 
@@ -135,8 +138,10 @@ public class RemoveCommercials extends Action
 
         try {
             File f = new File(finalFilename(details.getMediaFile().getAbsolutePath()));
-            logger.error("Renaming {} to {}", f.getAbsolutePath(), details.getMediaFile().getAbsolutePath());
+            logger.info("Moving {}", f.getAbsolutePath());
+            logger.info("    to {}", details.getMediaFile().getAbsolutePath());
             Files.move(f, details.getMediaFile());
+            logger.info("Moved.");
         } catch (IOException ioe) {
             logger.error(ioe.getMessage());
         }
@@ -150,16 +155,32 @@ public class RemoveCommercials extends Action
             concat.append(chapterFilename(fileName, chapter.chapterNumber)).append("|");
         concat.setLength(concat.length() - 1);
 
+        List<String> cmdArgs = new ArrayList<>();
+        cmdArgs.add(this.ffmpeg);
+        cmdArgs.add("-hide_banner");
+        cmdArgs.addAll(ImmutableList.of("-loglevel", "error"));
+        cmdArgs.add("-i");
+        cmdArgs.add(concat.toString());
+        cmdArgs.addAll(ImmutableList.of("-c", "copy"));
+        cmdArgs.add("-copy_unknown");
+        cmdArgs.add("-y");
+        cmdArgs.add(finalFilename(fileName));
+
         try {
             logger.info("Combining Chapters...");
-            Process process = new ProcessBuilder(this.ffmpeg, "-hide_banner", "-i", concat.toString(), "-c", "copy", "-y", finalFilename(fileName)).start();
-            ProcessingLoggingHandler outputHandler = new ProcessingLoggingHandler(process.getInputStream(), logger, getFilterList());
-            ProcessingLoggingHandler errorHandler = new ProcessingLoggingHandler(process.getErrorStream(), logger, getFilterList());
+            Process process = new ProcessBuilder(cmdArgs).start();
+            ProcessingLoggingHandler outputHandler = new ProcessingLoggingHandler("STDOUT", process.getInputStream(), logger, getFilterList());
+            ProcessingLoggingHandler errorHandler = new ProcessingLoggingHandler("STDERR", process.getErrorStream(), logger, getFilterList());
             outputHandler.start();
             errorHandler.start();
             int rc = process.waitFor();
-            if (rc != 0)
-                logger.warn("Command exited with code: {}", rc);
+            if (rc != 0) {
+                Joiner joiner = Joiner.on(" ");
+                if (logger.isWarnEnabled()) {
+                    logger.warn("Command exited with code: {}", rc);
+                    logger.warn("{}", joiner.join(cmdArgs));
+                }
+            }
             return rc == 0;
 
         } catch (Exception ex) {
@@ -177,23 +198,37 @@ public class RemoveCommercials extends Action
      */
     private int extractChapter(Chapter chapter, String fileName)
     {
-        List<String> mpeg = getFilterList();
-        String cmd;
+        List<String> filterList = getFilterList();
+
+        List<String> cmdArgs = new ArrayList<>();
+        cmdArgs.add(this.ffmpeg);
+        cmdArgs.add("-hide_banner");
+        cmdArgs.addAll(ImmutableList.of("-loglevel", "error"));
+        cmdArgs.addAll(ImmutableList.of("-i", fileName));
+        cmdArgs.addAll(ImmutableList.of("-ss", DECIMAL_FORMAT.format(chapter.start)));
         if (chapter.length > 0)
-            cmd = String.format("%s -hide_banner -loglevel error -i %s -ss %s -t %s %s -c copy -y %s", this.ffmpeg, fileName, DECIMAL_FORMAT.format(chapter.start), DECIMAL_FORMAT.format(chapter.length), generateMap(3), chapterFilename(fileName, chapter.chapterNumber));
-        else
-            cmd = String.format("%s -hide_banner -loglevel error -i %s -ss %s %s -c copy -y %s", this.ffmpeg, fileName, DECIMAL_FORMAT.format(chapter.start), generateMap(3), chapterFilename(fileName, chapter.chapterNumber));
-        logger.info("{}", cmd);
+            cmdArgs.addAll(ImmutableList.of("-t", DECIMAL_FORMAT.format(chapter.length)));
+        cmdArgs.addAll(generateMap(3));
+        cmdArgs.addAll(ImmutableList.of("-c", "copy"));
+        cmdArgs.add("-copy_unknown");
+        cmdArgs.addAll(ImmutableList.of("-y", chapterFilename(fileName, chapter.chapterNumber)));
+
         try {
-            Process process = new ProcessBuilder(cmd.split("\\s+")).start();
-            ProcessingLoggingHandler outputHandler = new ProcessingLoggingHandler(process.getInputStream(), logger, mpeg);
-            ProcessingLoggingHandler errorHandler = new ProcessingLoggingHandler(process.getErrorStream(), logger, mpeg);
+            logger.info("Extracting Chapter {}, Length: {}", chapter.chapterNumber, chapter.length);
+            Process process = new ProcessBuilder(cmdArgs).start();
+            ProcessingLoggingHandler outputHandler = new ProcessingLoggingHandler("STDOUT", process.getInputStream(), logger, filterList);
+            ProcessingLoggingHandler errorHandler = new ProcessingLoggingHandler("STDERR", process.getErrorStream(), logger, filterList);
             outputHandler.start();
             errorHandler.start();
 
             int rc = process.waitFor();
-            if (rc != 0)
-                logger.warn("Command exited with code: {}", rc);
+            if (rc != 0) {
+                Joiner joiner = Joiner.on(" ");
+                if (logger.isWarnEnabled()) {
+                    logger.warn("Command exited with code: {}", rc);
+                    logger.warn("{}", joiner.join(cmdArgs));
+                }
+            }
             return rc;
 
         } catch (Exception ex) {
@@ -207,12 +242,12 @@ public class RemoveCommercials extends Action
      */
     private static List<String> getFilterList()
     {
-        List<String> mpeg = new ArrayList<>();
-        mpeg.add("buffer underflow");
-        mpeg.add("packet too large");
-        mpeg.add("Last message repeated");
-        mpeg.add("Invalid frame dimensions 0x0");
-        return mpeg;
+        List<String> filterList = new ArrayList<>();
+        filterList.add("buffer underflow");
+        filterList.add("packet too large");
+        filterList.add("Last message repeated");
+        filterList.add("Invalid frame dimensions 0x0");
+        return filterList;
     }
 
 
@@ -221,23 +256,26 @@ public class RemoveCommercials extends Action
      * @param numberOfStreams - Number of streams to generate. This should be 1 + number of Audio streams to copy.
      * @return map parameter to pass ot the ffmpeg command line
      */
-    String generateMap(int numberOfStreams)
+    List<String> generateMap(int numberOfStreams)
     {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < numberOfStreams; i++)
-            sb.append("-map 0:").append(i).append(" ");
-        sb.setLength(sb.length() - 1);
-        return sb.toString();
+        List<String> mapList = new ArrayList<>();
+        for (int i = 0; i < numberOfStreams; i++) {
+            mapList.add("-map");
+            mapList.add(String.format("0:%d", i));
+        }
+        return mapList;
     }
 
     String chapterFilename(String fileName, int chapterNumber)
     {
-        return Paths.get(this.tmpDir, String.format("%s-Chapter%s.%s", Files.getNameWithoutExtension(fileName), Integer.toString(chapterNumber), Files.getFileExtension(fileName))).toString();
+        String basename = Hashing.murmur3_32().newHasher().putString(fileName, Charsets.UTF_8).hash().toString();
+        return Paths.get(this.tmpDir, String.format("%s-Chapter%s.%s", basename, Integer.toString(chapterNumber), Files.getFileExtension(fileName))).toString();
     }
 
     String finalFilename(String fileName)
     {
-        return Paths.get(this.tmpDir, String.format("%s-new.%s", Files.getNameWithoutExtension(fileName), Files.getFileExtension(fileName))).toString();
+        String basename = Hashing.murmur3_32().newHasher().putString(fileName, Charsets.UTF_8).hash().toString();
+        return Paths.get(this.tmpDir, String.format("%s-new.%s", basename, Files.getFileExtension(fileName))).toString();
     }
 
 

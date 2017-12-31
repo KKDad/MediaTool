@@ -20,6 +20,7 @@ public class CommercialDetect  extends Action {
     private String comskipIni;
     private String threads;
     private Boolean hwassist;
+    private Boolean saveCutList;
 
     @Override
     public void describe()
@@ -37,6 +38,7 @@ public class CommercialDetect  extends Action {
         this.comskipIni = config.getCommercialDetect().get("configuration");
         this.threads = config.getCommercialDetect().get("threads");
         this.hwassist = Boolean.parseBoolean(config.getCommercialDetect().get("hwassist"));
+        this.saveCutList = Boolean.parseBoolean(config.getCommercialDetect().get("saveCutList"));
 
         logger.debug("CommercialDetect is {}", this.enabled ? "enabled" : "Disabled");
         return true;
@@ -46,6 +48,10 @@ public class CommercialDetect  extends Action {
     public IMediaDetails process(IMediaDetails details)
     {
         if (!this.enabled)
+            return details;
+
+        // Reuse the preserved CutList if configured to do so
+        if (this.saveCutList && loadCutList(details))
             return details;
 
         boolean hasCommercials = detectCommercials(details);
@@ -63,8 +69,8 @@ public class CommercialDetect  extends Action {
         try {
             logger.info("Checking for Commercials...");
             Process process = new ProcessBuilder(this.comskip, "--ini", this.comskipIni, "--threads", this.threads, this.hwassist ? "--hwassist" : "", "--zpcut", details.getMediaFile().getAbsolutePath()).start();
-            ProcessingLoggingHandler outputHandler = new ProcessingLoggingHandler(process.getInputStream(), logger, null);
-            ProcessingLoggingHandler errorHandler = new ProcessingLoggingHandler(process.getErrorStream(), logger, null);
+            ProcessingLoggingHandler outputHandler = new ProcessingLoggingHandler("STDOUT", process.getInputStream(), logger, null);
+            ProcessingLoggingHandler errorHandler = new ProcessingLoggingHandler("STDERR", process.getErrorStream(), logger, null);
             outputHandler.start();
             errorHandler.start();
             int rc = process.waitFor();
@@ -78,19 +84,21 @@ public class CommercialDetect  extends Action {
         return false;
     }
 
-    private void loadCutList(IMediaDetails details)
+    private boolean loadCutList(IMediaDetails details)
     {
         try {
             File cutFile = new File(details.getMediaFile().getParent(), Files.getNameWithoutExtension(details.getMediaFile().getAbsolutePath()) + ".cut");
             if (cutFile.exists()) {
                 List<String> jumpSegments = Files.asCharSource(cutFile, Charset.forName("UTF-8")).readLines();
                 details.getExtendedDetails().putIfAbsent("CutList", jumpSegments);
+                return true;
             } else {
-                logger.warn("No CutList located after comskip exited.");
+                logger.warn("CutList not located.");
             }
         } catch (IOException ioe) {
             logger.error(ioe.getMessage(), ioe);
         }
+        return false;
     }
 
     @SuppressWarnings("squid:S899")
@@ -98,6 +106,8 @@ public class CommercialDetect  extends Action {
         List<String> tempExtensions = ImmutableList.of(".cut", ".txt", ".VPrj");
 
         for (String ext : tempExtensions) {
+            if (this.saveCutList && ext.endsWith(".cut"))
+                continue;
             File cutFile = new File(details.getMediaFile().getParent(), Files.getNameWithoutExtension(details.getMediaFile().getAbsolutePath()) + ext);
             if (cutFile.exists())
                 cutFile.delete();

@@ -117,7 +117,7 @@ public class RemoveCommercialsTest
         String result = subject.chapterFilename("foo.bar", 3);
 
         // The file will be in a temporary directory and will end with
-        Assert.assertTrue(result.endsWith("foo-Chapter3.bar"));
+        Assert.assertTrue(result.endsWith("7fa0c9f6-Chapter3.bar"));
     }
 
     @Test
@@ -127,20 +127,24 @@ public class RemoveCommercialsTest
         String result = subject.finalFilename("foo.bar");
 
         // The file will be in a temporary directory and will end with
-        Assert.assertTrue(result.endsWith("foo-new.bar"));
+        Assert.assertTrue(result.endsWith("7fa0c9f6-new.bar"));
     }
 
     @Test
     public void generateMapTest()
     {
-        RemoveCommercials subject = getSubject();
-        String rc2 = subject.generateMap(2);
-        String rc3 = subject.generateMap(3);
-        String rc4 = subject.generateMap(4);
+        List<String> expected2 = ImmutableList.of("-map", "0:0", "-map", "0:1");
+        List<String> expected3 = ImmutableList.of("-map", "0:0", "-map", "0:1", "-map", "0:2");
+        List<String> expected4 = ImmutableList.of("-map", "0:0", "-map", "0:1", "-map", "0:2", "-map", "0:3");
 
-        Assert.assertEquals("-map 0:0 -map 0:1", rc2);
-        Assert.assertEquals("-map 0:0 -map 0:1 -map 0:2", rc3);
-        Assert.assertEquals("-map 0:0 -map 0:1 -map 0:2 -map 0:3", rc4);
+        RemoveCommercials subject = getSubject();
+        List<String> actual2 = subject.generateMap(2);
+        List<String> actual3 = subject.generateMap(3);
+        List<String> actual4 = subject.generateMap(4);
+
+        Assert.assertEquals(expected2, actual2);
+        Assert.assertEquals(expected3, actual3);
+        Assert.assertEquals(expected4, actual4);
     }
 
     @Test

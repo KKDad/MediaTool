@@ -13,6 +13,7 @@ public class ProcessingLoggingHandler extends Thread {
     private final Logger logger;
     private final InputStream inputStream;
     private final List<String> filterList;
+    private final String prefix;
 
     private StringBuilder output = new StringBuilder();
 
@@ -21,11 +22,12 @@ public class ProcessingLoggingHandler extends Thread {
      * @param logger - Logger to log output to, optional. Log logging if not supplied
      * @param filterList - List to filter output to the logger. If any regex matches, line is omitted
      */
-    public ProcessingLoggingHandler(InputStream inputStream, Logger logger, List<String> filterList)
+    public ProcessingLoggingHandler(String prefix, InputStream inputStream, Logger logger, List<String> filterList)
     {
         this.inputStream = inputStream;
         this.logger = logger;
         this.filterList = new ArrayList<>();
+        this.prefix = prefix;
         if (filterList != null)
                 this.filterList.addAll(filterList);
     }
@@ -53,7 +55,7 @@ public class ProcessingLoggingHandler extends Thread {
                 for (String filter : this.filterList)
                     if (line.contains(filter))
                         return;
-            logger.info(line);
+            logger.info("{}: {}", this.prefix, line);
         }
     }
 

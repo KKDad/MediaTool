@@ -1,5 +1,6 @@
 package org.westfield.action;
 
+import com.google.common.io.Files;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.westfield.parser.TokenParser;
@@ -8,6 +9,7 @@ import org.westfield.configuration.MediaToolConfig;
 import org.westfield.media.IMediaDetails;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Paths;
 import java.text.ParseException;
@@ -76,11 +78,11 @@ public class RenameMedia extends Action
             }
         }
 
-        if (originalFile.renameTo(destinationFile)) {
-            logger.debug("Rename successful");
-            details.setMediaFile(destinationFile);
-        } else {
-            logger.debug("Rename failed");
+        try {
+            Files.move(originalFile, destinationFile);
+            logger.info("Moved.");
+        } catch (IOException ioe) {
+            logger.error(ioe.getMessage());
         }
         return details;
     }
@@ -106,8 +108,8 @@ public class RenameMedia extends Action
             File destinationFile = Paths.get(this.destination, destFileName.toString()).toFile();
             if (logger.isDebugEnabled()) {
                 logger.debug("----------------------------------");
-                logger.debug("Old Name: {}", details.getMediaFile());
-                logger.debug("New Name: {}", destinationFile);
+                logger.info("Moving {}", details.getMediaFile());
+                logger.info("    to {}", destinationFile);
             }
             return destinationFile;
         }

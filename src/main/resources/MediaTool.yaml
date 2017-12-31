@@ -5,11 +5,11 @@ actions:
 - org.westfield.action.ProcessDelay
 - org.westfield.action.BackupOriginal
 - org.westfield.action.ShowLookup
-#- org.westfield.action.RenameMedia
 - org.westfield.action.InfoCreator
 - org.westfield.action.CommercialDetect
 - org.westfield.action.RemoveCommercials
-#- org.westfield.action.Transcode
+- org.westfield.action.Transcode
+- org.westfield.action.RenameMedia
 
 processDelay:
   enabled: true
@@ -44,6 +44,7 @@ commercialDetect:
   configuration: /data/git/comskip.ini
   threads: 6
   hwassist: true
+  saveCutList: true
 
 removeCommercials:
   enabled: true
@@ -51,7 +52,6 @@ removeCommercials:
 
 transcode:
   enabled: true
-
 
 lookupHints:
   - show: Border Security
