@@ -16,7 +16,7 @@ processDelay:
   minutesIdle: 60
 
 backupOriginal:
-  enabled: true
+  enabled: false
   backup_location: /data/backups
 
 showLookup:
@@ -62,3 +62,5 @@ lookupHints:
     id: 261524
   - show: The Flash
     id: 279121
+  - show: Food Factory
+    id: 268860

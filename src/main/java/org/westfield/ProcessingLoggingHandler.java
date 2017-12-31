@@ -55,7 +55,7 @@ public class ProcessingLoggingHandler extends Thread {
                 for (String filter : this.filterList)
                     if (line.contains(filter))
                         return;
-            logger.info("{}: {}", this.prefix, line);
+            logger.trace("{}: {}", this.prefix, line);
         }
     }
 

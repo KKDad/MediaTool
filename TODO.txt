@@ -1,7 +1,9 @@
 - Make ShowLookup caching to reduce hits to theTVDB site
-- Integrate a commercial scanner and write out a skip list
 - Allow re-encoding of the shows
 - Email notification of new shows
+- Option to skip processing of new shows with a failed lookup and a white list for shows not on theTVdb.com
+- Deprecate the commons.io library, use gradle instead
+
 
 
  ffmpeg -y -hide_banner -ss 0 -i ../test.mpg -map_metadata 0 -map_chapters 0 -metadata title="TITLE" -map 0:0 -metadata:s:v:0 language=eng -map 0:1 -metadata:s:a:0 language=eng -metadata:s:a:0 title="Surround 5.1 (DTS)" -map 0:2 -metadata:s:s:0 language=eng -metadata:s:s:0 title="English" -crf 22 -c:v hevc_nvenc -preset slow -rc vbr_hq -b:v 6M -maxrate:v 10M -c:a copy -c:s copy -copy_unknown   test3.mkv

@@ -106,8 +106,8 @@ public class RenameMedia extends Action
                 destFileName.append(TokenParser.getMediaToken(details, token));
             }
             File destinationFile = Paths.get(this.destination, destFileName.toString()).toFile();
-            if (logger.isDebugEnabled()) {
-                logger.debug("----------------------------------");
+            if (logger.isInfoEnabled()) {
+                logger.info("----------------------------------");
                 logger.info("Moving {}", details.getMediaFile());
                 logger.info("    to {}", destinationFile);
             }

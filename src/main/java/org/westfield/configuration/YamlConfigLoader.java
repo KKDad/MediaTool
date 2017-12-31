@@ -22,8 +22,8 @@ public class YamlConfigLoader
             try (InputStream in = Files.newInputStream(config))
             {
                 MediaToolConfig mediaConfig = yaml.loadAs(in, MediaToolConfig.class);
-                if (logger.isDebugEnabled())
-                    logger.debug("{}", mediaConfig.toString());
+                if (logger.isInfoEnabled())
+                    logger.info("{}", mediaConfig.toString());
                 return mediaConfig;
             }
         } catch (IOException oie) {

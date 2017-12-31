@@ -19,7 +19,7 @@ public class ProcessDelay extends Action
     @Override
     public void describe()
     {
-        logger.warn("ProcessDelay will skip processing of file recorded within  the last {} minutes.", this.minutesIdle);
+        logger.warn("ProcessDelay will skip processing of file recorded within the last {} minutes.", this.minutesIdle);
     }
 
     @Override
@@ -28,6 +28,7 @@ public class ProcessDelay extends Action
         this.enabled = Boolean.parseBoolean(config.getProcessDelay().get("enabled"));
         this.minutesIdle = Integer.parseInt(config.getProcessDelay().get("minutesIdle"));
         this.millisIdle = (ONE_MINUTE_IN_MILLIS) * this.minutesIdle;
+        logger.debug("ProcessDelay is {}", this.enabled ? "enabled" : "Disabled");
         return this.enabled;
     }
 

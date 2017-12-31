@@ -59,7 +59,7 @@ public class ShowLookup extends Action {
         Optional<LookupHint> overide = this.overides.stream().filter(p -> details.getShow().equalsIgnoreCase(p.getShow())).findFirst();
 
         if (overide.isPresent() && overide.get().getId() == item.id || !overide.isPresent() && item.seriesName.equalsIgnoreCase(details.getShow())) {
-            logger.debug("  Matched: {}", item);
+            logger.info("  Matched: {}", item);
             details.getExtendedDetails().putIfAbsent("aliases", item.aliases);
             details.getExtendedDetails().putIfAbsent("banner", item.banner);
             details.getExtendedDetails().putIfAbsent("id", item.id);
@@ -69,7 +69,7 @@ public class ShowLookup extends Action {
             details.getExtendedDetails().putIfAbsent("seriesName", item.seriesName);
             getEpisodeDetails(details, item);
         } else
-            logger.debug("    Found: {}", item);
+            logger.info("    Found: {}", item);
     }
 
     private void getEpisodeDetails(IMediaDetails details, theTvDBClient.SearchItem item)

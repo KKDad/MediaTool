@@ -105,7 +105,7 @@ public class RemoveCommercials extends Action
         boolean success = combineChapters(chapters, details.getMediaFile().getAbsolutePath());
         if (success)
             move(details);
-        cleanup();
+        cleanup(details);
 
         return success ? details : null;
     }
@@ -114,7 +114,8 @@ public class RemoveCommercials extends Action
     /**
      * Remove all temporary files created while processing the media file
      */
-    private void cleanup()
+    @SuppressWarnings("squid:S899")
+    private void cleanup(IMediaDetails details)
     {
         // Paranoia, never erase the root directory!
         if (this.tmpDir.isEmpty() || this.tmpDir.equals("/"))
@@ -126,6 +127,12 @@ public class RemoveCommercials extends Action
                     .sorted(Comparator.reverseOrder())
                     .map(Path::toFile)
                     .forEach(File::delete);
+
+            // If we had a preserved CutList from the original CommercialDetect, clean it up as it's no longer valid
+            File cutFile = new File(details.getMediaFile().getParent(), Files.getNameWithoutExtension(details.getMediaFile().getAbsolutePath()) + ".cut");
+            if (cutFile.exists())
+                cutFile.delete();
+
         } catch (IOException ioe) {
             logger.error(ioe.getMessage());
         }

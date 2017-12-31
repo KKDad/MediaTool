@@ -4,7 +4,7 @@
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>MediaTool.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-            <fileNamePattern>JmxMonitor.log.%i.zip</fileNamePattern>
+            <fileNamePattern>MediaTool.log.%i.zip</fileNamePattern>
             <minIndex>1</minIndex>
             <maxIndex>10</maxIndex>
         </rollingPolicy>
@@ -20,9 +20,13 @@
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5p %-23c{1} - %m%n</pattern>
         </encoder>
+        <!-- deny all events with a level below INFO, that is TRACE and DEBUG -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
     </appender>
 
-    <root level="DEBUG">
+    <root level="TRACE">
         <appender-ref ref="FILE"/>
         <appender-ref ref="STDOUT"/>
     </root>

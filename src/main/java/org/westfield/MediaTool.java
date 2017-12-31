@@ -35,9 +35,9 @@ class MediaTool {
 
     MediaTool setup()
     {
-        logger.info("Setting up");
+        logger.debug("Setting up");
         this.config.getActions().forEach(this::getAction);
-        logger.info("Setup Complete\n--------------------------------------------\n\n");
+        logger.debug("Setup Complete\n--------------------------------------------\n\n");
         return this;
     }
 
@@ -45,12 +45,12 @@ class MediaTool {
     {
         IAction action = instantiate(actionClass, IAction.class);
         if (action != null) {
-            logger.error("Configuring {}.", actionClass);
+            logger.debug("Configuring {}.", actionClass);
             if (action.configure(this.config)) {
-                logger.error("Adding {} to actions.", actionClass);
+                logger.debug("Adding {} to actions.", actionClass);
                 this.actions.add(action);
             } else {
-                logger.error("{} is disabled.", actionClass);
+                logger.debug("{} is disabled.", actionClass);
             }
         }
     }
@@ -140,8 +140,8 @@ class MediaTool {
 
     void showOrder()
     {
-        logger.error("The following actions will be applied in this order: ");
-        logger.error("*****************************************************");
+        logger.info("The following actions will be applied in this order: ");
+        logger.info("*****************************************************");
         for (IAction action : this.actions)
                 action.describe();
         System.exit(0);
