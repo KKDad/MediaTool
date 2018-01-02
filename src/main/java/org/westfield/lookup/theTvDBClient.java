@@ -16,6 +16,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+// Documentation on theTvDB.com swagger API can be found here:
+// https://api.thetvdb.com/swagger
+
 @SuppressWarnings({ "squid:S00101", "squid:ClassVariableVisibilityCheck", "squid:S2093"})
 public class theTvDBClient
 {
@@ -25,21 +28,25 @@ public class theTvDBClient
 
     private static final String LOGIN_REQUEST_URL = "https://api.thetvdb.com/login";
     private static final String SEARCH_REQUEST_URL = "https://api.thetvdb.com/search/series?";
+    private static final String SERIES_REQUEST_URL = "https://api.thetvdb.com/series/%d";
     private static final String EPISODE_REQUEST_URL = "https://api.thetvdb.com/series/%s/episodes/query?";
     private static final String MAKING_A_REQUEST_TO = "Making a request to: {}";
     private static final String RESULT = "Result: {}";
     private static final String FAILED_REQUEST = "Failed Request: {}";
     private static final String APPLICATION_JSON_CHARSET_UTF_8 = "application/json; charset=UTF-8";
+    private static final String NOT_AUTHORIZED = "Not authorized";
 
     private final boolean cacheKey;
     private final String cacheLocation;
+    private final String apiKey;
 
 
     private String token;
 
-    public theTvDBClient(boolean cacheKey, String cacheLocation) {
+    public theTvDBClient(boolean cacheKey, String cacheLocation, String apiKey) {
         this.cacheKey = cacheKey;
         this.cacheLocation = cacheLocation;
+        this.apiKey = apiKey;
     }
 
     // Gson serializer and deserializer helper classes
@@ -51,7 +58,7 @@ public class theTvDBClient
     {
         String token;
     }
-    public class SearchItem
+    public class SeriesItem
     {
         public List<String> aliases;
         public String banner;
@@ -61,16 +68,24 @@ public class theTvDBClient
         public String overview;
         public String seriesName;
         public String status;
+        // Added via a call to https://api.thetvdb.com/swagger#!/Series/get_series_id
+        public List<String> genre;
+        public String imdbId;
+        public String zap2itId;
 
         @Override
         public String toString()
         {
-            return String.format("SearchItem{id=%d, seriesName='%s', status='%s'}", id, seriesName, status);
+            return String.format("SeriesItem{id=%d, seriesName='%s', status='%s', imdbId='%s', zap2itId='%s'}", id, seriesName, status, imdbId, zap2itId);
         }
     }
     public class SearchResponse
     {
-        public List<SearchItem> data;
+        public List<SeriesItem> data;
+    }
+    public class SeriesResponse
+    {
+        public SeriesItem data;
     }
     public class EpisodeItem
     {
@@ -97,7 +112,7 @@ public class theTvDBClient
     }
 
     // Log in and get a JWT token
-    public boolean login(String apiKey)
+    public boolean login()
     {
         if (cacheKey && loadCachedKey())
             return true;
@@ -185,17 +200,24 @@ public class theTvDBClient
     }
 
 
-    public SearchResponse search(String showName)
+    public SearchResponse search(String showName, String imdbId, String zap2itId)
     {
-        if (this.token == null) {
-            logger.error("No token, please log in.");
+        if (this.token == null && !this.login()) {
+            logger.error("No token and Login Failed.");
             return null;
         }
 
         HttpURLConnection conn = null;
         try {
+            // The API allows a search on one of three fields.
             Map<String, String> map = new HashMap<>();
-            map.put("name", showName);
+            if (imdbId != null && !imdbId.isEmpty())
+                map.put("imdbId", imdbId);
+            else if (zap2itId != null && !zap2itId.isEmpty())
+                map.put("zap2itId", zap2itId);
+            else {
+                map.put("name", showName);
+            }
             String request = SEARCH_REQUEST_URL + ParameterBuilder.build(map);
 
             logger.trace(MAKING_A_REQUEST_TO, request);
@@ -215,12 +237,67 @@ public class theTvDBClient
                 in.close();
 
                 logger.trace(RESULT, result);
-                return json.fromJson(result, SearchResponse.class);
+                SearchResponse item = json.fromJson(result, SearchResponse.class);
             } else {
                 // Get Error
                 InputStream is = conn.getErrorStream();
                 String result = IOUtils.toString(is, StandardCharsets.UTF_8.name());
                 logger.info(FAILED_REQUEST, result);
+
+                // If we get a Not-Authorized exception, clear the token so the next time we'll try again
+                if (result.contains(NOT_AUTHORIZED))
+                    this.token = null;
+            }
+        } catch (IOException e) {
+            logger.error(e.getMessage(), e);
+        } finally {
+            if (conn != null) {
+                conn.disconnect();
+            }
+        }
+        return null;
+    }
+
+    public SeriesItem seriesLookup(int seriesId)
+    {
+        if (this.token == null && !this.login()) {
+            logger.error("No token and Login Failed.");
+            return null;
+        }
+
+        HttpURLConnection conn = null;
+        try {
+            String request = String.format(SERIES_REQUEST_URL, seriesId);
+
+            logger.trace(MAKING_A_REQUEST_TO, request);
+            URL url = new URL(request);
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setDoInput(true);
+            conn.setRequestProperty("Accept", APPLICATION_JSON_CHARSET_UTF_8);
+            conn.setRequestProperty("Authorization", "Bearer " + this.token);
+            conn.setRequestMethod("GET");
+
+            int code = conn.getResponseCode();
+            logger.trace("Series Request: {}", code);
+            if (code == HttpURLConnection.HTTP_OK) {
+                // Get Response
+                InputStream in = new BufferedInputStream(conn.getInputStream());
+                String result = IOUtils.toString(in, StandardCharsets.UTF_8.name());
+                in.close();
+
+                logger.trace(RESULT, result);
+                SeriesResponse item = json.fromJson(result, SeriesResponse.class);
+                if (item != null)
+                    return item.data;
+            } else {
+                // Get Error
+                InputStream is = conn.getErrorStream();
+                String result = IOUtils.toString(is, StandardCharsets.UTF_8.name());
+                logger.info(FAILED_REQUEST, result);
+
+                // If we get a Not-Authorized exception, clear the token so the next time we'll try again
+                if (result.contains(NOT_AUTHORIZED))
+                    this.token = null;
             }
         } catch (IOException e) {
             logger.error(e.getMessage(), e);
@@ -235,8 +312,8 @@ public class theTvDBClient
 
     public EpisodeResponse searchEpisode(int showId, int season, int episode)
     {
-        if (this.token == null) {
-            logger.error("No token, please log in.");
+        if (this.token == null && !this.login()) {
+            logger.error("No token and Login Failed.");
             return null;
         }
 
@@ -270,6 +347,10 @@ public class theTvDBClient
                 InputStream is = conn.getErrorStream();
                 String result = IOUtils.toString(is, StandardCharsets.UTF_8.name());
                 logger.info(FAILED_REQUEST, result);
+
+                // If we get a Not-Authorized exception, clear the token so the next time we'll try again
+                if (result.contains(NOT_AUTHORIZED))
+                    this.token = null;
             }
         } catch (IOException e) {
             logger.error(e.getMessage(), e);

@@ -9,13 +9,19 @@ public class theTvDBClientTest
 {
     private static final String CACHE_LOCATION = "/tmp/theTvdbKey.dat";
 
+    private theTvDBClient getSubject() {
+        theTvDBClient subject = new theTvDBClient(true, CACHE_LOCATION, "70FBF9A03F0D083D");
+        subject.login();
+        return subject;
+    }
+
     @Test
     public void badLoginTest()
     {
         try {
 
-            theTvDBClient subject = new theTvDBClient(false, CACHE_LOCATION);
-            boolean result = subject.login("mykey");
+            theTvDBClient subject = new theTvDBClient(false, CACHE_LOCATION, "mykey");
+            boolean result = subject.login();
 
             Assert.assertFalse(result);
         } catch (Exception ex) {
@@ -28,8 +34,8 @@ public class theTvDBClientTest
     {
         try {
 
-            theTvDBClient subject = new theTvDBClient(false, CACHE_LOCATION);
-            boolean result = subject.login("70FBF9A03F0D083D");
+            theTvDBClient subject = new theTvDBClient(false, CACHE_LOCATION, "70FBF9A03F0D083D");
+            boolean result = subject.login();
 
             Assert.assertTrue(result);
         } catch (Exception ex) {
@@ -38,12 +44,12 @@ public class theTvDBClientTest
     }
 
     @Test
-    public void searchCriminalMindsTest()
+    public void searchCriminalMindsTestByName()
     {
         try {
 
             theTvDBClient subject = getSubject();
-            theTvDBClient.SearchResponse result = subject.search("Criminal Minds");
+            theTvDBClient.SearchResponse result = subject.search("Criminal Minds", null, null);
 
             Assert.assertEquals(4, result.data.size());
 
@@ -53,10 +59,20 @@ public class theTvDBClientTest
         }
     }
 
-    private theTvDBClient getSubject() {
-        theTvDBClient subject = new theTvDBClient(true, CACHE_LOCATION);
-        subject.login("70FBF9A03F0D083D");
-        return subject;
+    @Test
+    public void searchFoodFactoryByimdbId()
+    {
+        try {
+
+            theTvDBClient subject = getSubject();
+            theTvDBClient.SearchResponse result = subject.search("Food Factory", "tt2558662", null);
+
+            Assert.assertEquals(1, result.data.size());
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            fail();
+        }
     }
 
 
@@ -93,4 +109,26 @@ public class theTvDBClientTest
             fail();
         }
     }
+
+    @Test
+    public void seriesLookupTest()
+    {
+        try {
+
+            theTvDBClient subject = getSubject();
+            theTvDBClient.SeriesItem result = subject.seriesLookup(268860);
+
+            Assert.assertNotNull(result);
+            Assert.assertEquals("Food Factory (CA)", result.seriesName);
+            Assert.assertEquals("Continuing", result.status);
+            Assert.assertEquals("tt2558662", result.imdbId);
+            Assert.assertEquals(3, result.genre.size());
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            fail();
+        }
+    }
+
+
 }

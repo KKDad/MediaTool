@@ -47,6 +47,9 @@ Additional Tags from [theTVDB](https://www.thetvdb.com/):
 - {network} - Network that show is on
 - {showOverview} - Short description of the Show
 - {status} - Status of the show. One of: Continuing, Ended
+- {imdbId} - IMDB id of the series
+- {zap2itId} - Zap2it ID of the series
+- {genre} - Genre(s) of the series
 
 # Usage
 java -jar ./MediaTool-all-1.0-SNAPSHOT.jar --config MediaTool.yaml

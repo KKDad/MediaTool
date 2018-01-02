@@ -24,3 +24,6 @@ lookupHints:
     id:  261999
   - show: The Strain
     id:  276564
+  - show: Food Factory
+    id:  268860
+    imdbId: tt2558662

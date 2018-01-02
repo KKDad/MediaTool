@@ -100,8 +100,8 @@ public class HDHomeRunTagParser
                         result = result.substring(0, result.length() - 1);
                 }
 
-                if (logger.isDebugEnabled()) {
-                    logger.debug("Found: {}", result);
+                if (logger.isInfoEnabled()) {
+                    logger.info("Found: {}", result);
                     dumpDebug(toPrimitive(bytes));
                 }
                 return result;

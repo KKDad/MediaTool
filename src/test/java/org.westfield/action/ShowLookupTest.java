@@ -35,7 +35,7 @@ public class ShowLookupTest
         subject.describe();
         IMediaDetails result = subject.process(media_details);
 
-        Assert.assertEquals(15, result.getExtendedDetails().size());
+        Assert.assertEquals(18, result.getExtendedDetails().size());
         Assert.assertEquals("199", result.getExtendedDetails().getOrDefault("absoluteNumber", -1));
     }
 
@@ -48,7 +48,7 @@ public class ShowLookupTest
                 "enabled", "true"
         ));
         when(config.getLookupHints()).thenReturn(ImmutableList.of(
-                new LookupHint("S.W.A.T.",328687)
+                new LookupHint("S.W.A.T.", 328687, null, null)
         ));
         Path item = TestHelper.getTestResourcePath("swat-s01e02.dat");
         IMediaDetails media_details = HDHomeRunTagParser.fromFile(item.toFile());
@@ -67,4 +67,6 @@ public class ShowLookupTest
         org.junit.Assert.assertEquals("CBS", TokenParser.getMediaToken(media_details, "{network}"));
         org.junit.Assert.assertEquals("Continuing", TokenParser.getMediaToken(media_details, "{status}"));
     }
+
+
 }

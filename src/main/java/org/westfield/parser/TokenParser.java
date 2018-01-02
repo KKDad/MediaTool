@@ -105,6 +105,9 @@ public class TokenParser
             case "{network}":
             case "{showOverview}":
             case "{status}":
+            case "{imdbId}":
+            case "{zap2itId}":
+            case "{genre}":
                 return (String)details.getExtendedDetails().getOrDefault(stripBraces(token), null);
 
             case "{id}":
