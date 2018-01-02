@@ -205,12 +205,12 @@ public class theTvDBClient
 
         // Take each of the results from the Search and do a Series Lookup to get the imdbId, zap2itId, genres, etc
         SearchResponse enhanced = new SearchResponse();
-        for (SeriesItem i :original.data) {
+        for (SeriesItem i: original.data) {
             SeriesItem item = seriesLookup(i.id);
             if (item != null)
             enhanced.data.add(item);
         }
-        // Return the Enhances search response
+        // Return the Enhanced search response
         return enhanced;
     }
 
@@ -225,15 +225,31 @@ public class theTvDBClient
     }
 
 
-    public EpisodeResponse searchEpisode(int showId, int season, int episode) {
+    /**
+     * This route allows the user to query against episodes for the given series
+     *
+     * @param showId - ID of the Show to Search for
+     * @param season - Season to retrieve
+     * @param episode - Episode to retrieve
+     * @param episodeTitle - Title to retrieve, optional
+     * @return
+     */
+    public EpisodeItem searchEpisode(int showId, int season, int episode, String episodeTitle)
+    {
         Map<String, String> paramaters = new HashMap<>();
         paramaters.put("airedSeason", Integer.toString(season));
-        paramaters.put("airedEpisode", Integer.toString(episode));
         String request = String.format(EPISODE_REQUEST_URL, showId);
         String result = makeRequest(request, paramaters);
         if (result == null)
             return null;
 
-        return json.fromJson(result, EpisodeResponse.class);
+        EpisodeResponse episodes = json.fromJson(result, EpisodeResponse.class);
+        for(EpisodeItem item: episodes.data) {
+           if (episodeTitle != null && item.episodeName.equalsIgnoreCase(episodeTitle))
+               return item;
+           if (Integer.parseInt(item.airedEpisodeNumber) == episode)
+               return item;
+        }
+        return null;
     }
 }

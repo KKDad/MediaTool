@@ -82,11 +82,11 @@ public class theTvDBClientTest
         try {
 
             theTvDBClient subject = getSubject();
-            EpisodeResponse result = subject.searchEpisode(75710, 3 ,2);
+            EpisodeItem result = subject.searchEpisode(75710, 3 ,2, "In Name and Blood");
 
-            Assert.assertEquals(1, result.data.size());
-            Assert.assertEquals("In Name and Blood", result.data.get(0).episodeName);
-            Assert.assertEquals("2007-10-03", result.data.get(0).firstAired);
+            Assert.assertNotNull(result);
+            Assert.assertEquals("In Name and Blood", result.episodeName);
+            Assert.assertEquals("2007-10-03", result.firstAired);
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -100,9 +100,9 @@ public class theTvDBClientTest
         try {
 
             theTvDBClient subject = getSubject();
-            EpisodeResponse result = subject.searchEpisode(-2, 3 ,2);
+            EpisodeItem result = subject.searchEpisode(-2, 3 ,2, null);
 
-            Assert.assertEquals(null, result);
+            Assert.assertNull(result);
 
         } catch (Exception ex) {
             ex.printStackTrace();

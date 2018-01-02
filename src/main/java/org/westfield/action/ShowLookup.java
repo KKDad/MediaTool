@@ -45,6 +45,8 @@ public class ShowLookup extends Action {
 
         logger.info("Processing {} - {}", details.getShow(), details.getEpisodeTitle());
         LookupHint lookupHint = this.overides.stream().filter(p -> details.getShow().equalsIgnoreCase(p.getShow())).findFirst().orElse(null);
+        if (lookupHint != null && logger.isInfoEnabled())
+            logger.info("Using Hint: {}", lookupHint);
 
 
         // Search for the Show with a retry
@@ -57,14 +59,17 @@ public class ShowLookup extends Action {
         }
 
         // Process the result
-        if (result != null && !result.data.isEmpty()) {
-            for (SeriesItem item : result.data) {
-                if (checkMatch(item, details, lookupHint))
-                    getShowDetails(details, item);
-                logger.info("    No match: {}", item);
-            }
-        } else
+        if (result == null || result.data.isEmpty()) {
             logger.info("Unable to thetvdb Show");
+            return details;
+        }
+
+        for (SeriesItem item : result.data) {
+            if (checkMatch(item, details, lookupHint))
+                getShowDetails(details, item);
+            else
+                logger.info("    No match: {}", item);
+        }
         return details;
     }
 
@@ -107,11 +112,10 @@ public class ShowLookup extends Action {
 
     private void getEpisodeDetails(IMediaDetails details, SeriesItem item)
     {
-        EpisodeResponse episodes = this.client.searchEpisode(item.id, details.getSeason(), details.getEpisodeNumber());
-        if (episodes == null)
-            episodes = this.client.searchEpisode(item.id, details.getSeason(), details.getEpisodeNumber());
-        if (episodes != null && !episodes.data.isEmpty()) {
-            EpisodeItem episode = episodes.data.get(0);
+        EpisodeItem episode = this.client.searchEpisode(item.id, details.getSeason(), details.getEpisodeNumber(), details.getEpisodeTitle());
+        if (episode == null)
+            episode = this.client.searchEpisode(item.id, details.getSeason(), details.getEpisodeNumber(), details.getEpisodeTitle());
+        if (episode != null) {
             logger.info("Found Episode Information: {}", episode);
             details.getExtendedDetails().putIfAbsent("absoluteNumber", episode.absoluteNumber);
             details.getExtendedDetails().putIfAbsent("airedEpisodeNumber", episode.airedEpisodeNumber);
