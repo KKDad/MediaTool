@@ -1,4 +1,4 @@
-package org.westfield.lookup;
+package org.westfield.thetvdb;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -49,7 +49,7 @@ public class theTvDBClientTest
         try {
 
             theTvDBClient subject = getSubject();
-            theTvDBClient.SearchResponse result = subject.search("Criminal Minds", null, null);
+            SearchResponse result = subject.search("Criminal Minds", null, null);
 
             Assert.assertEquals(4, result.data.size());
 
@@ -65,7 +65,7 @@ public class theTvDBClientTest
         try {
 
             theTvDBClient subject = getSubject();
-            theTvDBClient.SearchResponse result = subject.search("Food Factory", "tt2558662", null);
+            SearchResponse result = subject.search("Food Factory", "tt2558662", null);
 
             Assert.assertEquals(1, result.data.size());
 
@@ -82,7 +82,7 @@ public class theTvDBClientTest
         try {
 
             theTvDBClient subject = getSubject();
-            theTvDBClient.EpisodeResponse result = subject.searchEpisode(75710, 3 ,2);
+            EpisodeResponse result = subject.searchEpisode(75710, 3 ,2);
 
             Assert.assertEquals(1, result.data.size());
             Assert.assertEquals("In Name and Blood", result.data.get(0).episodeName);
@@ -100,7 +100,7 @@ public class theTvDBClientTest
         try {
 
             theTvDBClient subject = getSubject();
-            theTvDBClient.EpisodeResponse result = subject.searchEpisode(-2, 3 ,2);
+            EpisodeResponse result = subject.searchEpisode(-2, 3 ,2);
 
             Assert.assertEquals(null, result);
 
@@ -116,7 +116,7 @@ public class theTvDBClientTest
         try {
 
             theTvDBClient subject = getSubject();
-            theTvDBClient.SeriesItem result = subject.seriesLookup(268860);
+            SeriesItem result = subject.seriesLookup(268860);
 
             Assert.assertNotNull(result);
             Assert.assertEquals("Food Factory (CA)", result.seriesName);

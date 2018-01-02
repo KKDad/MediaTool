@@ -4,12 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.westfield.configuration.LookupHint;
 import org.westfield.configuration.MediaToolConfig;
-import org.westfield.lookup.theTvDBClient;
+import org.westfield.thetvdb.*;
 import org.westfield.media.IMediaDetails;
 
 import java.util.List;
-import java.util.Optional;
-
 
 public class ShowLookup extends Action {
     private static final Logger logger = LoggerFactory.getLogger(ShowLookup.class);
@@ -46,34 +44,52 @@ public class ShowLookup extends Action {
             return details;
 
         logger.info("Processing {} - {}", details.getShow(), details.getEpisodeTitle());
-        Optional<LookupHint> lookupHint = this.overides.stream().filter(p -> details.getShow().equalsIgnoreCase(p.getShow())).findFirst();
+        LookupHint lookupHint = this.overides.stream().filter(p -> details.getShow().equalsIgnoreCase(p.getShow())).findFirst().orElse(null);
+
 
         // Search for the Show with a retry
-        theTvDBClient.SearchResponse result = null;
+        SearchResponse result = null;
         for (int i = 0; i < this.retries && result == null; i++) {
-            if (lookupHint.isPresent())
-                result = this.client.search(details.getShow(), lookupHint.get().getImdbId(), lookupHint.get().getZap2itId());
+            if (lookupHint != null)
+                result = this.client.search(details.getShow(), lookupHint.getImdbId(), lookupHint.getZap2itId());
             else
                 result = this.client.search(details.getShow(), null, null);
         }
 
         // Process the result
         if (result != null && !result.data.isEmpty()) {
-            if (lookupHint.isPresent())
-                getShowDetails(details, result.data.get(0));
-            else
-                for (theTvDBClient.SeriesItem item : result.data) {
-                    if (item.seriesName.equalsIgnoreCase(details.getShow()))
-                        getShowDetails(details, item);
-                    else
-                        logger.info("    No match: {}", item);
+            for (SeriesItem item : result.data) {
+                if (checkMatch(item, details, lookupHint))
+                    getShowDetails(details, item);
+                logger.info("    No match: {}", item);
             }
         } else
-            logger.info("Unable to lookup Show");
+            logger.info("Unable to thetvdb Show");
         return details;
     }
 
-    private void getShowDetails(IMediaDetails details, theTvDBClient.SeriesItem item)
+    private boolean checkMatch(SeriesItem item, IMediaDetails details, LookupHint lookupHint) {
+        if (lookupHint != null) {
+            // Exact match on id
+            if (item.id == lookupHint.getId())
+                return true;
+            // Exact match on imdb id
+            if (lookupHint.getImdbId() != null && lookupHint.getImdbId().equalsIgnoreCase(item.imdbId))
+                return true;
+            // Exact match on zap2it id
+            if (lookupHint.getZap2itId() != null && lookupHint.getImdbId().equalsIgnoreCase(item.zap2itId))
+                return true;
+        } else {
+            // Exact match on series name, only if lookuphint is not provided
+            if (item.seriesName.equalsIgnoreCase(details.getShow()))
+                return true;
+        }
+
+        // Not a match
+        return false;
+    }
+
+    private void getShowDetails(IMediaDetails details, SeriesItem item)
     {
             logger.info("  Loading details items from Matched: {}", item);
             details.getExtendedDetails().putIfAbsent("aliases", item.aliases);
@@ -89,13 +105,13 @@ public class ShowLookup extends Action {
             getEpisodeDetails(details, item);
     }
 
-    private void getEpisodeDetails(IMediaDetails details, theTvDBClient.SeriesItem item)
+    private void getEpisodeDetails(IMediaDetails details, SeriesItem item)
     {
-        theTvDBClient.EpisodeResponse episodes = this.client.searchEpisode(item.id, details.getSeason(), details.getEpisodeNumber());
+        EpisodeResponse episodes = this.client.searchEpisode(item.id, details.getSeason(), details.getEpisodeNumber());
         if (episodes == null)
             episodes = this.client.searchEpisode(item.id, details.getSeason(), details.getEpisodeNumber());
         if (episodes != null && !episodes.data.isEmpty()) {
-            theTvDBClient.EpisodeItem episode = episodes.data.get(0);
+            EpisodeItem episode = episodes.data.get(0);
             logger.info("Found Episode Information: {}", episode);
             details.getExtendedDetails().putIfAbsent("absoluteNumber", episode.absoluteNumber);
             details.getExtendedDetails().putIfAbsent("airedEpisodeNumber", episode.airedEpisodeNumber);
